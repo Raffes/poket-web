@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
+import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,51 +12,60 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LandingPageComponent implements OnInit {
 
-  public userRegister: FormGroup
+  public userRegister: FormGroup;
 
   constructor(
     public authService: AuthService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private alertService: AlertModalService
+    
   ) { 
     this.userRegister = this.formBuilder.group({
       displayName: [""],
       email: [""],
-      password: [""]
+      password: [""],
+      conPassword: [""]
     })
   }
 
   ngOnInit(): void {
   }
 
+  // onSubmit() {
+  //   this.authService.SignUp(this.userRegister.value)
+  // }
+
   onSubmit() {
-    this.authService.SignUp(this.userRegister.value)
+    const pwd = this.userRegister.get('password')
+    const Cpwd = this.userRegister.get('conPassword')
+
+      if(pwd?.value != Cpwd?.value) {
+        this.handleError();
+        
+      }else {
+        this.authService.SignUp(this.userRegister.value)
+      }
+    
+      
+    
+    
   }
 
-  validar() {
+  // validar(): boolean {
+  //   const pwd = this.userRegister.get('password')
+  //     const Cpwd = this.userRegister.get('conPassword')
 
-    // let password = formRegisterUser.passwordRegister.value
-    // let confirmPassword = formRegisterUser.ConPasswordRegister.value
+  //     if(pwd?.value != Cpwd?.value) {
+  //       this.handleError();
+  //       return true;
+  //     }else {
+  //       return false;
+  //     }
+    
+  // }
 
-    // if(password == '' || password.length <= 12){
-    //     alert('Menor que 12 digitos ou esta vazia');
-    //     formRegisterUser.passwordRegister.focus()
-    //     return false
-    // }
-
-    // if(password != confirmPassword){
-    //     alert('Senhas diferentes');
-    //     formRegisterUser.ConPasswordRegister.focus()
-    //     return false
-    // }
-
-    // if(confirmPassword == '' || confirmPassword.length <= 12){
-    //         alert('Menor que 12 digitos ou esta vazia');
-    //         formRegisterUser.ConPasswordRegister.focus()
-
-    //     document.getElementById("confPwd").style.display = "block"
-    //     document.getElementById("confPwd").innerHTML = "confirmação errada diferentes"
-    //         return false
-    // }
-}
+  handleError() {
+    this.alertService.showAlertDanger("Senhas diferentes");
+  }
 
 }

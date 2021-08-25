@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-light mb-3">
         <div class="container-fluid">
-        <a class="navbar-brand logo">Poket+</a>
+        <a href="/landing-page" class="navbar-brand logo">Poket+</a>
         <form class="d-flex">
             <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin">
                 Login
@@ -16,7 +16,7 @@
             <!-- <div class="row min-vh-100"> -->
             <div class="row">
                 <div class="col-12 col-md-6 imageText">
-                    <h3>Esteja no controle do seu dinheiro e sonhos &#128519;</h3>
+                    <h3>Esteja no controle do seu dinheiro e sonhos <i class="far fa-grin-wink text-warning"></i></h3>
                     <img class="h-100 w-100" src="assets/img/jaconda-34.png" alt="crescimento financeiro - Illustration by Aleksandr Smetanov from Ouch!">
                     
                 </div>
@@ -28,34 +28,29 @@
                         </div>
                         <div class="mb-2">
                             <label for="nicknameRegister" class="form-label">Apelido</label>
-                            <input type="text" class="form-control" id="nicknameRegister" aria-describedby="nicknameHelp" formControlName="displayName" required>
-                            <!-- <div id="nicknameHelp" class="form-text d-none text-danger"></div>  -->
-                            <!-- <div id="nicknameHelp" class="form-text">Escolha como quer ser chamado :D</div> -->
+                            <input type="text" class="form-control" id="nicknameRegister" maxlength="30" formControlName="displayName" required>
                         </div>
                         <div class="mb-2">
                             <label for="emailRegister" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="emailRegister" formControlName="email" required>
+                            <input type="email" class="form-control" id="emailRegister" maxlength="30" formControlName="email" required>
                         </div>
                         <div class="mb-2">
                             <label for="passwordRegister" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="passwordRegister" formControlName="password" required>
+                            <input type="password" class="form-control" id="passwordRegister" minlength="6" maxlength="30" formControlName="password" required>
                         </div>
                         <div class="mb-2">
                             <label for="ConPasswordRegister" class="form-label">Confirmação de Senha</label>
-                            <input type="password" class="form-control" id="ConPasswordRegister" aria-describedby="confPwd" required>
-                            <div id="confPwd" class="form-text text-danger"></div> 
+                            <input type="password" class="form-control" id="ConPasswordRegister" minlength="6" maxlength="30" formControlName="conPassword" required>
                         </div>
 
-                        <p class="mt-3">
-                            Esqueceu a senha? <a routerLink="/forgot-password">Clique aqui</a> para recuperá-la.
-                        </p>
+                        
 
                         <!-- <div class="mb-2 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                             <label class="form-check-label" for="exampleCheck1">Check me out</label>
                         </div> -->
                         
-                        <button type="submit" class="btn btn-success float-end" (click)="validar()" [disabled]="!userRegister.valid">
+                        <button type="submit" class="btn btn-success float-end"> <!-- [disabled]="!userRegister.valid"> -->
                             Cadastrar
                         </button>
                     </form>
@@ -96,12 +91,15 @@
             </div>
             <div class="mb-3">
                 <label for="emailLogin" class="form-label">Email</label>
-                <input type="email" class="form-control" id="emailLogin" #emailLogin required>
+                <input type="email" class="form-control" id="emailLogin" maxlength="30" #emailLogin required>
             </div>
             <div class="mb-3">
                 <label for="passwordLogin" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="passwordLogin" #passwordLogin required>
+                <input type="password" class="form-control" id="passwordLogin" minlength="6" maxlength="30" #passwordLogin required>
             </div>
+            <p class="mt-3">
+                Esqueceu a senha? <a href='/forgot-password'>Clique aqui</a> para recuperá-la.
+            </p>
             <!-- <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>

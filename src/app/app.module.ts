@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
 
 @NgModule({
   declarations: [
@@ -21,19 +25,24 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     DashboardComponent,
     ForgotPasswordComponent,
     LandingPageComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    AlertModalComponent,
+    ErrorMsgComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
+    ModalModule.forRoot(),
     ReactiveFormsModule, 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    BrowserAnimationsModule
 
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // exports: [AlertModalComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
+import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 import { User } from '../model/user';
 
 @Injectable({
@@ -15,7 +16,8 @@ export class AuthService {
     public angFireStore: AngularFirestore,
     public angFireAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private alertService: AlertModalService
   ) {
       this.angFireAuth.authState.subscribe(user => {
         if(user) {
@@ -53,10 +55,10 @@ SignUp(userData: User) {
       // this.SetUserDataDB(userData, result.user)
     })
 
-    alert("cadastro feito com sucesso :)")
+    this.alertService.showAlertSuccess("Cadastro feito com sucesso :)");
     
   }).catch((error) => {
-    alert("Email ou senha inválidos")
+    this.alertService.showAlertDanger("Email ou senha inválidos");
     console.error(error)
   })
   // return document.location.reload()
@@ -75,7 +77,7 @@ SignIn(email: string, password: string) {
     })
     // this.SetUserDataDB(result.user?.displayName, result.user)
   }).catch((error) => {
-    alert("Dados não encontrados. Verifique seu email e senha ou crie uma conta")
+    this.alertService.showAlertDanger("Dados não encontrados. Verifique seu email e senha ou crie uma conta");
     console.error(error)
   })
 }
@@ -116,8 +118,9 @@ get isLoggedIn(): boolean {
 ForgotPassword(passwordResetEmail: string) {
   return this.angFireAuth.sendPasswordResetEmail(passwordResetEmail)
   .then(() => {
-    window.alert('Olink para atualizar sua senha foi mandado para seu email, verifique sua caixa. ')
+    window.alert('O link para atualizar sua senha foi mandado para seu email, verifique sua caixa. ')
   }).catch((error => {
+    
     console.error(error)
   })) 
 }
@@ -150,5 +153,6 @@ SignOut() {
     })
   })
 }
+
 
 }
