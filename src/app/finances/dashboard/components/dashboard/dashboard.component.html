@@ -1,0 +1,149 @@
+<div class="d-flex flex-column min-vh-100"> 
+
+  <!-- <nav class="navbar navbar-light mb-3">
+      <div class="container-fluid">
+      <a class="navbar-brand logo">Poket+</a>
+      <form class="d-flex">
+          <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin">
+              Login
+          </button>
+      </form>
+      </div>
+  </nav> -->
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      
+      <a class="navbar-brand logo">Poket+</a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarScroll">
+
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Despesas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Rendas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Planejamentos</a>
+          </li>
+        </ul>
+
+
+        <div class="dropdown" *ngIf="authService.userData as user">
+          <button class="btn btn-user dropdown-toggle" type="button" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="far fa-user-circle pe-1"></i> {{ user.displayName }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end px-0" aria-labelledby="dropdownUser">
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" (click)="authService.SignOut()">Sair</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+
+  
+
+  <main class="flex-fill d-flex align-items-center"> 
+      <div class="container">
+        <div class="row ">
+          <div class="col d-flex justify-content-center">
+            <h3>Em desenvolvimento... </h3>
+            <img src="assets/img/jaconda-55.png" alt="Em construção - Illustration by Karina Tsoy from Ouch!" style="width: 50%;">
+          </div>
+        </div>
+        
+      </div>
+  </main>
+
+
+
+
+  <footer class="border-top text-muted bg-light" >
+      <div class="container">
+  
+          <div class="row py-3">
+  
+              <div class="col-12 text-center">
+                  &copy; 2021 - Poket+ <br>
+                  
+              </div>
+              
+          </div>
+      </div>
+  
+  </footer>
+</div>
+
+
+
+
+
+
+
+
+<!-- <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0">
+      Logo
+    </a>
+  </nav>
+  
+
+  <div class="container-fluid">
+    <div class="row">
+  
+      <nav class="col-md-2 d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active">
+                <i class="fas fa-user"></i>User Profile
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" (click)="authService.SignOut()">
+                <i class="fas fa-sign-out-alt"></i>Log out
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+  
+ 
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="inner-adjust">
+  
+          <div class="pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">User Profile</h1>
+          </div>
+          <div class="row" *ngIf="authService.userData as user">
+            <div class="col-md-12">
+              <div class="media">
+                <div class="media-body">
+                  <h1>Hello: <strong>{{ user.displayName }}</strong></h1> 
+                  <p>User ID: <strong>{{user.uid}}</strong></p>
+                  <p>Email: <strong>{{user.email}}</strong></p>
+                  <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                  <p> senha: {{ user.password }} </p>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </main>
+  
+    </div>
+  </div> -->

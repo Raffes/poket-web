@@ -1,0 +1,22 @@
+
+.imageText {
+    position: relative;
+}
+
+.imageText h3 {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    padding: 10px;
+}
+
+.modal-dialog-size {
+    width: 400px !important;
+}
+
+/* .loginAuthentic input{
+    width: 100px;
+} */
