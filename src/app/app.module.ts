@@ -18,6 +18,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
+import { MenuUpdateAccountComponent } from './users/containers/menu-update-account/menu-update-account.component';
+import { UpdateUserComponent } from './users/components/update-user/update-user.component';
+import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
+import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
     LandingPageComponent,
     VerifyEmailComponent,
     AlertModalComponent,
-    ErrorMsgComponent
+    ErrorMsgComponent,
+    MenuUpdateAccountComponent,
+    UpdateUserComponent,
+    UpdatePasswordComponent,
+    MsgErrorComponent,
   ],
   imports: [
     BrowserModule,

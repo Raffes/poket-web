@@ -1,6 +1,6 @@
 <div class="d-flex flex-column min-vh-100"> 
 
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-lg navbar-light border-bottom">
     <div class="container-fluid">
       
       <a href="/dashboard" class="navbar-brand logo">Poket+</a>
@@ -29,7 +29,7 @@
             <i class="far fa-user-circle pe-1"></i> {{ user.displayName }}
           </button>
           <ul class="dropdown-menu dropdown-menu-end px-0" aria-labelledby="dropdownUser">
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" routerLink="menu-update-account">Perfil</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" (click)="authService.SignOut()">Sair</a></li>
           </ul>
@@ -42,11 +42,16 @@
 
   
 
-  <main class="flex-fill d-flex align-items-center"> 
-      <div class="container">
-        <div class="row ">
-          <div class="col d-flex justify-content-center" *ngIf="authService.userData as user">
-            <h5>Em desenvolvimento... </h5>
+  <!-- <main class="flex-fill d-flex align-items-center">  -->
+    <main class="flex-fill">
+      
+
+          <router-outlet></router-outlet>
+
+          <!-- <div class="col d-flex justify-content-center" *ngIf="authService.userData as user"> -->
+            
+
+            <!-- <h5>Em desenvolvimento... </h5> -->
             
             <!-- <ul>
               <li><h1>Hello: <strong>{{ user.displayName }}</strong></h1> </li>
@@ -57,11 +62,10 @@
             
             
             
-            <img src="assets/img/jaconda-55.png" alt="Em construção - Illustration by Karina Tsoy from Ouch!" style="width: 50%;">
-          </div>
-        </div>
+            <!-- <img src="assets/img/jaconda-55.png" alt="Em construção - Illustration by Karina Tsoy from Ouch!" style="width: 50%;"> -->
+          <!-- </div> -->
+
         
-      </div>
   </main>
 
 
