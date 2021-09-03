@@ -1,1 +1,24 @@
-<p>update-user works!</p>
+<form [formGroup]="editUserInformation" (ngSubmit)="onSubmit()" class="row">
+    
+    <div class="col-12 col-md-12">
+        <div class="form-floating mb-3">
+        
+            <input type="text" class="form-control" id="alterarNomeUsuario" maxlength="30" formControlName="displayName" autofocus>
+        <label for="alterarNomeUsuario">Apelido</label>
+
+        </div>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="txtEmail" maxlength="30" formControlName="email">
+        <label for="txtEmail">Email</label> 
+    </div>
+    
+    <div class="col-12 col-md-12 text-end">
+        <button type="submit" class="btn btn-lg btn-success">
+            Alterar dados pessoais
+        </button>
+    </div>
+
+
+</form>
