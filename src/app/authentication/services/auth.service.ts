@@ -126,5 +126,17 @@ updateUserEmailNickname(user: User) {
   
 }
 
+updatePassword(user: User) {
+  return this.angFireAuth.currentUser.then((result) =>{
+    result?.updatePassword(user.password)
+
+    this.alertService.showAlertSuccess("Senha atualizada com sucesso");
+  }).catch((error) => {
+    this.alertService.showAlertDanger("Senha inválida");
+    console.error(error)
+  })
+  
+}
+
 
 }
