@@ -41,7 +41,7 @@ export class AuthService {
 
 // Cadastra usuário pelo email/senha | Sign up with email/password
 SignUp(userData: User) {
-  this.angFireAuth.createUserWithEmailAndPassword(userData.email, userData.password)
+  return this.angFireAuth.createUserWithEmailAndPassword(userData.email, userData.password)
   .then((result) => {
     
     // Atualizar o nome do usuário | update the user name
@@ -57,8 +57,10 @@ SignUp(userData: User) {
       });
     })
 
-    this.alertService.showAlertSuccess("Cadastro feito com sucesso :)");
-    return document.location.reload();
+    // FIXME arrumar um jeito para limpar o form quando o usuário cadastrar
+
+    // document.location.reload();
+    this.alertService.showAlertSuccess("Cadastro feito com sucesso, faça o login para acessar :)");
     
   }).catch((error) => {
     this.alertService.showAlertDanger("Email ou senha inválidos");
@@ -89,7 +91,7 @@ SignIn(email: string, password: string): Promise<any> {
 ForgotPassword(passwordResetEmail: string) {
   return this.angFireAuth.sendPasswordResetEmail(passwordResetEmail)
   .then(() => {
-    window.alert('O link para atualizar sua senha foi mandado para seu email, verifique sua caixa. ')
+    this.alertService.showAlertDanger("O link para atualizar sua senha foi mandado para seu email, verifique sua caixa.");
   }).catch((error => {
     
     console.error(error)
@@ -104,6 +106,24 @@ SignOut() {
 
     this.router.navigate(['landing-page'])
   })
+}
+
+// Atualiza o email e o apelido do usuário | Update the user email/nickname
+updateUserEmailNickname(user: User) {
+  return this.angFireAuth.currentUser.then((result) => {
+    result?.updateEmail(user.email);
+
+    result?.updateProfile({
+      displayName: user.displayName
+    })
+
+    this.alertService.showAlertSuccess("Dados pessoais atualizado com com sucesso");
+
+  }).catch((error) => {
+    this.alertService.showAlertDanger("Apelido ou email inválidos");
+    console.error(error)
+  })
+  
 }
 
 
