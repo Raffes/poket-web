@@ -21,27 +21,28 @@ export class LandingPageComponent implements OnInit {
     
   ) { 
     this.userRegister = this.formBuilder.group({
-      displayName: [""],
-      email: [""],
-      password: [""],
-      conPassword: [""]
+      displayName: ["", Validators.required, Validators.maxLength(30)],
+      email: ["", Validators.required, Validators.maxLength(30)],
+      password: ["", Validators.required, Validators.minLength(6), Validators.minLength(30)],
+      conPassword: ["", Validators.required, Validators.minLength(6), Validators.minLength(30)]
     })
   }
 
   ngOnInit(): void {
   }
 
-  // onSubmit() {
-  //   this.authService.SignUp(this.userRegister.value)
-  // }
-
   onSubmit() {
+    const name = this.userRegister.get('displayName')
+    const email = this.userRegister.get('email')
     const pwd = this.userRegister.get('password')
     const Cpwd = this.userRegister.get('conPassword')
 
       if(pwd?.value != Cpwd?.value) {
-        this.handleError();
+        this.alertService.showAlertDanger("Senhas diferentes");
         
+      } else if(name?.value == "" || email?.value == ""){
+        this.alertService.showAlertDanger("Falta campos para preencher");
+
       }else {
         this.authService.SignUp(this.userRegister.value)
       }
@@ -51,21 +52,5 @@ export class LandingPageComponent implements OnInit {
     
   }
 
-  // validar(): boolean {
-  //   const pwd = this.userRegister.get('password')
-  //     const Cpwd = this.userRegister.get('conPassword')
-
-  //     if(pwd?.value != Cpwd?.value) {
-  //       this.handleError();
-  //       return true;
-  //     }else {
-  //       return false;
-  //     }
-    
-  // }
-
-  handleError() {
-    this.alertService.showAlertDanger("Senhas diferentes");
-  }
 
 }
