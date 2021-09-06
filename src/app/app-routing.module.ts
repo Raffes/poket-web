@@ -5,7 +5,8 @@ import { LandingPageComponent } from './authentication/components/landing-page/l
 import { VerifyEmailComponent } from './authentication/components/verify-email/verify-email.component';
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { AuthGuard } from './authentication/services/auth.guard';
-import { DashboardComponent } from './finances/dashboard/components/dashboard/dashboard.component';
+import { DashboardComponent } from './finances/components/dashboard/dashboard.component';
+import { WalletComponent } from './finances/components/wallet/wallet.component';
 import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
 import { MenuUpdateAccountComponent } from './users/containers/menu-update-account/menu-update-account.component';
@@ -23,10 +24,17 @@ const routes: Routes = [
         children: [
           { path: 'update-user', component: UpdateUserComponent },
           { path: 'update-password', component: UpdatePasswordComponent }
-      ] }
+      ] },
+      { path: 'wallet', component: WalletComponent }
     ],
     
     canActivate: [AuthGuard] }
+
+  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  // { path: 'menu-update-account', component: MenuUpdateAccountComponent, canActivate: [AuthGuard] },
+  // { path: 'update-user', component: UpdateUserComponent, canActivate: [AuthGuard] },
+  // { path: 'update-password', component: UpdatePasswordComponent , canActivate: [AuthGuard] }
+
 ];
 
 @NgModule({
