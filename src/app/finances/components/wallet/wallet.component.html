@@ -1,0 +1,178 @@
+<div class="container-fluid mt-3">
+
+    <div class="row my-3">
+
+        <div class="col-12">
+            <div class="col-12 col-md-12">
+                <h2>Saldo
+                    <button type="button" class="btn btn-sm rounded-circle btn-success" data-bs-toggle="modal" data-bs-target="#createWallet">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+
+            <div class="card wallet-card">
+                <div class="card-header">
+                    <ul class="d-flex wallet-list-card mb-0">
+                        <li class="rounded-circle circle-wallet me-2"></li>
+                        <li><strong>Nubank</strong></li>
+                    </ul>
+
+
+                    <div class="wallet-buttons-card">
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-success" data-bs-toggle="modal" data-bs-target="#addWallet">
+                            <i class="fas fa-plus h-100"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning" data-bs-toggle="modal" data-bs-target="#editWallet">
+                            <i class="fas fa-pen text-light h-100"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger" data-bs-toggle="modal" data-bs-target="#deleteWallet">
+                            <i class="fas fa-trash-alt h-100"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-end">
+                        <strong>R$ 30,00</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal de criar card de saldo -->
+
+<div class="modal fade" id="createWallet" tabindex="-1" aria-labelledby="addWalet" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Adicionar conta
+                </h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Atualiza o valor do saldo desse card -->
+                <form>
+                    <div class="mb-3">
+                        <label for="addNameWallet" class="col-form-label">Nome:</label>
+                        <input type="text" class="form-control" id="addNameWallet" placeholder="Nubank, dinheiro...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="addValueWallet" class="col-form-label">Valor:</label>
+                        <input type="number" class="form-control" id="addValueWallet" placeholder="R$">
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal de atualizar saldo de um card -->
+
+    <div class="modal fade" id="addWallet" tabindex="-1" aria-labelledby="addWalet" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <div class="rounded-circle circle-wallet me-2"></div>
+
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Nubank
+                    </h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Atualiza o valor do saldo desse card -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="value-wallet" class="col-form-label">Valor:</label>
+                            <input type="number" class="form-control" id="value-wallet" placeholder="R$">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Adicionar valor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal de editar saldo -->
+
+<div class="modal fade" id="editWallet" tabindex="-1" aria-labelledby="addWalet" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <div class="rounded-circle circle-wallet me-2"></div>
+
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Nubank
+                </h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Atualiza o valor do saldo desse card -->
+                <form>
+                    <div class="mb-3">
+                        <label for="name-wallet" class="col-form-label">Nome:</label>
+                        <input type="text" class="form-control" id="name-wallet" placeholder="Nubank, dinheiro...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="value-wallet" class="col-form-label">Valor:</label>
+                        <input type="number" class="form-control" id="value-wallet" placeholder="R$">
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-warning text-light">Editar saldo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de excluir saldo -->
+
+<div class="modal fade" id="deleteWallet" tabindex="-1" aria-labelledby="addWalet" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Atualiza o valor do saldo desse card -->
+                Você tem certeza que quer excluir Nubank da sua  conta?
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Excluir saldo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
