@@ -18,14 +18,31 @@ export class UpdatePasswordComponent implements OnInit {
     private alertService: AlertModalService
   ) { 
     this.editUserPassword = this.formBuilder.group({
-      displayName: [""],
-      emailUpdateUser: [""]
+      oldPassword: [""],
+      password: [""],
+      confirmPassword: [""]
+
     })
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(){}
+  onSubmit(){
+    const oldPwd = this.editUserPassword.get('oldPassword')
+    const pwd = this.editUserPassword.get('password')
+    const Cpwd = this.editUserPassword.get('conPassword')
+    
+
+      if(pwd?.value != Cpwd?.value){
+        this.alertService.showAlertDanger("Senhas diferente");
+
+      } else if(oldPwd != this.authService.userData.password) {
+        this.alertService.showAlertDanger("A senha velha é diferente da sua atual");
+      } else {
+        this.authService.updatePassword(this.editUserPassword.value)
+      }
+  }
+
 
 }

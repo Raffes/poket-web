@@ -5,7 +5,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './finances/dashboard/components/dashboard/dashboard.component';
+import { DashboardComponent } from './finances/components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './authentication/components/forgot-password/forgot-password.component';
 import { LandingPageComponent } from './authentication/components/landing-page/landing-page.component';
 import { VerifyEmailComponent } from './authentication/components/verify-email/verify-email.component';
@@ -22,6 +22,7 @@ import { MenuUpdateAccountComponent } from './users/containers/menu-update-accou
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
 import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
+import { WalletComponent } from './finances/components/wallet/wallet.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MsgErrorComponent } from './authentication/containers/msg-error/msg-err
     UpdateUserComponent,
     UpdatePasswordComponent,
     MsgErrorComponent,
+    WalletComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 
 @Component({
@@ -9,10 +10,15 @@ import { AuthService } from 'src/app/authentication/services/auth.service';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+  }
+
+  userUpdate() {
+    this.router.navigate(["update-user"])
   }
 
 }
