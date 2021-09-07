@@ -23,6 +23,10 @@ import { UpdateUserComponent } from './users/components/update-user/update-user.
 import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
+import { ExpenseComponent } from './finances/components/expense/expense.component';
+import { IncomeComponent } from './finances/components/income/income.component';
+import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning.component';
+import { EditWalletModalComponent } from './finances/containers/edit-wallet-modal/edit-wallet-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,10 @@ import { WalletComponent } from './finances/components/wallet/wallet.component';
     UpdatePasswordComponent,
     MsgErrorComponent,
     WalletComponent,
+    ExpenseComponent,
+    IncomeComponent,
+    FinancialPlanningComponent,
+    EditWalletModalComponent,
   ],
   imports: [
     BrowserModule,
