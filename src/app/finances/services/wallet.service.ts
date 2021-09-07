@@ -5,6 +5,7 @@ import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 import { Wallet } from '../modal/wallet';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EditWalletModalComponent } from 'src/app/finances/containers/edit-wallet-modal/edit-wallet-modal.component';
+import { DeleteWalletModalComponent } from '../containers/delete-wallet-modal/delete-wallet-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,24 @@ export class WalletService {
     bsModalRef.content.valor = wallet.valor
   }
 
+  private showModalDeleteWallet(wallet: any) {
+    const bsModalRef: BsModalRef = this.modalService.show(DeleteWalletModalComponent);
+    bsModalRef.content.id = wallet.id
+    bsModalRef.content.conta = wallet.conta
+    bsModalRef.content.valor = wallet.valor
+  }
+
   showEditWallet(wallet: any) {
     this.showModalEditWallet(wallet);
 
   }
 
-// Cria conta fnanceira no firestore
+  showDeleteWallet(wallet: any) {
+    this.showModalDeleteWallet(wallet);
+
+  }
+
+  // Cria conta fnanceira no firestore
   createWallet(wallet: Wallet, uid: any) {
       return this.angFireDB.collection("contas").doc(uid).collection(uid).add(wallet)
       .then(() => {
@@ -46,27 +59,40 @@ export class WalletService {
     })
   }
 
-  // Listar todos os dados de conta
+  //Atualiza dados de um documento
+  updateWallet(wallet: Wallet, uid: any, idWallet: any) {
+    return this.angFireDB
+    .collection("contas").doc(uid).collection(uid)
+    .doc(idWallet)
+    .update({
+      conta: wallet.conta,
+      valor: wallet.valor
+    })
+
+  }
+
+  // Deleta um documento de uma coleção
+  deleteWallet(uid: any, idWallet: any) {
+    return this.angFireDB.collection("contas").doc(uid)
+    .collection(uid)
+    .doc(idWallet)
+    .delete()
+  }
+
+  // Listar todos os documetos de uma coleção
   getWalletList(uid: any) { 
     return this.angFireDB.collection("contas").doc(uid)
     .collection(uid)
     .snapshotChanges();
   }
 
+  // Lista dados de um documento
   getWalletDoc(uid: any, idWallet: any) {
     return this.angFireDB.collection("contas").doc(uid)
     .collection(uid).doc(idWallet)
     .valueChanges()
   }
 
-  // getWalletDoc(uid: any) {
-  //   return this.angFireDB.collection("contas").doc(uid)
-  //   .collection(uid).get()
-  //   .subscribe((result) => {
-  //     result.forEach((doc) => {
-  //       console.warn(`${doc.id} => ${doc.data()}`)
-  //     })
-  //   })
-  // }
+
 
 }

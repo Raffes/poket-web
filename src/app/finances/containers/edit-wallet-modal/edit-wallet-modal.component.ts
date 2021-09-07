@@ -19,7 +19,6 @@ export class EditWalletModalComponent implements OnInit {
 
 
   public walletUpdate: FormGroup;
-  wallet!: Wallet;
   walletRef: any
 
   constructor(
@@ -39,6 +38,7 @@ export class EditWalletModalComponent implements OnInit {
 
     this.walletService.getWalletDoc(this.authService.userData.uid, this.id).subscribe(res => {
       this.walletRef = res
+
       this.walletUpdate = this.formBuilder.group({
         conta: [this.conta],
         valor: [this.valor]
@@ -50,7 +50,21 @@ export class EditWalletModalComponent implements OnInit {
         
   }
 
-  editWallet(){}
+  editWallet(){
+
+    const nomeConta = this.walletUpdate.get('conta')
+    const valorConta = this.walletUpdate.get('valor')
+
+    if (nomeConta?.value == "" || valorConta?.value == "") {
+      this.alertService.showAlertDanger("Falta campos para preencher");
+
+    } else {
+      this.walletService.updateWallet(this.walletUpdate.value, this.authService.userData.uid, this.id)
+      this.closeModal()
+    }
+
+    
+  }
 
   closeModal() {
     this.bsModalRef.hide();

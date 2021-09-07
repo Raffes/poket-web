@@ -59,4 +59,8 @@ export class WalletComponent implements OnInit {
 
   }
 
+  modalDeleteWallet(wallet: any) {
+    this.walletService.showDeleteWallet(wallet)
+  }
+
 }

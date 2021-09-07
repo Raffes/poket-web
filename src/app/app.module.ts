@@ -27,6 +27,7 @@ import { ExpenseComponent } from './finances/components/expense/expense.componen
 import { IncomeComponent } from './finances/components/income/income.component';
 import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning.component';
 import { EditWalletModalComponent } from './finances/containers/edit-wallet-modal/edit-wallet-modal.component';
+import { DeleteWalletModalComponent } from './finances/containers/delete-wallet-modal/delete-wallet-modal.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { EditWalletModalComponent } from './finances/containers/edit-wallet-moda
     IncomeComponent,
     FinancialPlanningComponent,
     EditWalletModalComponent,
+    DeleteWalletModalComponent,
   ],
   imports: [
     BrowserModule,
