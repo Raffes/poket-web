@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 import { Wallet } from '../../modal/wallet';
+import { ModalWalletCrudService } from '../../services/modal-wallet-crud.service';
 import { WalletService } from '../../services/wallet.service';
 
 @Component({
@@ -14,53 +15,71 @@ export class WalletComponent implements OnInit {
 
   walletRef: any
   Wallet: any;
-  public walletRegister: FormGroup;
+  sumWallet: any[] = [];
+  valor: any
+  filterWallet: string = '';
 
   constructor(
     public walletService: WalletService,
+    public ModalWalletService: ModalWalletCrudService,
     public authService: AuthService,
     public formBuilder: FormBuilder,
     private alertService: AlertModalService
   ) {
-    this.walletRegister = this.formBuilder.group({
-      conta: ["", Validators.maxLength(30)],
-      valor: ["", Validators.maxLength(8)]
-    })
+    
 
   }
 
   ngOnInit(): void {
 
-    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
-      this.Wallet = res.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as unknown as Wallet;
-      })
-    })
+    this.listWallet()
+    this.totalBalance()
 
   }
 
-  addWallet() {
-    const nomeConta = this.walletRegister.get('conta')
-    const valorConta = this.walletRegister.get('valor')
+listWallet() {
+  this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+    this.Wallet = res.map(e => {
+      return {
+        id: e.payload.doc.id,
+        ...e.payload.doc.data()
+      } as unknown as Wallet;
+    })
+  })
+}
 
-    if (nomeConta?.value == "" || valorConta?.value == "") {
-      this.alertService.showAlertDanger("Falta campos para preencher");
 
-    } else {
-      this.walletService.createWallet(this.walletRegister.value, this.authService.userData.uid)
-    }
+totalBalance() {
+  this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+    let wallet: any[] = []
+
+    res.forEach((doc) => {
+      const data = doc.payload.doc.data()
+
+      wallet.push(data.valor)
+      
+    })
+
+    this.valor = wallet.reduce((a,b) => {
+      return a + b
+    })
+    
+    return this.valor
+
+  })
+}
+
+  modalCreateWallet() {
+    this.ModalWalletService.showCreateWallet()
   }
 
   modalEditWallet(wallet: any) {
-    this.walletService.showEditWallet(wallet)
+    this.ModalWalletService.showEditWallet(wallet)
 
   }
 
   modalDeleteWallet(wallet: any) {
-    this.walletService.showDeleteWallet(wallet)
+    this.ModalWalletService.showDeleteWallet(wallet)
   }
 
 }

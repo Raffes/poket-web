@@ -7,9 +7,7 @@ import { MsgErrorComponent } from './authentication/containers/msg-error/msg-err
 import { AuthGuard } from './authentication/services/auth.guard';
 import { DashboardComponent } from './finances/components/dashboard/dashboard.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
-import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
-import { MenuUpdateAccountComponent } from './users/containers/menu-update-account/menu-update-account.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/landing-page', pathMatch: 'full' },
@@ -20,11 +18,7 @@ const routes: Routes = [
   
   { path: 'dashboard', component: DashboardComponent,
     children: [
-      { path: 'menu-update-account', component: MenuUpdateAccountComponent,
-        children: [
-          { path: 'update-user', component: UpdateUserComponent },
-          { path: 'update-password', component: UpdatePasswordComponent }
-      ] },
+      { path: 'update-user', component: UpdateUserComponent },
       { path: 'wallet', component: WalletComponent }
     ],
     

@@ -1,0 +1,28 @@
+<!-- Modal de editar saldo -->
+
+<div class="modal-header">
+
+    <div class="rounded-circle circle-wallet me-2"></div>
+
+    <h5 class="modal-title" id="exampleModalLabel">
+        Alterar apelido
+    </h5>
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+<form [formGroup]="nicknameUpdate" (ngSubmit)="editNickname()">
+
+    <div class="modal-body">
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="apelidoEdit" maxlength="30"
+                formControlName="displayName" required>
+            <label for="apelidoEdit" class="col-form-label">Apelido</label>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-warning text-light">Editar</button>
+    </div>
+</form>

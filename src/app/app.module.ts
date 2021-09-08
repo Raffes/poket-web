@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,9 +19,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
-import { MenuUpdateAccountComponent } from './users/containers/menu-update-account/menu-update-account.component';
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
-import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
 import { ExpenseComponent } from './finances/components/expense/expense.component';
@@ -28,6 +27,12 @@ import { IncomeComponent } from './finances/components/income/income.component';
 import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning.component';
 import { EditWalletModalComponent } from './finances/containers/edit-wallet-modal/edit-wallet-modal.component';
 import { DeleteWalletModalComponent } from './finances/containers/delete-wallet-modal/delete-wallet-modal.component';
+import { CreateWalletModalComponent } from './finances/containers/create-wallet-modal/create-wallet-modal.component';
+import { UpdateNicknameModalComponent } from './users/containers/update-nickname-modal/update-nickname-modal.component';
+import { UpdateEmailModalComponent } from './users/containers/update-email-modal/update-email-modal.component';
+import { DeleteUserModalComponent } from './users/containers/delete-user-modal/delete-user-modal.component';
+import { UpdatePasswordModalComponent } from './users/containers/update-password-modal/update-password-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -38,9 +43,7 @@ import { DeleteWalletModalComponent } from './finances/containers/delete-wallet-
     VerifyEmailComponent,
     AlertModalComponent,
     ErrorMsgComponent,
-    MenuUpdateAccountComponent,
     UpdateUserComponent,
-    UpdatePasswordComponent,
     MsgErrorComponent,
     WalletComponent,
     ExpenseComponent,
@@ -48,9 +51,15 @@ import { DeleteWalletModalComponent } from './finances/containers/delete-wallet-
     FinancialPlanningComponent,
     EditWalletModalComponent,
     DeleteWalletModalComponent,
+    CreateWalletModalComponent,
+    UpdateNicknameModalComponent,
+    UpdateEmailModalComponent,
+    DeleteUserModalComponent,
+    UpdatePasswordModalComponent,
   ],
   imports: [
     BrowserModule,
+    Ng2SearchPipeModule,
     AppRoutingModule,
     FormsModule, 
     ModalModule.forRoot(),
@@ -63,6 +72,5 @@ import { DeleteWalletModalComponent } from './finances/containers/delete-wallet-
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
-  // exports: [AlertModalComponent]
 })
 export class AppModule { }

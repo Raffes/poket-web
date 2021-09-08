@@ -55,7 +55,7 @@ export class EditWalletModalComponent implements OnInit {
     const nomeConta = this.walletUpdate.get('conta')
     const valorConta = this.walletUpdate.get('valor')
 
-    if (nomeConta?.value == "" || valorConta?.value == "") {
+    if (nomeConta?.value == null || valorConta?.value == null) {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
     } else {

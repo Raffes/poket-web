@@ -1,8 +1,0 @@
-.menu-update-account a {
-    cursor: pointer;
-}
-
-.menu-update-account a:active {
-    background-color: #198754;
-    color: #F8F9FA;
-}

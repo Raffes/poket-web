@@ -108,35 +108,92 @@ SignOut() {
   })
 }
 
-// Atualiza o email e o apelido do usuário | Update the user email/nickname
-updateUserEmailNickname(user: User) {
+// Atualiza o apelido do usuário | Update the user email
+updateUserEmail(user: User) {
   return this.angFireAuth.currentUser.then((result) => {
-    result?.updateEmail(user.email);
+    
+    result?.updateEmail(user.email).then(() => {
+      this.alertService.showAlertSuccess("Email atualizado com sucesso");
+
+    }).catch((error) => {
+
+      if(error.code == "auth/requires-recent-login"){
+      this.alertService.showAlertDanger("Refaça o login no sistema para alterar senha");
+
+      }else if(error.code == "auth/email-already-in-use"){
+        this.alertService.showAlertDanger("Email já em uso");
+
+      }
+      console.warn(error)
+    })
+
+    
+
+  }).catch((error) => {
+    this.alertService.showAlertDanger("Apelido ou email inválidos");
+    console.warn(error)
+  })
+  
+}
+
+// Atualiza o apelido do usuário | Update the user nickname
+updateUserNickname(user: User) {
+  return this.angFireAuth.currentUser.then((result) => {
 
     result?.updateProfile({
       displayName: user.displayName
     })
 
-    this.alertService.showAlertSuccess("Dados pessoais atualizado com com sucesso");
+    this.alertService.showAlertSuccess("Apelido atualizado com com sucesso");
 
   }).catch((error) => {
-    this.alertService.showAlertDanger("Apelido ou email inválidos");
+    this.alertService.showAlertDanger("Campo inválido");
     console.error(error)
   })
   
 }
 
+// Atualiza a senha | Update the user password
 updatePassword(user: User) {
   return this.angFireAuth.currentUser.then((result) =>{
-    result?.updatePassword(user.password)
+    result?.updatePassword(user.password).then(() => {
+      this.alertService.showAlertSuccess("Senha atualizada com sucesso");
+    }).catch((error) => {
+      this.alertService.showAlertDanger("Refaça o login no sistema para alterar senha");
+      console.warn(error)
+    })
 
-    this.alertService.showAlertSuccess("Senha atualizada com sucesso");
   }).catch((error) => {
-    this.alertService.showAlertDanger("Senha inválida");
     console.error(error)
   })
   
 }
+
+// Deleta usuário | Delete user 
+deleteUser(uid: any) {
+  return this.angFireAuth.currentUser.then((result) => {
+    
+    result?.delete().then(() => {
+
+      this.angFireStore.collection("contas").doc(uid)
+      .collection(uid).doc()
+      .delete()
+
+    }).catch((error) => {
+      console.warn("Deu ruim", error)
+    })
+  })
+}
+
+// deleteUser1() {
+//   return this.angFireAuth.currentUser.then((result) => {
+//     result?.delete().then(() => {
+//       console.log("Excluido conta")
+//     }).catch((error) => {
+//       console.warn("Deu ruim", error)
+//     })
+//   })
+// }
 
 
 }

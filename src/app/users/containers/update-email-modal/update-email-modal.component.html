@@ -1,0 +1,30 @@
+<!-- Modal de editar saldo -->
+
+<div class="modal-header">
+
+    <div class="rounded-circle circle-wallet me-2"></div>
+
+    <h5 class="modal-title" id="exampleModalLabel">
+        Alterar email
+    </h5>
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+<form [formGroup]="emailUpdate" (ngSubmit)="editNickname()">
+
+    <div class="modal-body">
+
+        <div class="form-floating mb-3">
+
+            <input type="email" class="form-control" id="emailEdit" maxlength="30"
+                formControlName="email" required>
+            <label for="emailEdit" class="col-form-label">Email</label>
+
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-warning text-light">Editar</button>
+    </div>
+</form>

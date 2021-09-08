@@ -1,24 +1,56 @@
-<form [formGroup]="editUserInformation" (ngSubmit)="onSubmit()" class="row">
-    
-    <div class="col-12 col-md-12">
-        <div class="form-floating mb-3">
-        
-            <input type="text" class="form-control" id="alterarNomeUsuario" maxlength="30" formControlName="displayName" autofocus>
-        <label for="alterarNomeUsuario">Apelido</label>
+<div class="container-fluid mt-3">
+    <h2>Minha Conta</h2>
+    <div class="row mt-3">
+        <!-- TODO arrumar a responsividade -->
+        <div class="col-2">
+            <div class="list-group menu-update-account">
+                
+                <a routerLink="update-user" class="list-group-item list-group-item-action bg-success text-light">
+                    <i class="bi-person me-2 fs-6"></i> Dados Pessoais
+                </a>
+                
 
+
+                
+            </div>
         </div>
-    </div>
 
-    <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="txtEmail" maxlength="30" formControlName="email">
-        <label for="txtEmail">Email</label> 
-    </div>
-    
-    <div class="col-12 col-md-12 text-end">
-        <button type="submit" class="btn btn-lg btn-success">
-            Alterar dados
-        </button>
-    </div>
+        <div class="col-8">
+            
+            <div class="col-12 col-md-12">
+                <h3>Alterar apelido</h3>
+                <hr>
+                <button type="button" class="btn btn-sm btn-success" (click)="modalUpdateNickname()">
+                    Alterar Apelido
+                </button>
+            </div>
+            
+            <div class="col-12 my-5">
+                <h3>Alterar email</h3>
+                <hr>
+                <button type="button" class="btn btn-sm btn-success" (click)="modalUpdateEmail()">
+                    Alterar Email
+                </button>
+            </div>
+            
+            <div class="col-12 my-5">
+                <h3>Alterar senha</h3>
+                <hr>
+                <button type="button" class="btn btn-sm btn-success" (click)="modalUpdatePassword()">
+                    Alterar senha
+                </button>
+            </div>
+            
+            <div class="col-12 my-5">
+                <h3>Excluir conta</h3>
+                <hr>
+                <button type="button" class="btn btn-sm btn-danger" (click)="modalDeleteUser()">
+                    Excluir conta
+                </button>
+            </div>
+        
+        </div>
 
+    </div>
+</div>
 
-</form>

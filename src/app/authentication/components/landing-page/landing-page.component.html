@@ -26,21 +26,24 @@
                         <div class="mb-2">
                             <h2 class="text-center">Cadastre-se e conheça :)</h2>
                         </div>
-                        <div class="mb-2">
-                            <label for="nicknameRegister" class="form-label">Apelido</label>
+                        <div class="form-floating mb-2">
                             <input type="text" class="form-control" id="nicknameRegister" maxlength="30" formControlName="displayName" required>
+                            <label for="nicknameRegister" class="form-label">Apelido</label>
                         </div>
-                        <div class="mb-2">
-                            <label for="emailRegister" class="form-label">Email</label>
+                        <div class="form-floating mb-2">
+                            
                             <input type="email" class="form-control" id="emailRegister" maxlength="30" formControlName="email" required>
+                            <label for="emailRegister" class="form-label">Email</label>
                         </div>
-                        <div class="mb-2">
-                            <label for="passwordRegister" class="form-label">Senha</label>
+                        <div class="form-floating mb-2">
+                            
                             <input type="password" class="form-control" id="passwordRegister" minlength="6" maxlength="30" formControlName="password" required>
+                            <label for="passwordRegister" class="form-label">Senha</label>
                         </div>
-                        <div class="mb-2">
-                            <label for="ConPasswordRegister" class="form-label">Confirmação de Senha</label>
+                        <div class="form-floating mb-2">
+                            
                             <input type="password" class="form-control" id="ConPasswordRegister" minlength="6" maxlength="30" formControlName="conPassword" required>
+                            <label for="ConPasswordRegister" class="form-label">Confirmação de Senha</label>
                         </div>
 
                         
@@ -85,17 +88,19 @@
     </div> -->
     <div class="modal-body">
         <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-        <form class="loginAuthentic pb-5">
+        <form class="loginAuthentic py-5">
             <div class="mb-3">
                 <h2 class="text-center">Login</h2>
             </div>
-            <div class="mb-3">
-                <label for="emailLogin" class="form-label">Email</label>
+            <div class="form-floating mb-3">
+                
                 <input type="email" class="form-control" id="emailLogin" maxlength="30" #emailLogin required>
+                <label for="emailLogin" class="form-label">Email</label>
             </div>
-            <div class="mb-3">
-                <label for="passwordLogin" class="form-label">Senha</label>
+            <div class="form-floating mb-3">
+                
                 <input type="password" class="form-control" id="passwordLogin" minlength="6" maxlength="30" #passwordLogin required>
+                <label for="passwordLogin" class="form-label">Senha</label>
             </div>
             <p class="mt-3">
                 Esqueceu a senha? <a href='/forgot-password'>Clique aqui</a> para recuperá-la.
