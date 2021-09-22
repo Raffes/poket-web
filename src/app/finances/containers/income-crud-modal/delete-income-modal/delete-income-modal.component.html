@@ -1,0 +1,15 @@
+<!-- Modal de excluir renda -->
+
+<div class="modal-header">
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+
+    <!-- Exclui esse card -->
+    Você tem certeza que quer excluir <strong class="text-danger">{{ renda }}</strong> da sua conta?
+
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-danger" (click)="deleteIncome()">Excluir</button>
+</div>

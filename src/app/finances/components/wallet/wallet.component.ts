@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/services/auth.service';
-import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 import { Wallet } from '../../modal/wallet';
-import { ModalWalletCrudService } from '../../services/modal-wallet-crud.service';
+import { ModalWalletCrudService } from '../../services/wallet-crud-modal.service';
 import { WalletService } from '../../services/wallet.service';
 
 @Component({
@@ -13,9 +12,7 @@ import { WalletService } from '../../services/wallet.service';
 })
 export class WalletComponent implements OnInit {
 
-  walletRef: any
   Wallet: any;
-  sumWallet: any[] = [];
   valor: any
   filterWallet: string = '';
 
@@ -23,10 +20,9 @@ export class WalletComponent implements OnInit {
     public walletService: WalletService,
     public ModalWalletService: ModalWalletCrudService,
     public authService: AuthService,
-    public formBuilder: FormBuilder,
-    private alertService: AlertModalService
+    public formBuilder: FormBuilder
   ) {
-    
+
 
   }
 
@@ -37,37 +33,37 @@ export class WalletComponent implements OnInit {
 
   }
 
-listWallet() {
-  this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
-    this.Wallet = res.map(e => {
-      return {
-        id: e.payload.doc.id,
-        ...e.payload.doc.data()
-      } as unknown as Wallet;
+  listWallet() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+      this.Wallet = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as unknown as Wallet;
+      })
     })
-  })
-}
+  }
 
 
-totalBalance() {
-  this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
-    let wallet: any[] = []
+  totalBalance() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+      let wallet: any[] = []
 
-    res.forEach((doc) => {
-      const data = doc.payload.doc.data()
+      res.forEach((doc) => {
+        const data = doc.payload.doc.data()
 
-      wallet.push(data.valor)
-      
+        wallet.push(data.valor)
+
+      })
+
+      this.valor = wallet.reduce((a, b) => {
+        return a + b
+      })
+
+      return this.valor
+
     })
-
-    this.valor = wallet.reduce((a,b) => {
-      return a + b
-    })
-    
-    return this.valor
-
-  })
-}
+  }
 
   modalCreateWallet() {
     this.ModalWalletService.showCreateWallet()

@@ -6,6 +6,9 @@ import { VerifyEmailComponent } from './authentication/components/verify-email/v
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { AuthGuard } from './authentication/services/auth.guard';
 import { DashboardComponent } from './finances/components/dashboard/dashboard.component';
+import { IncomeGraphComponent } from './finances/components/income/income-graph/income-graph.component';
+import { IncomeHistoryComponent } from './finances/components/income/income-history/income-history.component';
+import { IncomeComponent } from './finances/components/income/income/income.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
 
@@ -19,7 +22,13 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent,
     children: [
       { path: 'update-user', component: UpdateUserComponent },
-      { path: 'wallet', component: WalletComponent }
+      { path: 'wallet', component: WalletComponent },
+      { path: "income", component: IncomeComponent, children: [
+        { path: 'income-graph', component: IncomeGraphComponent },
+        { path: "income-history", component: IncomeHistoryComponent },
+      ] },
+      
+      
     ],
     
     canActivate: [AuthGuard] }

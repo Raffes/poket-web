@@ -1,0 +1,65 @@
+<div class="col-12 mb-3 text-end d-flex justify-content-end">
+    <div class="input-group filterSearch">
+        
+        <input class="form-control form-control-sm" type="text" name="filterIncome" [(ngModel)]="filterIncome" placeholder="Filtro">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+    </div>
+    
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="col-10">
+        <div class="card m-2">
+            <div class="card-header h-100">
+                <ul class="d-flex income-list-card mb-0">
+                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
+                    <li><strong>Renda</strong></li>
+                    <li><strong>valor</strong></li>
+                    <li><strong>Data</strong></li>
+                    <li><strong>Tipo</strong></li>
+                    <li><strong>Conta</strong></li>
+                    <li><strong>Ações</strong></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<div class="d-flex justify-content-center" *ngFor="let income of Income | filter:filterIncome; index as i">
+<div class="col-10" >
+
+        <div class="card wallet-card mb-2">
+            <div class="card-body">
+                <ul class="d-flex income-list-card mb-0">
+                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
+                    <li>{{ income.renda }}</li>
+                    <li>{{ income.valorRenda | currency : 'BRL' }}</li>
+                    <li>{{ income.dataRenda | date: 'MMMM' }}</li>
+                    <li>{{ income.tipoRenda }}</li>
+                    <li>{{ income.conta }}</li>
+                    <li>
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning"
+                            (click)="modalEditIncome(income)">
+                            <i class="fas fa-pen text-light h-100"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger"
+                            (click)="modalDeleteIncome(income)">
+                            <i class="fas fa-trash-alt h-100"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-info text-light"
+                            (click)="modalDetailIncome(income)">
+                            <i class="fas fa-info h-100"></i>
+                        </button>
+                    </li>
+                </ul>
+
+
+            </div>
+
+        </div>
+
+</div>
+</div>

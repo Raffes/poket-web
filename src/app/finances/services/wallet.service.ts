@@ -27,7 +27,7 @@ export class WalletService {
   }
 
   //Atualiza dados de um documento
-  updateWallet(wallet: Wallet, uid: any, idWallet: any) {
+  updateWallet(wallet: any, uid: any, idWallet: any) {
     return this.angFireDB
       .collection("contas").doc(uid).collection(uid)
       .doc(idWallet)
@@ -36,6 +36,17 @@ export class WalletService {
         valor: wallet.valor
       })
 
+  }
+
+// Atualizar o valor da conta incrementando o valor da renda
+  updateWalletValue(conta: any, uid: any, valor: any, valorNaConta: any) {
+    let sumWallet = parseInt(valor) + parseInt(valorNaConta) 
+    return this.angFireDB
+      .collection("contas").doc(uid).collection(uid)
+      .doc(conta)
+      .update({
+        valor: sumWallet
+      })
   }
 
   // Deleta um documento de uma coleção
@@ -59,19 +70,21 @@ export class WalletService {
       .collection(uid).doc(idWallet)
       .valueChanges()
   }
+  
 
+  // TODO vê o se é util
    // Cria conta financeira no firestore
-   createBalance(value: any, uid: any, idBalance: any) {
-    return this.angFireDB.collection("contas").doc(uid).collection("saldo Todal").doc(idBalance)
-    .update({
-      valorTotal: value})
-  }
+  //  createBalance(value: any, uid: any, idBalance: any) {
+  //   return this.angFireDB.collection("contas").doc(uid).collection("saldo Todal").doc(idBalance)
+  //   .update({
+  //     valorTotal: value})
+  // }
 
   // Lista dados de um documento
-  getBalanceDoc(uid: any, idBalance: any) {
-    return this.angFireDB.collection("contas").doc(uid)
-      .collection("saldo Todal")
-      .snapshotChanges();
-  }
+  // getBalanceDoc(uid: any, idBalance: any) {
+  //   return this.angFireDB.collection("contas").doc(uid)
+  //     .collection("saldo Todal")
+  //     .snapshotChanges();
+  // }
 
 }
