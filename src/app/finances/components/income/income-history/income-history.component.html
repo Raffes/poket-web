@@ -28,7 +28,9 @@
     
 </div>
 
-<div class="d-flex justify-content-center" *ngFor="let income of Income | filter:filterIncome; index as i">
+<div class="d-flex justify-content-center" *ngFor="let income of Income | paginate: { itemsPerPage: 10, 
+    currentPage: page,  
+    totalItems: totalLength} | filter:filterIncome; index as i ">
 <div class="col-10" >
 
         <div class="card wallet-card mb-2">
@@ -37,7 +39,8 @@
                     <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
                     <li>{{ income.renda }}</li>
                     <li>{{ income.valorRenda | currency : 'BRL' }}</li>
-                    <li>{{ income.dataRenda | date: 'MMMM' }}</li>
+                    <li>{{ income.dataRenda | date: 'dd/MM/yyyy' }}</li>
+                    <!-- <li>{{ income.dataRenda | date: 'MMMM' }}</li> -->
                     <li>{{ income.tipoRenda }}</li>
                     <li>{{ income.conta }}</li>
                     <li>
@@ -49,8 +52,8 @@
                             (click)="modalDeleteIncome(income)">
                             <i class="fas fa-trash-alt h-100"></i>
                         </button>
-                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-info text-light"
-                            (click)="modalDetailIncome(income)">
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-info text-light" popover="{{ income.observacao }}"
+                        popoverTitle="Observação" [outsideClick]="true" placement="bottom">
                             <i class="fas fa-info h-100"></i>
                         </button>
                     </li>
@@ -61,5 +64,9 @@
 
         </div>
 
+        
+
 </div>
+
 </div>
+<pagination-controls (pageChange)="page = $event"></pagination-controls>

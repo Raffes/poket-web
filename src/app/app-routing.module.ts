@@ -6,6 +6,9 @@ import { VerifyEmailComponent } from './authentication/components/verify-email/v
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { AuthGuard } from './authentication/services/auth.guard';
 import { DashboardComponent } from './finances/components/dashboard/dashboard.component';
+import { ExpenseGraphComponent } from './finances/components/expense/expense-graph/expense-graph.component';
+import { ExpenseHistoryComponent } from './finances/components/expense/expense-history/expense-history.component';
+import { ExpenseComponent } from './finances/components/expense/expense/expense.component';
 import { IncomeGraphComponent } from './finances/components/income/income-graph/income-graph.component';
 import { IncomeHistoryComponent } from './finances/components/income/income-history/income-history.component';
 import { IncomeComponent } from './finances/components/income/income/income.component';
@@ -26,6 +29,10 @@ const routes: Routes = [
       { path: "income", component: IncomeComponent, children: [
         { path: 'income-graph', component: IncomeGraphComponent },
         { path: "income-history", component: IncomeHistoryComponent },
+      ] },
+      { path: "expense", component: ExpenseComponent, children: [
+        { path: 'expense-graph', component: ExpenseGraphComponent },
+        { path: "expense-history", component: ExpenseHistoryComponent },
       ] },
       
       

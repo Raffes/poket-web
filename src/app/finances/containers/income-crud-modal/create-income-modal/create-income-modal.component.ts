@@ -31,7 +31,7 @@ export class CreateIncomeModalComponent implements OnInit {
       dataRenda: [""],
       tipoRenda: [""],
       conta: [""],
-      observacao: [""]
+      observacao: ["", Validators.maxLength(30)]
     })
   }
 
@@ -67,21 +67,21 @@ export class CreateIncomeModalComponent implements OnInit {
       let contaWallet
 
       this.Wallet.forEach(function (value: any) {
-        idWallet = value.id
         contaWallet = value.conta
-        valorDaConta = value.valor
+        if (contaWallet == conta?.value) {
+          idWallet = value.id
+          valorDaConta = value.valor
+        }
+
       });
 
-        if(contaWallet == conta?.value) {
-          // Criar renda
-        this.incomeService.createIncome(this.incomeRegister.value, this.authService.userData.uid)
+      // Criar renda e Atualizar a conta que foi salva a renda
+      this.incomeService.createIncome(this.incomeRegister.value, this.authService.userData.uid, idWallet, valorRenda?.value, valorDaConta)
 
-        // Atualizar a conta que foi salva a renda
-        this.walletService.updateWalletValue(idWallet, this.authService.userData.uid, valorRenda?.value, valorDaConta)
 
-        this.closeModal()
-        }
-      
+      this.closeModal()
+
+
     }
   }
 

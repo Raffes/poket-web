@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AbstractType, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { Income } from 'src/app/finances/modal/income';
@@ -16,6 +16,9 @@ export class IncomeHistoryComponent implements OnInit {
   Income: any;
   valor: any;
   filterIncome: string = '';
+  
+  totalLength: any;
+  page: number = 1;
 
   constructor(
     public walletService: WalletService,
@@ -28,7 +31,11 @@ export class IncomeHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.listIncome()
-    this.totalBalance()
+
+    this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
+    this.totalLength = res.length
+    console.log(this.totalLength)
+    })
   }
 
   listIncome() {
@@ -42,27 +49,6 @@ export class IncomeHistoryComponent implements OnInit {
     })
   }
 
-  totalBalance() {
-    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
-      let wallet: any[] = []
-
-      res.forEach((doc) => {
-        const data = doc.payload.doc.data()
-
-        wallet.push(data.valor)
-
-      })
-
-      this.valor = wallet.reduce((a, b) => {
-        return a + b
-      })
-
-      return this.valor
-
-    })
-  }
-
-
   modalEditIncome(income: any) {
     this.ModalIncomeService.showEditIncome(income)
 
@@ -72,9 +58,6 @@ export class IncomeHistoryComponent implements OnInit {
     this.ModalIncomeService.showDeleteIncome(income)
   }
 
-  modalDetailIncome(income: any) {
-
-  }
 
 
 }

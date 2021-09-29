@@ -1,0 +1,70 @@
+<!-- Modal de criar despesa -->
+
+<div class="modal-header">
+
+    <h5 class="modal-title" id="exampleModalLabel">
+        Adicionar Despesa
+    </h5>
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+
+<form [formGroup]="expenseUpdate" (ngSubmit)="editExpense()">
+
+    <div class="modal-body">
+
+        <div class="form-floating mb-3">
+            
+            <input type="text" class="form-control" id="addNameExpense" maxlength="30" formControlName="despesa" required>
+            <label for="addNameExpense" class="col-form-label">Despesa</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="number" class="form-control" id="addValueExpense" maxlength="8" formControlName="valorDespesa" required>
+            <label for="addValueExpense" class="col-form-label">Valor (R$)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="date" class="form-control" id="addDateExpense" maxlength="30" formControlName="dataDespesa" required>
+            <label for="addDateExpense" class="col-form-label">Data</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="addTypeExpense" formControlName="tipoDespesa" required>
+                
+                <option value="Alimentação">Alimentação</option>
+                <option value="Veiculo">Veiculo</option>
+                <option value="Moradia">Moradia</option>
+                <option value="Lazer">Lazer</option>
+                <option value="Outros">Outros</option>
+              </select>
+
+              <label for="addTypeExpense" class="col-form-label">Tipo de despesa</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="addConta" formControlName="conta" required>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}">{{ wallet.conta }}</option>
+              </select>
+
+              <label for="addConta" class="col-form-label">Onde pagou</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            
+            <input type="text" class="form-control" id="addObsExpense" maxlength="30" formControlName="observacao" required>
+            <label for="addObsExpense" class="col-form-label">Observação</label>
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Adicionar</button>
+    </div>
+</form>

@@ -1,0 +1,15 @@
+<!-- Modal de excluir despesa -->
+
+<div class="modal-header">
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+
+    <!-- Exclui esse card -->
+    Você tem certeza que quer excluir <strong class="text-danger">{{ despesa }}</strong> da sua conta?
+
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-danger" (click)="deleteExpense()">Excluir</button>
+</div>

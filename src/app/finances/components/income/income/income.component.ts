@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { IncomeCrudModalService } from 'src/app/finances/services/income-crud-modal.service';
-import { WalletService } from 'src/app/finances/services/wallet.service';
+import { IncomeService } from 'src/app/finances/services/income.service';
 
 @Component({
   selector: 'app-income',
@@ -10,32 +10,31 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
   styleUrls: ['./income.component.css']
 })
 export class IncomeComponent implements OnInit {
-  Wallet: any;
   valor: any
 
   constructor(
-    public walletService: WalletService,
+    public incomeService: IncomeService,
     public ModalIncomeService: IncomeCrudModalService,
     public authService: AuthService,
     public formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.totalBalance()
+    this.totalIncome()
   }
 
-  totalBalance() {
-    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
-      let wallet: any[] = []
+  totalIncome() {
+    this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
+      let income: any[] = []
 
       res.forEach((doc) => {
         const data = doc.payload.doc.data()
 
-        wallet.push(data.valor)
+        income.push(data.valorRenda)
 
       })
 
-      this.valor = wallet.reduce((a, b) => {
+      this.valor = income.reduce((a, b) => {
         return a + b
       })
 

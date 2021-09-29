@@ -2,6 +2,10 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { NgxPaginationModule } from 'ngx-pagination';
+import * as echarts from 'echarts';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +26,6 @@ import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
-import { ExpenseComponent } from './finances/components/expense/expense.component';
 import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning.component';
 import { EditWalletModalComponent } from './finances/containers/wallet-crud-modal/edit-wallet-modal/edit-wallet-modal.component';
 import { DeleteWalletModalComponent } from './finances/containers/wallet-crud-modal/delete-wallet-modal/delete-wallet-modal.component';
@@ -40,6 +43,12 @@ import { EditIncomeModalComponent } from './finances/containers/income-crud-moda
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { ExpenseComponent } from './finances/components/expense/expense/expense.component';
+import { ExpenseGraphComponent } from './finances/components/expense/expense-graph/expense-graph.component';
+import { ExpenseHistoryComponent } from './finances/components/expense/expense-history/expense-history.component';
+import { CreateExpenseModalComponent } from './finances/containers/expense-crud-modal/create-expense-modal/create-expense-modal.component';
+import { DeleteExpenseModalComponent } from './finances/containers/expense-crud-modal/delete-expense-modal/delete-expense-modal.component';
+import { EditExpenseModalComponent } from './finances/containers/expense-crud-modal/edit-expense-modal/edit-expense-modal.component';
 
 registerLocaleData(localePt)
 
@@ -55,7 +64,6 @@ registerLocaleData(localePt)
     UpdateUserComponent,
     MsgErrorComponent,
     WalletComponent,
-    ExpenseComponent,
     FinancialPlanningComponent,
     EditWalletModalComponent,
     DeleteWalletModalComponent,
@@ -70,6 +78,12 @@ registerLocaleData(localePt)
     CreateIncomeModalComponent,
     DeleteIncomeModalComponent,
     EditIncomeModalComponent,
+    ExpenseComponent,
+    ExpenseGraphComponent,
+    ExpenseHistoryComponent,
+    CreateExpenseModalComponent,
+    DeleteExpenseModalComponent,
+    EditExpenseModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +91,11 @@ registerLocaleData(localePt)
     AppRoutingModule,
     FormsModule, 
     ModalModule.forRoot(),
+    PopoverModule,
+    NgxPaginationModule,
+    NgxEchartsModule.forRoot({
+      echarts
+    }),
     ReactiveFormsModule, 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

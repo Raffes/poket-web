@@ -1,0 +1,40 @@
+<div class="container-fluid mt-3">
+
+    <div class="row">
+
+        <div class="col-12 col-md-12">
+            <h2>Despesas
+                <button type="button" class="btn btn-sm rounded-circle btn-danger" (click)="modalCreateExpense()">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </h2>
+        </div>
+
+    </div>
+    <div class="row mb-3">
+        <div class="col-6 d-flex align-items-center">
+            <h5 class="mb-0">Total de despesas: R$: {{ valor }}</h5>
+        </div>
+
+        <div class="col-6 income-icon-link text-end d-flex justify-content-end">
+
+            <a routerLink="expense-graph" class="me-3">
+                <i class="fas fa-chart-bar income-icon" title="Gráfico"></i>
+            </a>
+
+            <a routerLink="expense-history" class="me-3">
+                <i class="fas fa-history income-icon" title="Histórico"></i>
+            </a>
+            
+        </div>
+
+        
+    </div>
+    <div class="row">
+
+        <router-outlet></router-outlet>
+
+    </div>
+
+
+</div>

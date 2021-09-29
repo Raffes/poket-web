@@ -38,17 +38,6 @@ export class WalletService {
 
   }
 
-// Atualizar o valor da conta incrementando o valor da renda
-  updateWalletValue(conta: any, uid: any, valor: any, valorNaConta: any) {
-    let sumWallet = parseInt(valor) + parseInt(valorNaConta) 
-    return this.angFireDB
-      .collection("contas").doc(uid).collection(uid)
-      .doc(conta)
-      .update({
-        valor: sumWallet
-      })
-  }
-
   // Deleta um documento de uma coleção
   deleteWallet(uid: any, idWallet: any) {
     return this.angFireDB.collection("contas").doc(uid)

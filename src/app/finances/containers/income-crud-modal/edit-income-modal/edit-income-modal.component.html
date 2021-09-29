@@ -1,1 +1,69 @@
-<p>edit-income-modal works!</p>
+<!-- Modal de criar renda -->
+
+<div class="modal-header">
+
+    <h5 class="modal-title" id="exampleModalLabel">
+        Adicionar Renda
+    </h5>
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+<!-- Adiciona saldo -->
+<form [formGroup]="incomeUpdate" (ngSubmit)="editIncome()">
+
+    <div class="modal-body">
+
+        <div class="form-floating mb-3">
+            
+            <input type="text" class="form-control" id="addNameIncome" maxlength="30" formControlName="renda" required>
+            <label for="addNameIncome" class="col-form-label">Renda</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="number" class="form-control" id="addValueIncome" maxlength="8" formControlName="valorRenda" required>
+            <label for="addValueIncome" class="col-form-label">Valor (R$)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="date" class="form-control" id="addDateIncome" maxlength="30" formControlName="dataRenda" required>
+            <label for="addDateIncome" class="col-form-label">Data de recebimento</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="addTipoRenda" formControlName="tipoRenda" required>
+                
+                <option value="Salário">Salário</option>
+                <option value="Aluguel">Aluguel</option>
+                <option value="Juros">Juros</option>
+                <option value="Outros">Outros</option>
+              </select>
+
+              <label for="addTipoRenda" class="col-form-label">Tipo de recebimento</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="addConta" formControlName="conta" required>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}">{{ wallet.conta }}</option>
+              </select>
+
+              <label for="addConta" class="col-form-label">Onde guardou</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            
+            <input type="text" class="form-control" id="addObsIncome" maxlength="30" formControlName="observacao" required>
+            <label for="addObsIncome" class="col-form-label">Observação</label>
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Adicionar</button>
+    </div>
+</form>
