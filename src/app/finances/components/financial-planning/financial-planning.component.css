@@ -1,0 +1,85 @@
+.filterSearch {
+    width: 30%;
+}
+
+.filterSearch span {
+    background-color: white;
+}
+
+.filterSearch span i {
+    color: #198754;
+}
+
+.financial-card-short {
+    border-left: #56b6de 5px solid;
+}
+
+.progress .progress-bar-short {
+    background-color: #56b6de;
+}
+
+.financial-card-medium {
+    border-left: #9dc59f 5px solid;
+}
+
+.progress .progress-bar-medium {
+    background-color: #9dc59f;
+}
+
+.financial-card-long {
+    border-left: #819694 5px solid;
+}
+
+.progress .progress-bar-long {
+    background-color: #819694;
+}
+
+.progress .progress-bar-date {
+    background-color: #e97950;
+}
+
+.financial-card {
+    box-shadow: 0;
+}
+
+.financial-card:hover {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+
+.financial-card .card-header {
+    height: 60px;
+}
+
+.financial-card .card-header ul{
+    height: 10px;
+}
+
+.financial-list-card,
+.financial-list-card-actions,
+.financial-progress ul {
+    list-style: none;
+}
+
+
+.financial-list-card li:nth-child(2){
+    font-size: 0.8rem;
+}
+
+.financial-list-card-actions button{
+    height: 25px;
+    width: 25px;
+}
+
+.financial-list-card-actions button i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.financial-progress ul li {
+    font-size: 0.9rem;
+}
+
+.progress-number {
+    font-size: 0.7rem;
+}

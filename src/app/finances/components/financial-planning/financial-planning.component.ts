@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FinancialPlanningComponent implements OnInit {
 
+  FinancialPlanning: any;
+  valor: any;
+  filterFinancialPlanning: string = '';
+
+  totalLength: any;
+  page: number = 1;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  modalCreateFinancialPlanning() {
+    
+  }
+
+  modalEditFinancialPlanning(fp: any) {
+
+  }
+
+  modalDeleteFinancialPlanning(fp: any) {
+
   }
 
 }
