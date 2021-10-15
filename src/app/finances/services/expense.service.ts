@@ -45,10 +45,10 @@ export class ExpenseService {
 
 
   //Atualiza dados de um documento
-  updateExpense(expense: Expense, uid: any, idIncome: any, idWalletAntigo: any, idWallet: any, valorNaContaAntiga: any, valorNaConta: any) {
+  updateExpense(expense: Expense, uid: any, idExpense: any, idWalletAntigo: any, idWallet: any, valorNaContaAntiga: any, valorNaConta: any) {
     return this.angFireDB
       .collection("despesas").doc(uid).collection(uid)
-      .doc(idIncome)
+      .doc(idExpense)
       .update({
         despesa: expense.despesa,
         valorDespesa: expense.valorDespesa,

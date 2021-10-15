@@ -49,6 +49,9 @@ import { ExpenseHistoryComponent } from './finances/components/expense/expense-h
 import { CreateExpenseModalComponent } from './finances/containers/expense-crud-modal/create-expense-modal/create-expense-modal.component';
 import { DeleteExpenseModalComponent } from './finances/containers/expense-crud-modal/delete-expense-modal/delete-expense-modal.component';
 import { EditExpenseModalComponent } from './finances/containers/expense-crud-modal/edit-expense-modal/edit-expense-modal.component';
+import { DeleteFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/delete-financial-planning-modal/delete-financial-planning-modal.component';
+import { CreateFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/create-financial-planning-modal/create-financial-planning-modal.component';
+import { EditFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/edit-financial-planning-modal/edit-financial-planning-modal.component';
 
 registerLocaleData(localePt)
 
@@ -84,6 +87,9 @@ registerLocaleData(localePt)
     CreateExpenseModalComponent,
     DeleteExpenseModalComponent,
     EditExpenseModalComponent,
+    DeleteFinancialPlanningModalComponent,
+    CreateFinancialPlanningModalComponent,
+    EditFinancialPlanningModalComponent,
   ],
   imports: [
     BrowserModule,

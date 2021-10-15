@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FinancialPlanningCrudModalService } from '../../services/financial-planning-crud-modal.service';
 
 @Component({
   selector: 'app-financial-planning',
@@ -14,13 +15,15 @@ export class FinancialPlanningComponent implements OnInit {
   totalLength: any;
   page: number = 1;
 
-  constructor() { }
+  constructor(
+    public modalFpService: FinancialPlanningCrudModalService
+  ) { }
 
   ngOnInit(): void {
   }
 
   modalCreateFinancialPlanning() {
-    
+    this.modalFpService.showCreateFinancialPlanning()
   }
 
   modalEditFinancialPlanning(fp: any) {

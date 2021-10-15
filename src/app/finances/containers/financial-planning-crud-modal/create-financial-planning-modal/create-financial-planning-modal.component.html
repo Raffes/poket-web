@@ -1,0 +1,65 @@
+<!-- Modal de criar planejamento financeiro -->
+
+<div class="modal-header">
+
+    <h5 class="modal-title" id="exampleModalLabel">
+        Adicionar Planejamento
+    </h5>
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+
+<form [formGroup]="financialPlanningRegister" (ngSubmit)="addFinancialPlanning()">
+
+    <div class="modal-body">
+
+        <div class="form-floating mb-3">
+            
+            <input type="text" class="form-control" id="addNameFinancialPlanning" maxlength="30" formControlName="planejamentoFinanceiro" required>
+            <label for="addNameFinancialPlanning" class="col-form-label">Nome</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="addTypeFinancialPlanning" formControlName="tipoPF" required>
+                
+                <option value="Curto Prazo">Curto Prazo</option>
+                <option value="Médio Prazo">Médio Prazo</option>
+                <option value="Longo Prazo">Longo Prazo</option>
+              </select>
+
+              <label for="addTypeFinancialPlanning" class="col-form-label">Tipo de Planejamento</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="addConta" formControlName="conta" required>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}">{{ wallet.conta }}</option>
+              </select>
+
+              <label for="addConta" class="col-form-label">Onde tirar o dinheiro?</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="number" class="form-control" id="addValueFinancialPlanning" maxlength="8" formControlName="valorAtual" required>
+            <label for="addValueFinancialPlanning" class="col-form-label">Valor Inicial (R$)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="number" class="form-control" id="addValueFinancialPlanning" maxlength="8" formControlName="valorObjetivado" required>
+            <label for="addValueFinancialPlanning" class="col-form-label">Valor Objetivado (R$)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="date" class="form-control" id="addDateFinancialPlanning" maxlength="30" formControlName="dataFinal" required>
+            <label for="addDateFinancialPlanning" class="col-form-label">Data Final</label>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Adicionar</button>
+    </div>
+</form>
