@@ -34,7 +34,7 @@
         <div class="form-floating mb-3">
             
             <select class="form-select" id="addConta" formControlName="conta" required>
-                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}">{{ wallet.conta }}</option>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}"> {{ wallet.conta }} ( {{ wallet.valor | currency : 'BRL' }} )</option>
               </select>
 
               <label for="addConta" class="col-form-label">Onde tirar o dinheiro?</label>
@@ -60,6 +60,6 @@
 
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-danger">Adicionar</button>
+        <button type="submit" class="btn btn-success">Adicionar</button>
     </div>
 </form>

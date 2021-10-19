@@ -1,0 +1,93 @@
+<div class="container-fluid mt-3">
+
+    <div class="row">
+
+        <div class="col-12 col-md-12" *ngIf="FinancialPlanning">
+            <h2>{{ FinancialPlanning.planejamentoFinanceiro }}
+                <button type="button" class="btn btn-sm rounded-circle btn-success"
+                    (click)="modalAddFinancialPlanningHistory()">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </h2>
+        </div>
+
+    </div>
+    <div class="row mb-3">
+        <div class="col-6 d-flex align-items-center">
+            <h5 class="mb-0">Saldo total: R$: {{ valor }}</h5>
+        </div>
+
+        <div class="col-12 mb-3 text-end d-flex justify-content-end">
+            <div class="input-group filterSearch">
+
+                <input class="form-control form-control-sm" type="text" name="filterFinancialPlanning"
+                    [(ngModel)]="filterFinancialPlanning" placeholder="Filtro">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+
+        </div>
+
+    </div>
+
+<div class="d-flex justify-content-center" *ngIf="FinancialHistoryPlanning?.length !== 0">
+    <div class="col-10">
+        <div class="card m-2">
+            <div class="card-header h-100">
+                <ul class="d-flex fp-list-card mb-0">
+                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
+                    <li><strong>Valor</strong></li>
+                    <li><strong>Conta</strong></li>
+                    <li><strong>Data</strong></li>
+                    <li><strong>Ações</strong></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+<div class="d-flex justify-content-center" *ngIf="FinancialHistoryPlanning?.length === 0">
+    <div class="col-10" >
+        Ainda não tem nenhum histórico...
+        <img class="img-financialPlanning" src="assets/img/jaconda-55.png" alt="imagem">
+    </div>
+    
+    
+</div>
+
+<div class="d-flex justify-content-center" *ngFor="let fp of FinancialHistoryPlanning | paginate: { itemsPerPage: 10, 
+    currentPage: page,  
+    totalItems: totalLength} | filter:filterFinancialPlanning; index as i" >
+<div class="col-10" >
+
+        <div class="card wallet-card mb-2">
+            <div class="card-body">
+                <ul class="d-flex fp-list-card mb-0">
+                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
+                    <li>{{ fp.valorAtual | currency : 'BRL' }}</li>
+                    <li>{{ fp.conta }}</li>
+                    <li>{{ fp.dataInicial | date: 'dd/MM/yyyy' }}</li>
+                    <li>
+                        
+                        <!-- <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning" (click)="modalEditFinancialPlanning(fp)">
+                            <i class="fas fa-pen text-light h-100" title="Editar planejamento"></i>
+                        </button> -->
+                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger" (click)="modalDeleteFinancialPlanningHistory(fp)">
+                            <i class="fas fa-trash-alt h-100" title="Excluir histórico"></i>
+                        </button>
+
+                    </li>
+                </ul>
+
+
+            </div>
+
+        </div>
+
+        
+
+</div>
+
+</div>
+<pagination-controls (pageChange)="page = $event" *ngIf="FinancialHistoryPlanning?.length !== 0"></pagination-controls>

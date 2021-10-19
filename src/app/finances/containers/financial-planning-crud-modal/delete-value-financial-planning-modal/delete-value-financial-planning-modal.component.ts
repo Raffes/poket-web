@@ -5,12 +5,12 @@ import { FinancialPlanningService } from 'src/app/finances/services/financial-pl
 import { WalletService } from 'src/app/finances/services/wallet.service';
 
 @Component({
-  selector: 'app-delete-financial-planning-modal',
-  templateUrl: './delete-financial-planning-modal.component.html',
-  styleUrls: ['./delete-financial-planning-modal.component.css']
+  selector: 'app-delete-value-financial-planning-modal',
+  templateUrl: './delete-value-financial-planning-modal.component.html',
+  styleUrls: ['./delete-value-financial-planning-modal.component.css']
 })
-export class DeleteFinancialPlanningModalComponent implements OnInit {
-
+export class DeleteValueFinancialPlanningModalComponent implements OnInit {
+  @Input() idFp: any;
   @Input() id: any;
   @Input() planejamentoFinanceiro: any;
   @Input() valorAtual: any;
@@ -44,7 +44,7 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
     })
   }
 
-  deleteFinancialPlanning() {
+  deleteHistoryFinancialPlanning() {
     let idWallet
     let valorDaConta
     let contaWallet
@@ -73,13 +73,7 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
       }
     });
 
-    // console.log("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda)
-
-    console.warn(this.id, idWalletAntigo, valorDaContaAntigo, this.valorAtual)
-// TODO vÊ se esse componente é usado
-    // this.fpService.deleteFinancialPlanning(this.authService.userData.uid, this.id, idWalletAntigo, valorDaContaAntigo, this.valorAtual)
-   
-    // console.warn("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda )
+    this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.idFp, idWalletAntigo, this.id, valorDaContaAntigo, this.valorAtual)
 
     this.closeModal()
   }
@@ -87,5 +81,6 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
   closeModal() {
     this.bsModalRef.hide();
   }
+
 
 }

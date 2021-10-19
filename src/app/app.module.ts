@@ -26,7 +26,7 @@ import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
-import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning.component';
+import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning/financial-planning.component';
 import { EditWalletModalComponent } from './finances/containers/wallet-crud-modal/edit-wallet-modal/edit-wallet-modal.component';
 import { DeleteWalletModalComponent } from './finances/containers/wallet-crud-modal/delete-wallet-modal/delete-wallet-modal.component';
 import { CreateWalletModalComponent } from './finances/containers/wallet-crud-modal/create-wallet-modal/create-wallet-modal.component';
@@ -52,6 +52,9 @@ import { EditExpenseModalComponent } from './finances/containers/expense-crud-mo
 import { DeleteFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/delete-financial-planning-modal/delete-financial-planning-modal.component';
 import { CreateFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/create-financial-planning-modal/create-financial-planning-modal.component';
 import { EditFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/edit-financial-planning-modal/edit-financial-planning-modal.component';
+import { FinancialPlanningHistoryComponent } from './finances/components/financial-planning/financial-planning-history/financial-planning-history.component';
+import { AddValueFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/add-value-financial-planning-modal/add-value-financial-planning-modal.component';
+import { DeleteValueFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/delete-value-financial-planning-modal/delete-value-financial-planning-modal.component';
 
 registerLocaleData(localePt)
 
@@ -90,6 +93,9 @@ registerLocaleData(localePt)
     DeleteFinancialPlanningModalComponent,
     CreateFinancialPlanningModalComponent,
     EditFinancialPlanningModalComponent,
+    FinancialPlanningHistoryComponent,
+    AddValueFinancialPlanningModalComponent,
+    DeleteValueFinancialPlanningModalComponent,
   ],
   imports: [
     BrowserModule,

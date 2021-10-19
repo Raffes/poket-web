@@ -32,6 +32,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
       conta: [""],
       valorAtual: ["", Validators.maxLength(8)],
       valorObjetivado: ["", Validators.maxLength(8)],
+      dataInicial: [""],
       dataFinal: [""],
       idConta: [""],
       contaValor: [""]
@@ -60,6 +61,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
     const conta = this.financialPlanningRegister.get('conta')
     const valorAtualPF = this.financialPlanningRegister.get('valorAtual')
     const valorObjetivadoPF = this.financialPlanningRegister.get('valorObjetivado')
+    const dataInicialPF = this.financialPlanningRegister.get('dataInicial')
     const dataFinalPF = this.financialPlanningRegister.get('dataFinal')
     const idConta = this.financialPlanningRegister.get('idConta')
     const contaValor = this.financialPlanningRegister.get('contaValor')
@@ -69,7 +71,6 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
 
     } else {
       let contaWallet
-      let financialplanning: FinancialPlanning;
 
       this.Wallet.forEach(function (value: any) {
         contaWallet = value.conta
@@ -77,13 +78,19 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
 
           idConta?.setValue(value.id)
           contaValor?.setValue(value.valor)
-          // financialplanning.idConta = value.id
-          // financialplanning.contaValor = value.valor
+
+          let dataAtual = new Date();
+          let fullYeah = dataAtual.getFullYear();
+          let month = dataAtual.getMonth();
+          let day = dataAtual.getDate();
+          let fullDate = fullYeah +'-'+ (month+1) + '-' + day;
+          dataInicialPF?.setValue(fullDate) 
+
         }
 
       });
 
-      // Criar despesa e Atualizar a conta que foi salva a renda
+      // Criar planejamento e Atualizar a conta que foi salva a renda
       this.fpService.createFinancialPlanning(this.financialPlanningRegister.value, this.authService.userData.uid)
 
 

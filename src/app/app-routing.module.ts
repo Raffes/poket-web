@@ -9,7 +9,8 @@ import { DashboardComponent } from './finances/components/dashboard/dashboard.co
 import { ExpenseGraphComponent } from './finances/components/expense/expense-graph/expense-graph.component';
 import { ExpenseHistoryComponent } from './finances/components/expense/expense-history/expense-history.component';
 import { ExpenseComponent } from './finances/components/expense/expense/expense.component';
-import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning.component';
+import { FinancialPlanningHistoryComponent } from './finances/components/financial-planning/financial-planning-history/financial-planning-history.component';
+import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning/financial-planning.component';
 import { IncomeGraphComponent } from './finances/components/income/income-graph/income-graph.component';
 import { IncomeHistoryComponent } from './finances/components/income/income-history/income-history.component';
 import { IncomeComponent } from './finances/components/income/income/income.component';
@@ -35,7 +36,9 @@ const routes: Routes = [
         { path: 'expense-graph', component: ExpenseGraphComponent },
         { path: "expense-history", component: ExpenseHistoryComponent },
       ] },
-      { path: "financial-Planning", component: FinancialPlanningComponent },
+      { path: "financial-planning", component: FinancialPlanningComponent },
+      { path: "financial-planning/financial-planning-history/:id", component: FinancialPlanningHistoryComponent },
+      
       
       
     ],

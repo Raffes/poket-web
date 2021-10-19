@@ -1,0 +1,35 @@
+<!-- Modal de criar planejamento financeiro -->
+
+<div class="modal-header">
+
+    <h5 class="modal-title" id="exampleModalLabel">
+        Adicionar valor em {{ planejamentoFinanceiro }}
+    </h5>
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+
+<form [formGroup]="AddMorefinancialPlanning" (ngSubmit)="addMoreFinancialPlanning()">
+
+    <div class="modal-body">
+
+        <div class="form-floating mb-3">
+            
+            <input type="number" class="form-control" id="addValueFinancialPlanning" maxlength="8" formControlName="valorAtual" required>
+            <label for="addValueFinancialPlanning" class="col-form-label">Valor (R$)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="addConta" formControlName="conta" required>
+                <option *ngFor="let wallet of Wallet"  value="{{ wallet.conta }}" [hidden]="wallet.valor < 0"> {{ wallet.conta }} ( {{ wallet.valor | currency : 'BRL' }} )</option>
+              </select>
+
+              <label for="addConta" class="col-form-label">Onde tirar o dinheiro?</label>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Adicionar</button>
+    </div>
+</form>

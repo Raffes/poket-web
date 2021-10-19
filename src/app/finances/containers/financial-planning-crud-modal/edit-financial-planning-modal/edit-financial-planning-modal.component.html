@@ -1,1 +1,57 @@
-<p>edit-financial-planning-modal works!</p>
+<!-- Modal de criar planejamento financeiro -->
+
+<div class="modal-header">
+
+    <h5 class="modal-title" id="exampleModalLabel">
+        Alterar Planejamento
+    </h5>
+
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+</div>
+
+<form [formGroup]="financialPlanningUpdate" (ngSubmit)="editFinancialPlanning()">
+
+    <div class="modal-body">
+
+        <div class="form-floating mb-3">
+            
+            <input type="text" class="form-control" id="editNameFinancialPlanning" maxlength="30" formControlName="planejamentoFinanceiro" required>
+            <label for="editNameFinancialPlanning" class="col-form-label">Nome</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <select class="form-select" id="editTypeFinancialPlanning" formControlName="tipoPF" required>
+                
+                <option value="Curto Prazo">Curto Prazo</option>
+                <option value="Médio Prazo">Médio Prazo</option>
+                <option value="Longo Prazo">Longo Prazo</option>
+              </select>
+
+              <label for="editTypeFinancialPlanning" class="col-form-label">Tipo de Planejamento</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            
+            <input type="number" class="form-control" id="editValueFinancialPlanning" maxlength="8" formControlName="valorAtual" [attr.disabled]="true">
+            <label for="editValueFinancialPlanning" class="col-form-label">Valor Inicial (R$)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="number" class="form-control" id="editValueFinancialPlanning" maxlength="8" formControlName="valorObjetivado" required>
+            <label for="editValueFinancialPlanning" class="col-form-label">Valor Objetivado (R$)</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="date" class="form-control" id="editDateFinancialPlanning" maxlength="30" formControlName="dataFinal" required>
+            <label for="editDateFinancialPlanning" class="col-form-label">Data Final</label>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-warning text-light">Alterar</button>
+    </div>
+</form>
