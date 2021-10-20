@@ -56,9 +56,9 @@
                                 <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning" (click)="modalEditFinancialPlanning(fp)">
                                     <i class="fas fa-pen text-light h-100" title="Editar planejamento"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger" (click)="modalDeleteFinancialPlanning(fp)">
+                                <!-- <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger" (click)="modalDeleteFinancialPlanning(fp)">
                                     <i class="fas fa-trash-alt h-100" title="Excluir planejamento"></i>
-                                </button>
+                                </button> -->
                                 
                                 <button type="button" class="btn btn-sm rounded-circle me-2 btn-secondary text-light" (click)="financialPlanningHistory(fp.id)">
                                     <i class="fas fa-history h-100" title="Histórico"></i>
@@ -70,6 +70,8 @@
                     </div>
 
                     <div class="card-body financial-progress">
+
+                        
                         
 
                         <ul class="d-flex ps-0 justify-content-between mb-0">
@@ -78,13 +80,13 @@
                         </ul>
 
                         <div class="progress" style="height: 5px;">
-                            <div class="progress-bar progress-bar-short" role="progressbar" style="width: 4.46%;" aria-valuenow="4.46"
+                            <div class="progress-bar progress-bar-short" role="progressbar" attr.style="width: {{porcentoValueFp}}%;" attr.aria-valuenow="{{porcentoValueFp}}"
                                 aria-valuemin="0" aria-valuemax="100" [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}"></div>
                                 
                         </div>
                         
                         <div class="d-flex justify-content-end mb-3 progress-number">
-                            4.46% 
+                            {{porcentoValueFp}}% 
                         </div> 
 
                         <ul class="d-flex ps-0 justify-content-between mb-0">
@@ -92,12 +94,12 @@
                             <li>{{ fp.dataFinal | date: 'dd/MM/yyyy' }}</li>
                         </ul>
                         <div class="progress" style="height: 5px;">
-                            <div class="progress-bar progress-bar-date" role="progressbar" style="width: 1%;" aria-valuenow="1"
+                            <div class="progress-bar progress-bar-date" role="progressbar" attr.style="width: {{porcentoDateFp}}%;" attr.aria-valuenow="{{porcentoDateFp}}"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
 
                         <div class="d-flex justify-content-end progress-number">
-                            1% 
+                            {{porcentoDateFp}}% 
                         </div> 
 
                     </div>
