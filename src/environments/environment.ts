@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyAKo96Ti6JJSoDwgfGOx9DhrqV8ocO32M8",
-    authDomain: "poket-system-f023b.firebaseapp.com",
-    projectId: "poket-system-f023b",
-    storageBucket: "poket-system-f023b.appspot.com",
-    messagingSenderId: "809241793464",
-    appId: "1:809241793464:web:d1cf8e97885aba4ac1b54d",
-    measurementId: "G-69ETFXNBKK"
+    apiKey: "AIzaSyCdTkHPyg-tHhitUCJBVZ1Xa01rnyh4oag",
+    authDomain: "poket-web.firebaseapp.com",
+    projectId: "poket-web",
+    storageBucket: "poket-web.appspot.com",
+    messagingSenderId: "556555819974",
+    appId: "1:556555819974:web:979d2b7d0cc1082695b0c7",
+    measurementId: "G-PYHZ71T3E0"
   }
 };
 
