@@ -50,13 +50,13 @@ export class FinancialPlanningCrudModalService {
   }
 
   // Mostra modal de confirmação de apagar planejamento financeiro
-  private showModalDeleteFinancialPlanning(fp: FinancialPlanning, idFp: any) {
+  private showModalDeleteFinancialPlanning(fp: FinancialPlanning) {
     const bsModalRef: BsModalRef = this.modalService.show(DeleteFinancialPlanningModalComponent);
 
     bsModalRef.content.planejamentoFinanceiro = fp.planejamentoFinanceiro,
 
       bsModalRef.content.id = fp.id,
-      bsModalRef.content.idFp = idFp,
+      // bsModalRef.content.idFp = idFp,
       bsModalRef.content.tipoPF = fp.tipoPF,
       bsModalRef.content.conta = fp.conta,
       bsModalRef.content.contaValor = fp.contaValor,
@@ -103,8 +103,13 @@ export class FinancialPlanningCrudModalService {
   }
 
   // Mostra modal de exclusão de planejamento financeiro
-  showDeleteFinancialPlanning(FinancialPlanning: any, idFp: any) {
-    this.showModalDeleteFinancialPlanning(FinancialPlanning, idFp);
+  // showDeleteFinancialPlanning(FinancialPlanning: any, idFp: any) {
+  //   this.showModalDeleteFinancialPlanning(FinancialPlanning, idFp);
+
+  // }
+
+  showDeleteFinancialPlanning(FinancialPlanning: any) {
+    this.showModalDeleteFinancialPlanning(FinancialPlanning);
 
   }
 

@@ -97,8 +97,6 @@ export class FinancialPlanningComponent implements OnInit {
 
           porcentoDateFp = (totalDaysUntilToday * 100)/totalDays
 
-          // console.warn(totalDaysUntilToday + " |" +  totalDays)
-
           let pocentoDate = porcentoDateFp.toFixed(2)
 
           if(totalDaysUntilToday === totalDays) {
@@ -112,8 +110,6 @@ export class FinancialPlanningComponent implements OnInit {
           ...e.payload.doc.data()
         } as unknown;
       })
-
-      // console.log(this.FinancialPlanning)
 
     })
 
@@ -172,6 +168,11 @@ export class FinancialPlanningComponent implements OnInit {
   // modalDeleteFinancialPlanning(fp: any) {
   //   this.modalFpService.showDeleteFinancialPlanning(fp)
   // }
+
+  modalDeleteFinancialPlanning(fp: any) {
+    this.modalFpService.showDeleteFinancialPlanning(fp)
+    // this.fpService.deleteFinancialPlanning(this.authService.userData.uid, fp.id)
+  }
 
   financialPlanningHistory(idFP: any) {
     this.router.navigate([`dashboard/financial-planning/financial-planning-history/${idFP}`])

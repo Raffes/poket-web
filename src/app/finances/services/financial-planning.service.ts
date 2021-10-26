@@ -106,6 +106,28 @@ export class FinancialPlanningService {
   }
 
   // Deleta um documento de uma coleção
+  deleteHistoryFinancialPlanning1(uid: any, idFP: any, idWallet: any, id: any, oldValueFp: any, accountAmount: any) {
+    return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
+      .doc(idFP).collection(idFP).doc(id)
+      .delete()
+      .then(() => {
+        // atualizar a conta incrementando a renda
+        let subWallet = parseInt(oldValueFp) + accountAmount
+
+        this.angFireDB
+          .collection("contas").doc(uid).collection(uid)
+          .doc(idWallet)
+          .update({
+            valor: subWallet
+          })
+
+
+      }).catch((err) => {
+        console.error(err)
+      })
+  }
+
+  // Deleta um documento de uma coleção
   deleteHistoryFinancialPlanning(uid: any, idFP: any, idWallet: any, id: any, idWalletOld: any, accountAmount: any) {
     return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
       .doc(idFP).collection(idFP).doc(id)

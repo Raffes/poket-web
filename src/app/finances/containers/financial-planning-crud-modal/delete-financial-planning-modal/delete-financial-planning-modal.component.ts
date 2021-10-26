@@ -45,44 +45,36 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
   }
 
   deleteFinancialPlanning() {
-    let idWallet
-    let valorDaConta
-    let contaWallet
+  
+  let idWallet: any
+  let valorDaContaAntigo: any
+  let contaWalletAntigo
 
-    let idWalletAntigo
-    let valorDaContaAntigo
-    let contaWalletAntigo
-    let contaAntiga = this.conta
+  this.fpService.getHistoryFinancialPlanningList(this.authService.userData.uid, this.id).subscribe(res => {
+    res.map(e => {
 
-    console.warn(contaAntiga)
+      this.Wallet.forEach(function (value: any) {
+       
+        contaWalletAntigo = value.conta
+    
+        if(contaWalletAntigo == e.payload.doc.data().conta) {
+          idWallet = value.id
+          valorDaContaAntigo = value.valor
+        }
+        
+      });
 
-    this.Wallet.forEach(function (value: any) {
-      contaWallet = value.conta
-      contaWalletAntigo = value.conta
 
-      if(contaWalletAntigo == contaAntiga) {
-        idWalletAntigo = value.id
-        valorDaContaAntigo = value.valor
-      }
-      
-      if (contaWallet == value.valorRenda) {
-        idWallet = value.id
-        contaWallet = value.conta
-        valorDaConta = value.valor
-        console.error(value.valorRenda)
-      }
-    });
+      this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.id, idWallet, e.payload.doc.id, valorDaContaAntigo, e.payload.doc.data().valorAtual)
 
-    // console.log("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda)
+      this.fpService.deleteFinancialPlanning(this.authService.userData.uid, this.id)
 
-    console.warn(this.id, idWalletAntigo, valorDaContaAntigo, this.valorAtual)
-// TODO vÊ se esse componente é usado
-    // this.fpService.deleteFinancialPlanning(this.authService.userData.uid, this.id, idWalletAntigo, valorDaContaAntigo, this.valorAtual)
-   
-    // console.warn("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda )
+    })
 
     this.closeModal()
-  }
+
+  })
+}
 
   closeModal() {
     this.bsModalRef.hide();

@@ -54,7 +54,7 @@ export class DeleteValueFinancialPlanningModalComponent implements OnInit {
     let contaWalletAntigo
     let contaAntiga = this.conta
 
-    console.warn(contaAntiga)
+    // console.warn(contaAntiga)
 
     this.Wallet.forEach(function (value: any) {
       contaWallet = value.conta
