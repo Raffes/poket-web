@@ -75,3 +75,7 @@
 .income-list-card li:nth-child(6){
     border-right: none;
 }
+
+.expense-pagination /deep/ .ngx-pagination .current {
+    background-color: #bd413c;
+}

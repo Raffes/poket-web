@@ -47,3 +47,6 @@
     align-items: center;
 }
 
+.financial-pagination /deep/ .ngx-pagination .current {
+    background-color: #198754;
+}

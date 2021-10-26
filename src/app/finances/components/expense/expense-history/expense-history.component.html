@@ -68,4 +68,9 @@
 </div>
 
 </div>
-<pagination-controls (pageChange)="page = $event"></pagination-controls>
+<pagination-controls class="text-center expense-pagination"
+    (pageChange)="page = $event" 
+    [hidden]="Expense?.length <= 10"
+    previousLabel="" 
+    nextLabel="">
+</pagination-controls>

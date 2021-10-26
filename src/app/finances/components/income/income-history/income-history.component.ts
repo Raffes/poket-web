@@ -16,7 +16,7 @@ export class IncomeHistoryComponent implements OnInit {
   Income: any;
   valor: any;
   filterIncome: string = '';
-  
+
   totalLength: any;
   page: number = 1;
 
@@ -31,10 +31,13 @@ export class IncomeHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.listIncome()
+    this.paginationLengthIncome()
 
+  }
+
+  paginationLengthIncome() {
     this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
-    this.totalLength = res.length
-    console.log(this.totalLength)
+      this.totalLength = res.length
     })
   }
 

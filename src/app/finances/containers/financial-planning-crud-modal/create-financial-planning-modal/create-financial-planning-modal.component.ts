@@ -25,7 +25,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
     public formBuilder: FormBuilder,
     private alertService: AlertModalService,
     public walletService: WalletService,
-  ) { 
+  ) {
     this.financialPlanningRegister = this.formBuilder.group({
       planejamentoFinanceiro: ["", Validators.maxLength(30)],
       tipoPF: [""],
@@ -33,7 +33,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
       valorAtual: ["", Validators.maxLength(8)],
       valorObjetivado: ["", Validators.maxLength(8)],
       dataInicial: [""],
-      dataFinal: [""],
+      dataFinal: ["", Validators.maxLength(9999 - 12 - 31)],
       idConta: [""],
       contaValor: [""]
 
@@ -52,6 +52,8 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
           ...e.payload.doc.data()
         } as unknown as Wallet;
       })
+
+      console.log(this.Wallet)
     })
   }
 
@@ -66,9 +68,23 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
     const idConta = this.financialPlanningRegister.get('idConta')
     const contaValor = this.financialPlanningRegister.get('contaValor')
 
+    let dataAtual = new Date();
+    let fullYeah = dataAtual.getFullYear();
+    let month = dataAtual.getMonth();
+    let day = dataAtual.getDate();
+    let datafinal = new Date(dataFinalPF?.value+"T00:00");
+    let fullYeahEnd = datafinal.getFullYear();
+    let monthEnd = datafinal.getMonth();
+    let dayEnd = datafinal.getDate();
+    console.log(dayEnd)
+    let fullDate = fullYeah + '-' + (month + 1) + '-' + day;
+
     if (nomePF?.value == "" || valorAtualPF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == "" || conta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
+    } else if (fullYeahEnd < fullYeah || monthEnd < month && fullYeahEnd == fullYeah) {
+      this.alertService.showAlertDanger("Data invalida");
+      
     } else {
       let contaWallet
 
@@ -79,12 +95,8 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
           idConta?.setValue(value.id)
           contaValor?.setValue(value.valor)
 
-          let dataAtual = new Date();
-          let fullYeah = dataAtual.getFullYear();
-          let month = dataAtual.getMonth();
-          let day = dataAtual.getDate();
-          let fullDate = fullYeah +'-'+ (month+1) + '-' + day;
-          dataInicialPF?.setValue(fullDate) 
+
+          dataInicialPF?.setValue(fullDate)
 
         }
 

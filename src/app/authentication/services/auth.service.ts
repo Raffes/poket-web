@@ -91,9 +91,9 @@ SignIn(email: string, password: string): Promise<any> {
 ForgotPassword(passwordResetEmail: string) {
   return this.angFireAuth.sendPasswordResetEmail(passwordResetEmail)
   .then(() => {
-    this.alertService.showAlertDanger("O link para atualizar sua senha foi mandado para seu email, verifique sua caixa.");
+    this.alertService.showAlertSuccess("O link para atualizar sua senha foi mandado para seu email, verifique sua caixa.");
   }).catch((error => {
-    
+    this.alertService.showAlertDanger("Email invalido")
     console.error(error)
   })) 
 }

@@ -34,7 +34,7 @@
         <div class="form-floating mb-3">
             
             <select class="form-select" id="addConta" formControlName="conta" required>
-                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}"> {{ wallet.conta }} ( {{ wallet.valor | currency : 'BRL' }} )</option>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}" [hidden]="wallet.valor <= 0"> {{ wallet.conta }} ( {{ wallet.valor | currency : 'BRL' }} )</option>
               </select>
 
               <label for="addConta" class="col-form-label">Onde tirar o dinheiro?</label>
@@ -54,7 +54,7 @@
 
         <div class="form-floating mb-3">
             
-            <input type="date" class="form-control" id="addDateFinancialPlanning" maxlength="30" formControlName="dataFinal" required>
+            <input type="date" class="form-control" id="addDateFinancialPlanning"  max="9999-12-31" formControlName="dataFinal" required>
             <label for="addDateFinancialPlanning" class="col-form-label">Data Final</label>
         </div>
 

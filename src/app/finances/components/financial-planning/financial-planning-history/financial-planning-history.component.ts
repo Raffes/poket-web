@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { FinancialPlanningCrudModalService } from 'src/app/finances/services/financial-planning-crud-modal.service';
 import { FinancialPlanningService } from 'src/app/finances/services/financial-planning.service';
@@ -21,6 +21,7 @@ export class FinancialPlanningHistoryComponent implements OnInit {
   constructor(
     public modalFpService: FinancialPlanningCrudModalService,
     public authService: AuthService,
+    private router: Router,
     public fpService: FinancialPlanningService,
     private act: ActivatedRoute
   ) { }
@@ -61,6 +62,7 @@ export class FinancialPlanningHistoryComponent implements OnInit {
 
       if(this.FinancialHistoryPlanning.length === 0) {
         this.fpService.deleteFinancialPlanning(this.authService.userData.uid, idHistoryFp)
+        this.router.navigate([`dashboard/financial-planning`])
       }
 
     })

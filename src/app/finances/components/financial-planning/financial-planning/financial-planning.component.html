@@ -4,9 +4,14 @@
 
         <div class="col-12 col-md-12">
             <h2>Planejamentos
+                
                 <button type="button" class="btn btn-sm rounded-circle btn-success"
-                    (click)="modalCreateFinancialPlanning()">
+                    (click)="modalCreateFinancialPlanning()" [hidden]="Wallet?.length == 0">
                     <i class="fas fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-success" tooltip="Adicione uma conta para cadastrar no planejamento" [hidden]="Wallet?.length != 0"
+                    (click)="modalCreateWallet()">
+                    Adicionar conta
                 </button>
             </h2>
         </div>
@@ -29,6 +34,8 @@
 
     </div>
 
+    
+
 
     <div class="row">
 
@@ -50,7 +57,8 @@
 
                         <ul class="financial-list-card-actions">
                             <li>
-                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-success" (click)="modalAddFinancialPlanningHistory(fp)">
+                                <button type="button" class="btn btn-sm rounded-circle text-light me-2" (click)="modalAddFinancialPlanningHistory(fp)"
+                                [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}">
                                     <i class="fas fa-plus  h-100" title="Adicionar valor"></i>
                                 </button>
                                 <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning" (click)="modalEditFinancialPlanning(fp)">
@@ -80,13 +88,13 @@
                         </ul>
 
                         <div class="progress" style="height: 5px;">
-                            <div class="progress-bar progress-bar-short" role="progressbar" attr.style="width: {{porcentoValueFp}}%;" attr.aria-valuenow="{{porcentoValueFp}}"
+                            <div class="progress-bar progress-bar-short" role="progressbar" attr.style="width: {{fp.valueFp}}%;" attr.aria-valuenow="{{fp.valueFp}}"
                                 aria-valuemin="0" aria-valuemax="100" [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}"></div>
                                 
                         </div>
                         
                         <div class="d-flex justify-content-end mb-3 progress-number">
-                            {{porcentoValueFp}}% 
+                            {{fp.valueFp}}% 
                         </div> 
 
                         <ul class="d-flex ps-0 justify-content-between mb-0">
@@ -94,12 +102,12 @@
                             <li>{{ fp.dataFinal | date: 'dd/MM/yyyy' }}</li>
                         </ul>
                         <div class="progress" style="height: 5px;">
-                            <div class="progress-bar progress-bar-date" role="progressbar" attr.style="width: {{porcentoDateFp}}%;" attr.aria-valuenow="{{porcentoDateFp}}"
+                            <div class="progress-bar progress-bar-date" role="progressbar" attr.style="width: {{fp.dateFp}}%;" attr.aria-valuenow="{{fp.dateFp}}"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
 
                         <div class="d-flex justify-content-end progress-number">
-                            {{porcentoDateFp}}% 
+                            {{fp.dateFp}}% 
                         </div> 
 
                     </div>
@@ -120,4 +128,9 @@
 
 
 
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    <pagination-controls class="text-center financial-pagination"
+        (pageChange)="page = $event" 
+        [hidden]="FinancialPlanning?.length <= 10"
+        previousLabel="" 
+        nextLabel="">
+    </pagination-controls>

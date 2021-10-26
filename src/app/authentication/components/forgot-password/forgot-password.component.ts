@@ -24,7 +24,8 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmitForgotPassword() {
-    this.authService.ForgotPassword(this.recoveryEmailUser.value)
+    const pwdResetEmail = this.recoveryEmailUser.get('passwordResetEmail')
+    this.authService.ForgotPassword(pwdResetEmail?.value)
   }
 
 }

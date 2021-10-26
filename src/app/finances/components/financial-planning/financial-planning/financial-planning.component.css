@@ -14,7 +14,7 @@
     border-left: #56b6de 5px solid;
 }
 
-.progress .progress-bar-short {
+.progress-bar-short {
     background-color: #56b6de;
 }
 
@@ -22,7 +22,7 @@
     border-left: #9dc59f 5px solid;
 }
 
-.progress .progress-bar-medium {
+.progress-bar-medium {
     background-color: #9dc59f;
 }
 
@@ -30,7 +30,7 @@
     border-left: #819694 5px solid;
 }
 
-.progress .progress-bar-long {
+.progress-bar-long {
     background-color: #819694;
 }
 
@@ -82,4 +82,8 @@
 
 .progress-number {
     font-size: 0.7rem;
+}
+
+.financial-pagination /deep/ .ngx-pagination .current {
+    background-color: #198754;
 }

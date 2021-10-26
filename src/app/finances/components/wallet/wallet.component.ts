@@ -16,6 +16,9 @@ export class WalletComponent implements OnInit {
   valor: any
   filterWallet: string = '';
 
+  totalLength: any;
+  page: number = 1;
+
   constructor(
     public walletService: WalletService,
     public ModalWalletService: ModalWalletCrudService,
@@ -30,7 +33,14 @@ export class WalletComponent implements OnInit {
 
     this.listWallet()
     this.totalBalance()
+    this.paginationLengthWallet()
 
+  }
+
+  paginationLengthWallet() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+        this.totalLength = res.length
+        })
   }
 
   listWallet() {

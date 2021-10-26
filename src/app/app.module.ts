@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TooltipModule  } from 'ngx-bootstrap/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
 import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -103,6 +104,7 @@ registerLocaleData(localePt)
     AppRoutingModule,
     FormsModule, 
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     PopoverModule,
     NgxPaginationModule,
     NgxEchartsModule.forRoot({

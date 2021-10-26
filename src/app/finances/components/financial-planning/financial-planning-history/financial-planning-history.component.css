@@ -1,3 +1,15 @@
+.financial-btn-short{
+    background-color: #56b6de;
+}
+
+.financial-btn-medium{
+    background-color: #9dc59f;
+}
+
+.financial-btn-long{
+    background-color: #819694;
+}
+
 .filterSearch {
     width: 30%;
 }
@@ -8,6 +20,25 @@
 
 .filterSearch span i {
     color: #198754;
+}
+
+.fp-card {
+    box-shadow: 0;
+}
+.fp-card:hover {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+
+.financial-card-short {
+    border-left: #56b6de 5px solid;
+}
+
+.financial-card-medium {
+    border-left: #9dc59f 5px solid;
+}
+
+.financial-card-long {
+    border-left: #819694 5px solid;
 }
 
 .fp-list-card {
@@ -31,4 +62,16 @@
 .img-financialPlanning {
     height: 50%;
     /* width: 50%; */
+}
+
+.financial-pagination-short /deep/ .ngx-pagination .current {
+    background-color: #56b6de;
+}
+
+.financial-pagination-medium /deep/ .ngx-pagination .current {
+    background-color: #9dc59f;
+}
+
+.financial-pagination-long /deep/ .ngx-pagination .current {
+    background-color: #819694;
 }

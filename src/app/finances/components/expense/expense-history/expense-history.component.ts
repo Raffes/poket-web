@@ -17,7 +17,7 @@ export class ExpenseHistoryComponent implements OnInit {
   Expense: any;
   valor: any;
   filterExpense: string = '';
-  
+
   totalLength: any;
   page: number = 1;
 
@@ -32,10 +32,13 @@ export class ExpenseHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.listExpense()
+    this.paginationLengthExpense()
 
+  }
+
+  paginationLengthExpense() {
     this.expenseService.getExpenseList(this.authService.userData.uid).subscribe(res => {
-    this.totalLength = res.length
-    console.log(this.totalLength)
+      this.totalLength = res.length
     })
   }
 
