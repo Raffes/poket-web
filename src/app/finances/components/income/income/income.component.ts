@@ -25,22 +25,21 @@ export class IncomeComponent implements OnInit {
 
   totalIncome() {
     this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
-      let income: any[] = []
-
-      res.forEach((doc) => {
-        const data = doc.payload.doc.data()
-
-        income.push(data.valorRenda)
+     
+      let allValues = res.map(e => {
+        return {
+          valor: e.payload.doc.data().valorRenda,
+        } 
 
       })
-
-      this.valor = income.reduce((a, b) => {
-        return a + b
-      })
+      
+      this.valor = allValues.reduce((total, valor) => total + valor.valor, 0);
 
       return this.valor
 
     })
+
+    
   }
 
 

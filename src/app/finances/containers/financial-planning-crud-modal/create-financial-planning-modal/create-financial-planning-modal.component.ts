@@ -53,7 +53,6 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
         } as unknown as Wallet;
       })
 
-      console.log(this.Wallet)
     })
   }
 
@@ -75,8 +74,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
     let datafinal = new Date(dataFinalPF?.value+"T00:00");
     let fullYeahEnd = datafinal.getFullYear();
     let monthEnd = datafinal.getMonth();
-    let dayEnd = datafinal.getDate();
-    console.log(dayEnd)
+ 
     let fullDate = fullYeah + '-' + (month + 1) + '-' + day;
 
     if (nomePF?.value == "" || valorAtualPF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == "" || conta?.value == "") {

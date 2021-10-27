@@ -73,17 +73,15 @@ export class FinancialPlanningHistoryComponent implements OnInit {
     const idHistoryFp = this.act.snapshot.paramMap.get('id')
     this.fpService.getHistoryFinancialPlanningList(this.authService.userData.uid, idHistoryFp)
     .subscribe(res => {
-      let fp: any[] = []
-
-      res.forEach((doc) => {
-        const data = doc.payload.doc.data()
-        fp.push(data.valorAtual)
+      
+      let allValues = res.map(e => {
+        return {
+          valor: e.payload.doc.data().valorAtual,
+        } 
 
       })
-
-      this.valor = fp.reduce((a, b) => {
-        return a + b
-      })
+      
+      this.valor = allValues.reduce((total, valor) => total + valor.valor, 0);
 
       return this.valor
 

@@ -54,21 +54,17 @@ export class WalletComponent implements OnInit {
     })
   }
 
-
   totalBalance() {
     this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
-      let wallet: any[] = []
-
-      res.forEach((doc) => {
-        const data = doc.payload.doc.data()
-
-        wallet.push(data.valor)
+      
+      let allValues = res.map(e => {
+        return {
+          valor: e.payload.doc.data().valor,
+        } 
 
       })
-
-      this.valor = wallet.reduce((a, b) => {
-        return a + b
-      })
+      
+      this.valor = allValues.reduce((total, valor) => total + valor.valor, 0);
 
       return this.valor
 

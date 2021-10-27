@@ -165,13 +165,8 @@ export class FinancialPlanningComponent implements OnInit {
     this.modalFpService.showEditFinancialPlanning(fp)
   }
 
-  // modalDeleteFinancialPlanning(fp: any) {
-  //   this.modalFpService.showDeleteFinancialPlanning(fp)
-  // }
-
   modalDeleteFinancialPlanning(fp: any) {
     this.modalFpService.showDeleteFinancialPlanning(fp)
-    // this.fpService.deleteFinancialPlanning(this.authService.userData.uid, fp.id)
   }
 
   financialPlanningHistory(idFP: any) {

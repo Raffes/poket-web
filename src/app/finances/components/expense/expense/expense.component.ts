@@ -26,18 +26,15 @@ export class ExpenseComponent implements OnInit {
 
   totalExpense() {
     this.expenseService.getExpenseList(this.authService.userData.uid).subscribe(res => {
-      let expense: any[] = []
-
-      res.forEach((doc) => {
-        const data = doc.payload.doc.data()
-
-        expense.push(data.valorDespesa)
+      
+      let allValues = res.map(e => {
+        return {
+          valor: e.payload.doc.data().valorDespesa,
+        } 
 
       })
-
-      this.valor = expense.reduce((a, b) => {
-        return a + b
-      })
+      
+      this.valor = allValues.reduce((total, valor) => total + valor.valor, 0);
 
       return this.valor
 

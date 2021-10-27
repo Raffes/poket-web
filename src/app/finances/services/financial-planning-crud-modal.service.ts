@@ -56,7 +56,6 @@ export class FinancialPlanningCrudModalService {
     bsModalRef.content.planejamentoFinanceiro = fp.planejamentoFinanceiro,
 
       bsModalRef.content.id = fp.id,
-      // bsModalRef.content.idFp = idFp,
       bsModalRef.content.tipoPF = fp.tipoPF,
       bsModalRef.content.conta = fp.conta,
       bsModalRef.content.contaValor = fp.contaValor,
@@ -101,12 +100,6 @@ export class FinancialPlanningCrudModalService {
     this.showModalEditFinancialPlanning(FinancialPlanning);
 
   }
-
-  // Mostra modal de exclusão de planejamento financeiro
-  // showDeleteFinancialPlanning(FinancialPlanning: any, idFp: any) {
-  //   this.showModalDeleteFinancialPlanning(FinancialPlanning, idFp);
-
-  // }
 
   showDeleteFinancialPlanning(FinancialPlanning: any) {
     this.showModalDeleteFinancialPlanning(FinancialPlanning);
