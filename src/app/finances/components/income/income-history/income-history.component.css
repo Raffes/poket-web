@@ -47,13 +47,13 @@
     align-items: center;
 }
 
-.income-card{
+/* .income-card{
     display: flex;
     align-items: center;
-}
+} */
 
 
-.income-list-card {
+/* .income-list-card {
     list-style: none;
     padding: 0;
     width: 100%;
@@ -69,8 +69,55 @@
 
 .income-list-card li:nth-child(6){
     border-right: none;
-}
+} */
 
-.financial-pagination /deep/ .ngx-pagination .current {
+.income-pagination /deep/ .ngx-pagination .current {
     background-color: #198754;
 }
+
+
+
+
+.income-card {
+    border-left: #198754 5px solid;
+    box-shadow: 0;
+}
+
+.income-card:hover {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+
+.income-card .card-header {
+    height: 60px;
+}
+
+.income-card .card-header ul{
+    height: 10px;
+}
+
+.income-list-card,
+.income-list-card-actions,
+.income-card-body ul {
+    list-style: none;
+}
+
+.income-card-body ul li {
+    font-size: 0.9rem;
+}
+
+.income-list-card li:nth-child(2){
+    font-size: 0.8rem;
+}
+
+.income-list-card-actions button{
+    height: 25px;
+    width: 25px;
+}
+
+.income-list-card-actions button i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

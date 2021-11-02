@@ -7,12 +7,11 @@
     
 </div>
 
-<div class="d-flex justify-content-center">
+<!-- <div class="d-flex justify-content-center">
     <div class="col-10">
         <div class="card m-2">
             <div class="card-header h-100">
                 <ul class="d-flex income-list-card mb-0">
-                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
                     <li><strong>Renda</strong></li>
                     <li><strong>valor</strong></li>
                     <li><strong>Data</strong></li>
@@ -36,11 +35,9 @@
         <div class="card wallet-card mb-2">
             <div class="card-body">
                 <ul class="d-flex income-list-card mb-0">
-                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
                     <li>{{ income.renda }}</li>
                     <li>{{ income.valorRenda | currency : 'BRL' }}</li>
                     <li>{{ income.dataRenda | date: 'dd/MM/yyyy' }}</li>
-                    <!-- <li>{{ income.dataRenda | date: 'MMMM' }}</li> -->
                     <li>{{ income.tipoRenda }}</li>
                     <li>{{ income.conta }}</li>
                     <li>
@@ -68,8 +65,61 @@
 
 </div>
 
+</div> -->
+
+<div class="row">
+
+    <div class="d-flex justify-content-center" *ngFor="let income of Income | paginate: { itemsPerPage: 10, 
+        currentPage: page,  
+        totalItems: totalLength} | filter:filterIncome; index as i ">
+        <div class="col-10">
+
+            <div class="card income-card mb-2">
+                <div class="card-header p-2 d-flex justify-content-between">
+                
+                    <ul class="ps-0 align-items-left income-list-card">
+                        <li><strong>{{ income.renda }}</strong></li>
+                        <li>{{ income.tipoRenda }} | {{ income.conta }}</li>
+                    </ul>
+
+                    <ul class="income-list-card-actions">
+                        <li>
+                            
+                            <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning" (click)="modalEditIncome(income)">
+                                <i class="fas fa-pen text-light h-100" title="Editar renda"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger" (click)="modalDeleteIncome(income)">
+                                <i class="fas fa-trash-alt h-100" title="Excluir renda"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm rounded-circle me-2 btn-info text-light" popover="{{ income.observacao }}"
+                        popoverTitle="Observação" [outsideClick]="true" placement="bottom">
+                            <i class="fas fa-info h-100"></i>
+                        </button>
+
+
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="card-body income-card-body">
+
+                    <ul class="d-flex ps-0 justify-content-between mb-0">
+                        <li>{{ income.valorRenda | currency : 'BRL' }}</li>
+                        <li>{{ income.dataRenda  | date: 'dd/MM/yyyy' }}</li>
+                    </ul>
+
+
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
 </div>
-<pagination-controls class="text-center financial-pagination"
+
+
+<pagination-controls class="text-center income-pagination"
     (pageChange)="page = $event" 
     [hidden]="Income?.length <= 10"
     previousLabel="" 

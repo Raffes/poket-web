@@ -27,7 +27,7 @@
     </div>
     <div class="row">
 
-        <div class="col-2" *ngFor="let wallet of Wallet | paginate: { itemsPerPage: 10, 
+        <div class="col-12 col-sm-4 col-md-2" *ngFor="let wallet of Wallet | paginate: { itemsPerPage: 10, 
             currentPage: page,  
             totalItems: totalLength} | filter:filterWallet; index as i">
             <div *ngIf="i < 16">
