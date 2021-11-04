@@ -5,7 +5,6 @@ import { Income } from 'src/app/finances/modal/income';
 import { IncomeService } from 'src/app/finances/services/income.service';
 import { ModalWalletCrudService } from 'src/app/finances/services/wallet-crud-modal.service';
 import { WalletService } from 'src/app/finances/services/wallet.service';
-
 @Component({
   selector: 'app-income-graph',
   templateUrl: './income-graph.component.html',
@@ -14,33 +13,10 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 export class IncomeGraphComponent implements OnInit {
   Income: any;
   valor: any
-
+  allValues: {} = {}
   quantidadeRegistro: any
   tiposRendaDados: any[] = []
-
-  // rendaTipo: any
-
-  // rendaTipo!: {
-  //   mes: any,
-  //   tipo: any;
-  //   somaTotal: any;
-  //   valores: any;
-  // };
-
-  rendaTipo: any ={
-    // mesJan: any,
-    // mesFev: any, 
-    // mesAbr: any, 
-    // mesMar: any, 
-    // mesMay: any, 
-    // mesJun: any, 
-    // mesJul: any, 
-    // mesAgu: any, 
-    // mesSet: any, 
-    // mesOut: any, 
-    // mesNov: any, 
-    // mesDez : any
-  };
+  chartOption: any
 
   constructor(
     public walletService: WalletService,
@@ -49,655 +25,409 @@ export class IncomeGraphComponent implements OnInit {
     public authService: AuthService,
     public formBuilder: FormBuilder
   ) { }
-
   ngOnInit(): void {
-
-    // this.totalEachIncome()
-    // this.listIncome()
     this.getData()
-    // this.getIncomeType()
   }
-
-  chartOption: any
 
   getData() {
     let horario = "T00:00:00-0300"
-    let data: any[] = []
-    let tipoRendaArray: any[] = []
-    let quantidadeRegistro: number
-    let tiposRendaDados: any[] = []
-
-    let tipoRendaSalario: any[] = []
-    let tipoRendaServicos: any[] = []
-    let tipoRendaPresente: any[] = []
-    let tipoRendaAluguel: any[] = []
-    let tipoRendaOutros: any[] = []
-
-    let valoresRendaSalario: any[] = []
-    let valoresRendaServicos: any[] = []
-    let valoresRendaPresente: any[] = []
-    let valoresRendaAluguel: any[] = []
-    let valoresRendaOutros: any[] = []
-
-    let somaTotalRendaSalario: any;
-    let somaTotalRendaServicos: any[] = []
-    let somaTotalRendaPresente: any[] = []
-    let somaTotalRendaAluguel: any[] = []
-    let somaTotalRendaOutros: any[] = []
-
-    let dataRendaSalario: any[] = []
-    let dataRendaServicos: any[] = []
-    let dataRendaPresente: any[] = []
-    let dataRendaAluguel: any[] = []
-    let dataRendaOutros: any[] = []
-
     this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
-      res.forEach((doc) => {
-        tipoRendaArray.push(doc.payload.doc.data().tipoRenda)
-        data.push(doc.payload.doc.data())
-
-      });
-
-      quantidadeRegistro = res.length
-
-      tiposRendaDados = tipoRendaArray.filter(function (elem, index, self) {
-        return index === self.indexOf(elem);
-      });
-
-
-      let tipoRendaJan: any[] = []
-      let valoresRendaJan: any[] = []
-      let somaTotalRendaJan: any[] = []
-      let rendaJan
-
-      let tipoRendaFev: any[] = []
-      let valoresRendaFev: any[] = []
-      let somaTotalRendaFev: any[] = []
-      let rendaFev
-
-      let tipoRendaMar: any[] = []
-      let valoresRendaMar: any[] = []
-      let somaTotalRendaMar: any[] = []
-      let rendaMar
-
-      let tipoRendaAbr: any[] = []
-      let valoresRendaAbr: any[] = []
-      let somaTotalRendaAbr: any[] = []
-      let rendaAbr
-
-      let tipoRendaMay: any[] = []
-      let valoresRendaMay: any[] = []
-      let somaTotalRendaMay: any[] = []
-      let rendaMay
-
-      let tipoRendaJun: any[] = []
-      let valoresRendaJun: any[] = []
-      let somaTotalRendaJun: any[] = []
-      let rendaJun
-
-      let tipoRendaJul: any[] = []
-      let valoresRendaJul: any[] = []
-      let somaTotalRendaJul: any[] = []
-      let rendaJul
-
-      let tipoRendaAgu: any[] = []
-      let valoresRendaAgu: any[] = []
-      let somaTotalRendaAgu: any[] = []
-      let rendaAgu
-
-      let tipoRendaSet: any[] = []
-      let valoresRendaSet: any[] = []
-      let somaTotalRendaSet: any[] = []
-      let rendaSet
-
-      let tipoRendaOut: any[] = []
-      let valoresRendaOut: any[] = []
-      let somaTotalRendaOut: any[] = []
-      let rendaOut
-
-      let tipoRendaNov: any[] = []
-      let valoresRendaNov: any[] = []
-      let somaTotalRendaNov: any[] = []
-      let rendaNov
-
-      let tipoRendaDez: any[] = []
-      let valoresRendaDez: any[] = []
-      let somaTotalRendaDez: any[] = []
-      let rendaDez
-
-      data.forEach(el => {
-
-        switch (new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' })) {
-          case 'janeiro':
-            // console.log(el)
-
-            tipoRendaJan.push(el.tipoRenda)
-            valoresRendaJan.push(el.valorRenda)
-            somaTotalRendaJan = valoresRendaJan.reduce((a, b) => a + b)
-
-            rendaJan =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaJan,
-                valores: valoresRendaJan,
-                somaTotal: somaTotalRendaJan
-
-              }]
-
-            break;
-          case 'fevereiro':
-            // console.log(el)
-
-            tipoRendaFev.push(el.tipoRenda)
-            valoresRendaFev.push(el.valorRenda)
-            somaTotalRendaFev = valoresRendaFev.reduce((a, b) => a + b)
-
-            rendaFev =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaFev,
-                valores: valoresRendaFev,
-                somaTotal: somaTotalRendaFev
-
-              }]
-
-            break;
-          case 'março':
-            // console.log(el)
-
-            tipoRendaMar.push(el.tipoRenda)
-            valoresRendaMar.push(el.valorRenda)
-            somaTotalRendaMar = valoresRendaMar.reduce((a, b) => a + b)
-
-            rendaMar =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaMar,
-                valores: valoresRendaMar,
-                somaTotal: somaTotalRendaMar
-
-              }]
-
-            break;
-          case 'abril':
-            // console.log(el)
-
-            tipoRendaAbr.push(el.tipoRenda)
-            valoresRendaAbr.push(el.valorRenda)
-            somaTotalRendaAbr = valoresRendaAbr.reduce((a, b) => a + b)
-
-            rendaAbr =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaAbr,
-                valores: valoresRendaAbr,
-                somaTotal: somaTotalRendaAbr
-
-              }]
-
-            break;
-          case 'maio':
-            // console.log(el)
-
-              tipoRendaMay.push(el.tipoRenda)
-              valoresRendaMay.push(el.valorRenda)
-              somaTotalRendaMay = valoresRendaMay.reduce((a, b) => a + b)
-  
-              rendaMay =
-                [{
-                  mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                  tipo: tipoRendaMay,
-                  valores: valoresRendaMay,
-                  somaTotal: somaTotalRendaMay
-  
-                }]
-
-            break;
-          case 'junho':
-            // console.log(el)
-
-            tipoRendaJun.push(el.tipoRenda)
-            valoresRendaJun.push(el.valorRenda)
-            somaTotalRendaJun = valoresRendaJun.reduce((a, b) => a + b)
-
-            rendaJun =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaJun,
-                valores: valoresRendaJun,
-                somaTotal: somaTotalRendaJun
-
-              }]
-
-            break;
-          case 'julho':
-            // console.log(el)
-
-            tipoRendaJul.push(el.tipoRenda)
-            valoresRendaJul.push(el.valorRenda)
-            somaTotalRendaJul = valoresRendaJul.reduce((a, b) => a + b)
-
-            rendaJul =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaJul,
-                valores: valoresRendaJul,
-                somaTotal: somaTotalRendaJul
-
-              }]
-
-            break;
-          case 'agosto':
-            // console.log(el)
-
-            tipoRendaAgu.push(el.tipoRenda)
-            valoresRendaAgu.push(el.valorRenda)
-            somaTotalRendaAgu = valoresRendaAgu.reduce((a, b) => a + b)
-
-            rendaAgu =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaAgu,
-                valores: valoresRendaAgu,
-                somaTotal: somaTotalRendaAgu
-
-              }]
-
-            break;
-          case 'setembro':
-            // console.log(el)
-
-            tipoRendaSet.push(el.tipoRenda)
-            valoresRendaSet.push(el.valorRenda)
-            somaTotalRendaSet = valoresRendaSet.reduce((a, b) => a + b)
-
-            rendaSet =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaSet,
-                valores: valoresRendaSet,
-                somaTotal: somaTotalRendaSet
-
-              }]
-
-            break;
-          case 'outubro':
-            // console.log(el)
-
-            tipoRendaOut.push(el.tipoRenda)
-            valoresRendaOut.push(el.valorRenda)
-            somaTotalRendaOut = valoresRendaOut.reduce((a, b) => a + b)
-
-            rendaOut =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaOut,
-                valores: valoresRendaOut,
-                somaTotal: somaTotalRendaOut
-
-              }]
-
-            break;
-          case 'novembro':
-            // console.log(el)
-
-            tipoRendaNov.push(el.tipoRenda)
-            valoresRendaNov.push(el.valorRenda)
-            somaTotalRendaNov = valoresRendaNov.reduce((a, b) => a + b)
-
-            rendaNov =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaNov,
-                valores: valoresRendaNov,
-                somaTotal: somaTotalRendaNov
-
-              }]
-
-            break;
-          case 'dezembro':
-            // console.log(el)
-
-            tipoRendaDez.push(el.tipoRenda)
-            valoresRendaDez.push(el.valorRenda)
-            somaTotalRendaDez = valoresRendaDez.reduce((a, b) => a + b)
-
-            rendaDez =
-              [{
-                mes: new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }),
-                tipo: tipoRendaDez,
-                valores: valoresRendaDez,
-                somaTotal: somaTotalRendaDez
-
-              }]
-
-            break;
-          // default:
-          //   console.error("Deu ruim nas datas")
-
-        }
-
-      })
-
-      // console.warn(rendaJan)
-      // console.warn(rendaFev)
-      // console.warn(rendaAbr)
-      // console.warn(rendaMar)
-      // console.warn(rendaMay)
-      // console.warn(rendaJun)
-      // console.warn(rendaJul)
-      // console.warn(rendaAgu)
-      // console.warn(rendaSet)
-      // console.warn(rendaOut)
-      // console.warn(rendaNov)
-      // console.warn(rendaDez)
-
-
-
-      // let tipoRendaSalarioJan = dadosJan.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosJan = dadosJan.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresentejan = dadosJan.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelJan = dadosJan.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosJan = dadosJan.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosFev.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosFev.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosFev.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosFev.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosFev.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioMar = dadosMar.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosMar = dadosMar.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteMar = dadosMar.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelMar= dadosMar.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosMar = dadosMar.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioAbr = dadosAbr.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosAbr = dadosAbr.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteAbr = dadosAbr.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelAbr = dadosAbr.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosAbr = dadosAbr.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosMay.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosMay.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosMay.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosMay.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosMay.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosJun.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosJun.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosJun.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosJun.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosJun.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosJul.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosJul.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosJul.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosJul.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosJul.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosAgu.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosAgu.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosAgu.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosAgu.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosAgu.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosSet.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosSet.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosSet.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosSet.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosSet.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosOut.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosOut.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosOut.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosOut.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosOut.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosNov.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosNov.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosNov.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosNov.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosNov.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // let tipoRendaSalarioFev = dadosDez.filter(propriety => propriety.tipoRenda == "Salário");
-      // let tipoRendaServicosFev = dadosDez.filter(propriety => propriety.tipoRenda == "Serviços");
-      // let tipoRendaPresenteFev = dadosDez.filter(propriety => propriety.tipoRenda == "Presente");
-      // let tipoRendaAluguelFev = dadosDez.filter(propriety => propriety.tipoRenda == "Aluguel");
-      // let tipoRendaOutrosFev = dadosDez.filter(propriety => propriety.tipoRenda == "Outros");
-
-
-
-
-      // Tipos de rendas  
-      tipoRendaSalario = data.filter(propriety => propriety.tipoRenda == "Salário");
-      tipoRendaServicos = data.filter(propriety => propriety.tipoRenda == "Serviços");
-      tipoRendaPresente = data.filter(propriety => propriety.tipoRenda == "Presente");
-      tipoRendaAluguel = data.filter(propriety => propriety.tipoRenda == "Aluguel");
-      tipoRendaOutros = data.filter(propriety => propriety.tipoRenda == "Outros");
-
-      // valores de cada tipo de renda
-      tipoRendaSalario.forEach(propriety => {
-        valoresRendaSalario.push(propriety.valorRenda)
-
-        dataRendaSalario.push(new Date(propriety.dataRenda + horario).toLocaleString('default', { month: 'long' }))
-
-        if (valoresRendaSalario != null) {
-          somaTotalRendaSalario = valoresRendaSalario.reduce((a, b) => a + b);
-        }
-      });
-
-      tipoRendaServicos.forEach(propriety => {
-        valoresRendaServicos.push(propriety.valorRenda)
-
-        dataRendaServicos.push(new Date(propriety.dataRenda + horario).toLocaleString('default', { month: 'long' }))
-
-        if (valoresRendaServicos != null) {
-          somaTotalRendaServicos = valoresRendaServicos.reduce((a, b) => a + b);
-        }
-      });
-      tipoRendaPresente.forEach(propriety => {
-        valoresRendaPresente.push(propriety.valorRenda)
-
-        dataRendaPresente.push(new Date(propriety.dataRenda + horario).toLocaleString('default', { month: 'long' }))
-
-        if (valoresRendaPresente != null) {
-          somaTotalRendaPresente = valoresRendaPresente.reduce((a, b) => a + b);
-        }
-      });
-      tipoRendaAluguel.forEach(propriety => {
-        valoresRendaAluguel.push(propriety.valorRenda)
-
-        dataRendaAluguel.push(new Date(propriety.dataRenda + horario).toLocaleString('default', { month: 'long' }))
-
-        if (valoresRendaAluguel != null) {
-          somaTotalRendaAluguel = valoresRendaAluguel.reduce((a, b) => a + b);
-        }
-      });
-      tipoRendaOutros.forEach(propriety => {
-        valoresRendaOutros.push(propriety.valorRenda)
-
-        dataRendaOutros.push(new Date(propriety.dataRenda + horario).toLocaleString('default', { month: 'long' }))
-
-        if (valoresRendaOutros != null) {
-          somaTotalRendaOutros = valoresRendaOutros.reduce((a, b) => a + b);
-        }
-      });
-
-      // Não duplicar os meses vindo dos registros
-      dataRendaSalario = dataRendaSalario.filter(function (elem, index, self) {
-        return index === self.indexOf(elem);
-      });
-
-      let rendaSalario =
-        [{
-
-          mes: dataRendaSalario,
-          tipo: tipoRendaSalario[0] !== undefined ? tipoRendaSalario[0].tipoRenda : [],
-          somaTotal: somaTotalRendaSalario,
-          valores: valoresRendaSalario
-        }]
-
-      let rendaServicos =
-        [{
-          mes: dataRendaServicos,
-          tipo: tipoRendaServicos[0] !== undefined ? tipoRendaServicos[0].tipoRenda : [],
-          somaTotal: somaTotalRendaServicos,
-          valores: valoresRendaServicos
-        }]
-
-      let rendaPresente =
-        [{
-          mes: dataRendaPresente,
-          tipo: tipoRendaPresente[0] !== undefined ? tipoRendaPresente[0].tipoRenda : [],
-          somaTotal: somaTotalRendaPresente,
-          valores: valoresRendaPresente
-        }]
-
-      let rendaAluguel =
-        [{
-          mes: dataRendaAluguel,
-          tipo: tipoRendaAluguel[0] !== undefined ? tipoRendaAluguel[0].tipoRenda : [],
-          somaTotal: somaTotalRendaAluguel,
-          valores: valoresRendaAluguel
-        }]
-
-      let rendaOutros =
-        [{
-          mes: dataRendaOutros,
-          tipo: tipoRendaOutros[0] !== undefined ? tipoRendaOutros[0].tipoRenda : [],
-          somaTotal: somaTotalRendaOutros,
-          valores: valoresRendaOutros
-        }]
-      let rendaTodosTipo: any[] = []
-      let rendaTodosMes = rendaSalario[0].mes.concat(rendaServicos[0].mes, rendaPresente[0].mes, rendaAluguel[0].mes, rendaOutros[0].mes)
-
-      rendaTodosMes = rendaTodosMes.filter(function (elem, index, self) {
-        return index === self.indexOf(elem);
-      });
-
-      rendaTodosTipo = [rendaSalario[0].tipo, rendaServicos[0].tipo, rendaPresente[0].tipo, rendaAluguel[0].tipo, rendaOutros[0].tipo]
-
-      rendaTodosTipo = rendaTodosTipo.filter(function (el: any) {
-        return el.length !== 0 && el != 'Outros'
-      })
-
-      let rendaTodosSomaTotal = [rendaSalario[0].somaTotal, rendaServicos[0].somaTotal, rendaPresente[0].somaTotal, rendaAluguel[0].somaTotal, rendaOutros[0].somaTotal]
-
-      rendaTodosSomaTotal = rendaTodosSomaTotal.filter(function (el: any) {
-        return el.length !== 0
-      })
-
-      let rendaTodosValores = [rendaSalario[0].valores, rendaServicos[0].valores, rendaPresente[0].valores, rendaAluguel[0].valores, rendaOutros[0].valores]
-      rendaTodosValores = rendaTodosValores.filter(function (el: any) {
-        return el.length !== 0
-      })
-
-
-      let todosMeses = [
-      rendaJan !== undefined ? rendaJan : []
-      ,rendaFev !== undefined ? rendaFev : []
-      ,rendaAbr !== undefined ? rendaAbr : []
-      ,rendaMar !== undefined ? rendaMar : []
-      ,rendaMay !== undefined ? rendaMay : []
-      ,rendaJun !== undefined ? rendaJun : []
-      ,rendaJul !== undefined ? rendaJul : []
-      ,rendaAgu !== undefined ? rendaAgu : []
-      ,rendaSet !== undefined ? rendaSet : []
-      ,rendaOut !== undefined ? rendaOut : []
-      ,rendaNov !== undefined ? rendaNov : []
-      ,rendaDez !== undefined ? rendaDez : []
+      
+      // Pegar todos os dados de renda
+      let allDatas = res.map((el) => el.payload.doc.data())
+
+      // Meses
+      let allValuesDate = res.map((el) => new Date(el.payload.doc.data().dataRenda + horario).toLocaleString('default', { month: 'long' }));
+      let uniqueDates = allValuesDate.filter((el, i) => allValuesDate.indexOf(el) === i)
+
+      // Aluguel
+      // Traz os dados de aluguel de janeiro e a soma total do valores
+      let janRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'janeiro')
+      let sumValuesRentJan = janRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de fevereiro e a soma total do valores
+      let FevRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'fevereiro')
+      let sumValuesRentFev = FevRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de março e a soma total do valores
+      let marRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'março')
+      let sumValuesRentMar = marRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de abril e a soma total do valores
+      let abrRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'abril')
+      let sumValuesRentAbr = abrRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de maio e a soma total do valores
+      let mayRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'maio')
+      let sumValuesRentMay = mayRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de junho e a soma total do valores
+      let junRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'junho')
+      let sumValuesRentJun = junRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de julho e a soma total do valores
+      let julRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'julho')
+      let sumValuesRentJul = julRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de agosto e a soma total do valores
+      let agoRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'agosto')
+      let sumValuesRentAgo = agoRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de setembro e a soma total do valores
+      let setRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'setembro')
+      let sumValuesRentSet = setRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de outubro e a soma total do valores
+      let outRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'outubro')
+      let sumValuesRentOut = outRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de novembro e a soma total do valores
+      let novRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'novembro')
+      let sumValuesRentNov = novRent.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de aluguel de dezembro e a soma total do valores
+      let dezRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'dezembro')
+      let sumValuesRentDez = dezRent.reduce((total, el) => total + el.valorRenda, 0)
+
+
+      // Salario
+      // Traz os dados de salario de janeiro e a soma total do valores
+      let janSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'janeiro')
+      let sumValuesSalaryJan = janSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de fevereiro e a soma total do valores
+      let FevSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'fevereiro')
+      let sumValuesSalaryFev = FevSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de março e a soma total do valores
+      let marSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'março')
+      let sumValuesSalaryMar = marSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de abril e a soma total do valores
+      let abrSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'abril')
+      let sumValuesSalaryAbr = abrSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de maio e a soma total do valores
+      let maySalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'maio')
+      let sumValuesSalaryMay = maySalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de junho e a soma total do valores
+      let junSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'junho')
+      let sumValuesSalaryJun = junSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de julho e a soma total do valores
+      let julSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'julho')
+      let sumValuesSalaryJul = julSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de agosto e a soma total do valores
+      let agoSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'agosto')
+      let sumValuesSalaryAgo = agoSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de setembro e a soma total do valores
+      let setSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'setembro')
+      let sumValuesSalarySet = setSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de outubro e a soma total do valores
+      let outSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'outubro')
+      let sumValuesSalaryOut = outSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de novembro e a soma total do valores
+      let novSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'novembro')
+      let sumValuesSalaryNov = novSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Salário de dezembro e a soma total do valores
+      let dezSalary = allDatas.filter((el, i) => el.tipoRenda === "Salário" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'dezembro')
+      let sumValuesSalaryDez = dezSalary.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Presente
+      // Traz os dados de Presente de janeiro e a soma total do valores
+      let janGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'janeiro')
+      let sumValuesGiftJan = janGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de fevereiro e a soma total do valores
+      let FevGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'fevereiro')
+      let sumValuesGiftFev = FevGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de março e a soma total do valores
+      let marGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'março')
+      let sumValuesGiftMar = marGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de abril e a soma total do valores
+      let abrGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'abril')
+      let sumValuesGiftAbr = abrGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de maio e a soma total do valores
+      let mayGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'maio')
+      let sumValuesGiftMay = mayGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de junho e a soma total do valores
+      let junGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'junho')
+      let sumValuesGiftJun = junGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de julho e a soma total do valores
+      let julGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'julho')
+      let sumValuesGiftJul = julGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de agosto e a soma total do valores
+      let agoGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'agosto')
+      let sumValuesGiftAgo = agoGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de setembro e a soma total do valores
+      let setGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'setembro')
+      let sumValuesGiftSet = setGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de outubro e a soma total do valores
+      let outGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'outubro')
+      let sumValuesGiftOut = outGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de novembro e a soma total do valores
+      let novGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'novembro')
+      let sumValuesGiftNov = novGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Presente de dezembro e a soma total do valores
+      let dezGift = allDatas.filter((el, i) => el.tipoRenda === "Presente" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'dezembro')
+      let sumValuesGiftDez = dezGift.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Serviços
+      // Traz os dados de Serviços de janeiro e a soma total do valores
+      let janServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'janeiro')
+      let sumValuesServicesJan = janServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de fevereiro e a soma total do valores
+      let FevServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'fevereiro')
+      let sumValuesServicesFev = FevServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de março e a soma total do valores
+      let marServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'março')
+      let sumValuesServicesMar = marServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de abril e a soma total do valores
+      let abrServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'abril')
+      let sumValuesServicesAbr = abrServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de maio e a soma total do valores
+      let mayServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'maio')
+      let sumValuesServicesMay = mayServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de junho e a soma total do valores
+      let junServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'junho')
+      let sumValuesServicesJun = junServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de julho e a soma total do valores
+      let julServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'julho')
+      let sumValuesServicesJul = julServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de agosto e a soma total do valores
+      let agoServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'agosto')
+      let sumValuesServicesAgo = agoServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de setembro e a soma total do valores
+      let setServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'setembro')
+      let sumValuesServicesSet = setServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de outubro e a soma total do valores
+      let outServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'outubro')
+      let sumValuesServicesOut = outServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de novembro e a soma total do valores
+      let novServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'novembro')
+      let sumValuesServicesNov = novServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Serviços de dezembro e a soma total do valores
+      let dezServices = allDatas.filter((el, i) => el.tipoRenda === "Serviços" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'dezembro')
+      let sumValuesServicesDez = dezServices.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Outros
+      // Traz os dados de Outros de janeiro e a soma total do valores
+      let janOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'janeiro')
+      let sumValuesOthesJan = janOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de fevereiro e a soma total do valores
+      let FevOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'fevereiro')
+      let sumValuesOthesFev = FevOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de março e a soma total do valores
+      let marOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'março')
+      let sumValuesOthesMar = marOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de abril e a soma total do valores
+      let abrOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'abril')
+      let sumValuesOthesAbr = abrOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de maio e a soma total do valores
+      let mayOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'maio')
+      let sumValuesOthesMay = mayOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de junho e a soma total do valores
+      let junOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'junho')
+      let sumValuesOthesJun = junOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de julho e a soma total do valores
+      let julOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'julho')
+      let sumValuesOthesJul = julOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de agosto e a soma total do valores
+      let agoOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'agosto')
+      let sumValuesOthesAgo = agoOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de setembro e a soma total do valores
+      let setOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'setembro')
+      let sumValuesOthesSet = setOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de outubro e a soma total do valores
+      let outOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'outubro')
+      let sumValuesOthesOut = outOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de novembro e a soma total do valores
+      let novOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'novembro')
+      let sumValuesOthesNov = novOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      // Traz os dados de Outros de dezembro e a soma total do valores
+      let dezOthes = allDatas.filter((el, i) => el.tipoRenda === "Outros" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'dezembro')
+      let sumValuesOthesDez = dezOthes.reduce((total, el) => total + el.valorRenda, 0)
+
+      let allMonthRentObj = [
+        { mes: 'janeiro', valor: sumValuesRentJan },
+        { mes: 'fevereiro', valor: sumValuesRentFev },
+        { mes: 'março', valor: sumValuesRentMar },
+        { mes: 'abril', valor: sumValuesRentAbr },
+        { mes: 'maio', valor: sumValuesRentMay },
+        { mes: 'junho', valor: sumValuesRentJun },
+        { mes: 'julho', valor: sumValuesRentJul },
+        { mes: 'agosto', valor: sumValuesRentAgo },
+        { mes: 'setembro', valor: sumValuesRentSet },
+        { mes: 'outubro', valor: sumValuesRentOut },
+        { mes: 'novembro', valor: sumValuesRentNov },
+        { mes: 'dezembro', valor: sumValuesRentDez }
       ]
 
+      let allMonthSalaryObj = [
+        { mes: 'janeiro', valor: sumValuesSalaryJan },
+        { mes: 'fevereiro', valor: sumValuesSalaryFev },
+        { mes: 'março', valor: sumValuesSalaryMar },
+        { mes: 'abril', valor: sumValuesSalaryAbr },
+        { mes: 'maio', valor: sumValuesSalaryMay },
+        { mes: 'junho', valor: sumValuesSalaryJun },
+        { mes: 'julho', valor: sumValuesSalaryJul },
+        { mes: 'agosto', valor: sumValuesSalaryAgo },
+        { mes: 'setembro', valor: sumValuesSalarySet },
+        { mes: 'outubro', valor: sumValuesSalaryOut },
+        { mes: 'novembro', valor: sumValuesSalaryNov },
+        { mes: 'dezembro', valor: sumValuesSalaryDez }
+      ]
 
-      // this.rendaTipo = {
-      //   mes: rendaTodosMes,
-      //   tipo: rendaTodosTipo !== undefined ? rendaTodosTipo : [],
-      //   somaTotal: rendaTodosSomaTotal,
-      //   valores: rendaTodosValores
+      let allMonthGiftObj = [
+        { mes: 'janeiro', valor: sumValuesGiftJan },
+        { mes: 'fevereiro', valor: sumValuesGiftFev },
+        { mes: 'março', valor: sumValuesGiftMar },
+        { mes: 'abril', valor: sumValuesGiftAbr },
+        { mes: 'maio', valor: sumValuesGiftMay },
+        { mes: 'junho', valor: sumValuesGiftJun },
+        { mes: 'julho', valor: sumValuesGiftJul },
+        { mes: 'agosto', valor: sumValuesGiftAgo },
+        { mes: 'setembro', valor: sumValuesGiftSet },
+        { mes: 'outubro', valor: sumValuesGiftOut },
+        { mes: 'novembro', valor: sumValuesGiftNov },
+        { mes: 'dezembro', valor: sumValuesGiftDez }
+      ]
 
-      // }
+      let allMonthServicesObj = [
+        { mes: 'janeiro', valor: sumValuesServicesJan },
+        { mes: 'fevereiro', valor: sumValuesServicesFev },
+        { mes: 'março', valor: sumValuesServicesMar },
+        { mes: 'abril', valor: sumValuesServicesAbr },
+        { mes: 'maio', valor: sumValuesServicesMay },
+        { mes: 'junho', valor: sumValuesServicesJun },
+        { mes: 'julho', valor: sumValuesServicesJul },
+        { mes: 'agosto', valor: sumValuesServicesAgo },
+        { mes: 'setembro', valor: sumValuesServicesSet },
+        { mes: 'outubro', valor: sumValuesServicesOut },
+        { mes: 'novembro', valor: sumValuesServicesNov },
+        { mes: 'dezembro', valor: sumValuesServicesDez }
+      ]
 
-      // this.rendaTipo = {
-      //   mesJan: rendaJan !== undefined ? rendaJan : [0],
-      //   mesFev: rendaFev !== undefined ? rendaFev : [0], 
-      //   mesAbr: rendaAbr !== undefined ? rendaAbr : [0], 
-      //   mesMar: rendaMar !== undefined ? rendaMar : [0],
-      //   mesMay: rendaMay !== undefined ? rendaMay : [0], 
-      //   mesJun: rendaJun !== undefined ? rendaJun : [0], 
-      //   mesJul: rendaJul !== undefined ? rendaJul : [0], 
-      //   mesAgu: rendaAgu !== undefined ? rendaAgu : [0], 
-      //   mesSet: rendaSet !== undefined ? rendaSet : [0], 
-      //   mesOut: rendaOut !== undefined ? rendaOut : [0],
-      //   mesNov: rendaNov !== undefined ? rendaNov : [0], 
-      //   mesDez:  rendaDez !== undefined ? rendaDez : [0]
-      // }
+      let allMonthOthesObj = [
+        { mes: 'janeiro', valor: sumValuesOthesJan },
+        { mes: 'fevereiro', valor: sumValuesOthesFev },
+        { mes: 'março', valor: sumValuesOthesMar },
+        { mes: 'abril', valor: sumValuesOthesAbr },
+        { mes: 'maio', valor: sumValuesOthesMay },
+        { mes: 'junho', valor: sumValuesOthesJun },
+        { mes: 'julho', valor: sumValuesOthesJul },
+        { mes: 'agosto', valor: sumValuesOthesAgo },
+        { mes: 'setembro', valor: sumValuesOthesSet },
+        { mes: 'outubro', valor: sumValuesOthesOut },
+        { mes: 'novembro', valor: sumValuesOthesNov },
+        { mes: 'dezembro', valor: sumValuesOthesDez }
+      ]
 
-      this.rendaTipo = {
-        mesJan: rendaJan ,
-        mesFev: rendaFev , 
-        mesAbr: rendaAbr , 
-        mesMar: rendaMar ,
-        mesMay: rendaMay , 
-        mesJun: rendaJun , 
-        mesJul: rendaJul , 
-        mesAgu: rendaAgu , 
-        mesSet: rendaSet , 
-        mesOut: rendaOut ,
-        mesNov: rendaNov , 
-        mesDez:  rendaDez 
+      let totalMonth: any[] = []
+      totalMonth.push(allMonthRentObj, allMonthSalaryObj, allMonthGiftObj, allMonthServicesObj, allMonthOthesObj)
+
+      // totalMonth.filter((el, k) => el[k].mes === )
+
+// console.log(totalMonth)
+
+      let monthSalary: any[] = [] 
+      let monthServices: any[] = [] 
+      let monthGift: any[] = [] 
+      let monthOthes: any[] = [] 
+      let monthRent: any[] = []
+      let totalValue: any[] = []
+
+      for (let index = 0; index < uniqueDates.length; index++) {
+        
+        allMonthRentObj.forEach((el) => {
+          if (el.mes === uniqueDates[index]) {
+            monthRent.push(el.valor)
+          }
+          
+        })
+
+        allMonthSalaryObj.forEach((el) => {
+          if (el.mes === uniqueDates[index]) {
+            monthSalary.push(el.valor)
+          }
+          
+        })
+
+        allMonthGiftObj.forEach((el) => {
+          if (el.mes === uniqueDates[index]) {
+            monthGift.push(el.valor)
+          }
+          
+        })
+
+        allMonthServicesObj.forEach((el) => {
+          if (el.mes === uniqueDates[index]) {
+            monthServices.push(el.valor)
+          }
+          
+        })
+
+        allMonthOthesObj.forEach((el) => {
+          if (el.mes === uniqueDates[index]) {
+            monthOthes.push(el.valor)
+          }
+          
+        })
+//TODO ccontinuar fazendo o total
+       totalMonth.forEach((el, k) => {
+         if(el[k].mes === uniqueDates[index]){
+          totalValue.push(el[k].valor)
+         }
+         
+        })
       }
 
-      // console.log(
-      //   rendaJan !== undefined ? rendaJan : null,
-      //   rendaFev !== undefined ? rendaFev : null, 
-      //   rendaAbr !== undefined ? rendaAbr : null, 
-      //   rendaMar !== undefined ? rendaMar : null,
-      //   rendaMay !== undefined ? rendaMar : null, 
-      //   rendaJun !== undefined ? rendaJun : null, 
-      //   rendaJul !== undefined ? rendaJul : null, 
-      //   rendaAgu !== undefined ? rendaAgu : null, 
-      //   rendaSet !== undefined ? rendaSet : null, 
-      //   rendaOut !== undefined ? rendaOut : null,
-      //   rendaNov !== undefined ? rendaNov : null, 
-      //    rendaDez !== undefined ? rendaDez : null
-      // )
+      console.warn(totalValue)
 
-      // console.log(this.rendaTipo)
-      // console.warn(rendaTodosMes)
-      // console.warn(rendaTodosTipo)
-      // console.warn(rendaTodosSomaTotal)
-      // console.warn(rendaTodosValores)
-      // console.warn(this.rendaTipo)
-      // console.warn(rendaTodosSomaTotal)
-      // console.info(this.rendaTipo[0].mes)
-
-
-      Object.keys(this.rendaTipo).forEach((key) => (this.rendaTipo[key] == null || this.rendaTipo[key] == undefined) && delete this.rendaTipo[key]);
-      console.log(this.rendaTipo)
-
-      // Soma de todos os valores das rendas
-      for (let i = 0; i < todosMeses.length; i++) {
-        console.log(
-          this.rendaTipo.mesJan
-          // this.rendaTipo.mesJan[i].mes !== undefined ? this.rendaTipo.mesJan[i].mes : null, 
-          // this.rendaTipo.mesFev[i].mes !== undefined ? this.rendaTipo.mesFev[i].mes : null,
-          // this.rendaTipo.mesMar[i].mes !== undefined ? this.rendaTipo.mesMar[i].mes : null,
-          // this.rendaTipo.mesAbr[i].mes !== undefined ? this.rendaTipo.mesAbr[i].mes : null,
-          // this.rendaTipo.mesMay[i].mes !== undefined ? this.rendaTipo.mesMay[i].mes : null,
-          // this.rendaTipo.mesJun[i].mes !== undefined ? this.rendaTipo.mesJun[i].mes : null,
-          // this.rendaTipo.mesJul[i].mes !== undefined ? this.rendaTipo.mesJul[i].mes : null,
-          // this.rendaTipo.mesAgu[i].mes !== undefined ? this.rendaTipo.mesAgu[i].mes : null,
-          // this.rendaTipo.mesSet[i].mes !== undefined ? this.rendaTipo.mesSet[i].mes : null,
-          // this.rendaTipo.mesOut[i].mes !== undefined ? this.rendaTipo.mesOut[i].mes : null,
-          // this.rendaTipo.mesNov[i].mes !== undefined ? this.rendaTipo.mesNov[i].mes : null,
-          // this.rendaTipo.mesDez[i].mes !== undefined ? this.rendaTipo.mesDez[i].mes : null
-          )
       this.chartOption = {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow'
+            // Use axis to trigger tooltip
+            type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
           }
         },
         legend: {},
@@ -707,98 +437,94 @@ export class IncomeGraphComponent implements OnInit {
           bottom: '3%',
           containLabel: true
         },
-        xAxis: [
-          {
-            type: 'category',
-            data: [
-              // 'mesJan' in this.rendaTipo ? this.rendaTipo.mesJan[i].mes : null,
-              // 'mesAbr' in this.rendaTipo ? this.rendaTipo.mesAbr[i].mes : null
-
-              // this.rendaTipo.mesJan[i].mes !== undefined ? this.rendaTipo.mesJan[i].mes : null, 
-          // this.rendaTipo.mesFev[i].mes !== undefined ? this.rendaTipo.mesFev[i].mes : null,
-          // this.rendaTipo.mesMar[i].mes !== undefined ? this.rendaTipo.mesMar[i].mes : null,
-          // this.rendaTipo.mesAbr[i].mes !== undefined ? this.rendaTipo.mesAbr[i].mes : null,
-          // this.rendaTipo.mesMay[i].mes !== undefined ? this.rendaTipo.mesMay[i].mes : null,
-          // this.rendaTipo.mesJun[i].mes !== undefined ? this.rendaTipo.mesJun[i].mes : null,
-          // this.rendaTipo.mesJul[i].mes !== undefined ? this.rendaTipo.mesJul[i].mes : null,
-          // this.rendaTipo.mesAgu[i].mes !== undefined ? this.rendaTipo.mesAgu[i].mes : null,
-          // this.rendaTipo.mesSet[i].mes !== undefined ? this.rendaTipo.mesSet[i].mes : null,
-          // this.rendaTipo.mesOut[i].mes !== undefined ? this.rendaTipo.mesOut[i].mes : null,
-          // this.rendaTipo.mesNov[i].mes !== undefined ? this.rendaTipo.mesNov[i].mes : null,
-          // this.rendaTipo.mesDez[i].mes !== undefined ? this.rendaTipo.mesDez[i].mes : null
-            ]
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
+        xAxis: {
+          type: 'value'
+        },
+        yAxis: {
+          type: 'category',
+          data: uniqueDates
+        },
         series: [
           {
-            name: 'Todo',
+            name: 'Total',
             type: 'bar',
+            stack: 'total',
+            label: {
+              show: true
+            },
             emphasis: {
               focus: 'series'
             },
-            data: [0] //total de cada
+            // TODO Se não encontrar nenhum somaValorRenda coloque 0
+            // 320 = setembro | 302 = outubro
+            data: [0, 0]
           },
           {
-            name: [0],
+            name: 'Salário',
             type: 'bar',
-            stack: 'Ad',
+            stack: 'total',
+            label: {
+              show: true
+            },
             emphasis: {
               focus: 'series'
             },
-            data: [0]
+            data: monthSalary
           },
           {
-            name: [0],
+            name: 'Serviços',
             type: 'bar',
-            stack: 'Ad',
+            stack: 'total',
+            label: {
+              show: true
+            },
             emphasis: {
               focus: 'series'
             },
-            data: [0]
+            data: monthServices
           },
           {
-            name: [0],
+            name: 'Presente',
             type: 'bar',
-            stack: 'Ad',
+            stack: 'total',
+            label: {
+              show: true
+            },
             emphasis: {
               focus: 'series'
             },
-            data: [0]
+            data: monthGift
           },
           {
-            name: [0],
+            name: 'Aluguel',
             type: 'bar',
-            stack: 'Ad',
+            stack: 'total',
+            label: {
+              show: true
+            },
             emphasis: {
               focus: 'series'
             },
-            data: [0]
+            data: monthRent
           },
           {
-            name: [0],
+            name: 'Outros',
             type: 'bar',
-            stack: 'Search Engine',
+            stack: 'total',
+            label: {
+              show: true
+            },
             emphasis: {
               focus: 'series'
             },
-            data: [0]
+            data: monthOthes
           }
         ]
-      }
-    }
+      };
 
-      }
-    );
+
+    })
+
   }
-
-
-
-
-
-
 }
+
