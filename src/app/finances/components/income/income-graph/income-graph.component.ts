@@ -32,12 +32,26 @@ export class IncomeGraphComponent implements OnInit {
   getData() {
     let horario = "T00:00:00-0300"
     this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
-      
-      // Pegar todos os dados de renda
-      let allDatas = res.map((el) => el.payload.doc.data())
 
-      // Meses
-      let allValuesDate = res.map((el) => new Date(el.payload.doc.data().dataRenda + horario).toLocaleString('default', { month: 'long' }));
+      let allValuesDate: any[] = []
+
+      let allDatas = res.map((el: any) => {
+        // Pega o ano atual do usuário
+        let date = new Date()
+        let lastFullDay = new Date(date.getUTCFullYear(), 11 + 1, 0);
+        let lastDay = String(lastFullDay.getDate()).padStart(2, '0');
+        if(el.payload.doc.data().dataRenda >= date.getUTCFullYear() + '-01-01' && el.payload.doc.data().dataRenda <= date.getUTCFullYear() + '-12-'+lastDay){
+          
+          // Pega todos os meses entre o ano atual do usuário
+          allValuesDate.push(new Date(el.payload.doc.data().dataRenda + horario).toLocaleString('default', { month: 'long' }))
+          return el.payload.doc.data()
+        }
+      })
+      allDatas = allDatas.filter(function (i) {
+        return i;
+      });
+
+      // Retira o meses duplicados
       let uniqueDates = allValuesDate.filter((el, i) => allValuesDate.indexOf(el) === i)
 
       // Aluguel
@@ -88,7 +102,6 @@ export class IncomeGraphComponent implements OnInit {
       // Traz os dados de aluguel de dezembro e a soma total do valores
       let dezRent = allDatas.filter((el, i) => el.tipoRenda === "Aluguel" && new Date(el.dataRenda + horario).toLocaleString('default', { month: 'long' }) == 'dezembro')
       let sumValuesRentDez = dezRent.reduce((total, el) => total + el.valorRenda, 0)
-
 
       // Salario
       // Traz os dados de salario de janeiro e a soma total do valores
@@ -360,68 +373,106 @@ export class IncomeGraphComponent implements OnInit {
         { mes: 'novembro', valor: sumValuesOthesNov },
         { mes: 'dezembro', valor: sumValuesOthesDez }
       ]
-
+      
+      // Junta todos os valores de cada renda em um so array
       let totalMonth: any[] = []
       totalMonth.push(allMonthRentObj, allMonthSalaryObj, allMonthGiftObj, allMonthServicesObj, allMonthOthesObj)
 
-      // totalMonth.filter((el, k) => el[k].mes === )
-
-// console.log(totalMonth)
-
-      let monthSalary: any[] = [] 
-      let monthServices: any[] = [] 
-      let monthGift: any[] = [] 
-      let monthOthes: any[] = [] 
+      let monthSalary: any[] = []
+      let monthServices: any[] = []
+      let monthGift: any[] = []
+      let monthOthes: any[] = []
       let monthRent: any[] = []
       let totalValue: any[] = []
 
+      // Adiciona os valores em um array de cada tipo de renda
       for (let index = 0; index < uniqueDates.length; index++) {
-        
+
         allMonthRentObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
             monthRent.push(el.valor)
           }
-          
+
         })
 
         allMonthSalaryObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
             monthSalary.push(el.valor)
           }
-          
+
         })
 
         allMonthGiftObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
             monthGift.push(el.valor)
           }
-          
+
         })
 
         allMonthServicesObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
             monthServices.push(el.valor)
           }
-          
+
         })
 
         allMonthOthesObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
             monthOthes.push(el.valor)
           }
-          
+
         })
-//TODO ccontinuar fazendo o total
-       totalMonth.forEach((el, k) => {
-         if(el[k].mes === uniqueDates[index]){
-          totalValue.push(el[k].valor)
-         }
-         
-        })
+        
+        // Adiciona os valores nos meses que existem
+        for (let i = 0; i < totalMonth.length; i++) {
+          for (let j = 0; j < totalMonth[i].length; j++) {
+
+            if (totalMonth[i][j].mes === uniqueDates[index] && totalMonth[i][j].valor != 0) {
+
+              totalValue.push(totalMonth[i][j])
+
+            }
+
+          }
+
+        }
+
       }
+      // Filtra os valores de cada mes
+      let valueJan = totalValue.filter(el => el.mes === 'janeiro')
+      let valueFev = totalValue.filter(el => el.mes === 'fevereiro')
+      let valueMar = totalValue.filter(el => el.mes === 'março')
+      let valueAbr = totalValue.filter(el => el.mes === 'abril')
+      let valueMay = totalValue.filter(el => el.mes === 'maio')
+      let valueJun = totalValue.filter(el => el.mes === 'junho')
+      let valueJul = totalValue.filter(el => el.mes === 'julho')
+      let valueAgo = totalValue.filter(el => el.mes === 'agosto')
+      let valueSet = totalValue.filter(el => el.mes === 'setembro')
+      let valueOut = totalValue.filter(el => el.mes === 'outubro')
+      let valueNov = totalValue.filter(el => el.mes === 'novembro')
+      let valueDez = totalValue.filter(el => el.mes === 'dezembro')
 
-      console.warn(totalValue)
 
+      // Pega os valores do meses e traz o total
+      let totalValueMonth = [
+        valueJan.reduce((total, valor) => total + valor.valor, 0),
+        valueFev.reduce((total, valor) => total + valor.valor, 0),
+        valueMar.reduce((total, valor) => total + valor.valor, 0),
+        valueAbr.reduce((total, valor) => total + valor.valor, 0),
+        valueMay.reduce((total, valor) => total + valor.valor, 0),
+        valueJun.reduce((total, valor) => total + valor.valor, 0),
+        valueJul.reduce((total, valor) => total + valor.valor, 0),
+        valueAgo.reduce((total, valor) => total + valor.valor, 0),
+        valueSet.reduce((total, valor) => total + valor.valor, 0),
+        valueOut.reduce((total, valor) => total + valor.valor, 0),
+        valueNov.reduce((total, valor) => total + valor.valor, 0),
+        valueDez.reduce((total, valor) => total + valor.valor, 0)
+      ];
+
+      // Tira os zeros vindo dos meses que não tiverem valor no reduce
+      totalValue = totalValueMonth.filter(el => el != 0)
+
+      // Gráfico de barra
       this.chartOption = {
         tooltip: {
           trigger: 'axis',
@@ -455,9 +506,7 @@ export class IncomeGraphComponent implements OnInit {
             emphasis: {
               focus: 'series'
             },
-            // TODO Se não encontrar nenhum somaValorRenda coloque 0
-            // 320 = setembro | 302 = outubro
-            data: [0, 0]
+            data: totalValue
           },
           {
             name: 'Salário',
