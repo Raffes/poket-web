@@ -1,35 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/services/auth.service';
-import { Income } from 'src/app/finances/modal/income';
 import { IncomeService } from 'src/app/finances/services/income.service';
-import { ModalWalletCrudService } from 'src/app/finances/services/wallet-crud-modal.service';
-import { WalletService } from 'src/app/finances/services/wallet.service';
+
 @Component({
-  selector: 'app-income-graph',
-  templateUrl: './income-graph.component.html',
-  styleUrls: ['./income-graph.component.css']
+  selector: 'app-income-bar-graph',
+  templateUrl: './income-bar-graph.component.html',
+  styleUrls: ['./income-bar-graph.component.css']
 })
-export class IncomeGraphComponent implements OnInit {
-  Income: any;
-  valor: any
-  allValues: {} = {}
-  quantidadeRegistro: any
-  tiposRendaDados: any[] = []
-  chartOption: any
+export class IncomeBarGraphComponent implements OnInit {
+
+  barGraphIncome: any
 
   constructor(
-    public walletService: WalletService,
     public incomeService: IncomeService,
-    public ModalWalletService: ModalWalletCrudService,
     public authService: AuthService,
-    public formBuilder: FormBuilder
   ) { }
+
   ngOnInit(): void {
-    this.getData()
+    this.getBarGraphIncome()
   }
 
-  getData() {
+  getBarGraphIncome() {
+    let dateValues: any[] = []
     let horario = "T00:00:00-0300"
     this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
 
@@ -40,19 +32,31 @@ export class IncomeGraphComponent implements OnInit {
         let date = new Date()
         let lastFullDay = new Date(date.getUTCFullYear(), 11 + 1, 0);
         let lastDay = String(lastFullDay.getDate()).padStart(2, '0');
-        if(el.payload.doc.data().dataRenda >= date.getUTCFullYear() + '-01-01' && el.payload.doc.data().dataRenda <= date.getUTCFullYear() + '-12-'+lastDay){
-          
+        if (el.payload.doc.data().dataRenda >= date.getUTCFullYear() + '-01-01' && el.payload.doc.data().dataRenda <= date.getUTCFullYear() + '-12-' + lastDay) {
+
           // Pega todos os meses entre o ano atual do usuário
-          allValuesDate.push(new Date(el.payload.doc.data().dataRenda + horario).toLocaleString('default', { month: 'long' }))
+          dateValues.push(new Date(el.payload.doc.data().dataRenda + horario).getMonth()+1)
+          
+          // Organizar os meses em ordem numérica
+          allValuesDate = dateValues.sort(function(a ,b){ return a - b});
+
           return el.payload.doc.data()
         }
       })
+      
+      // Converter os números de meses pelo nome dele
+      allValuesDate = allValuesDate.map((el) => { 
+        return new Date("0"+el).toLocaleString('default', { month: 'long' }) 
+      })
+
+      // Filtrar os dados sem ter dados undefined 
       allDatas = allDatas.filter(function (i) {
         return i;
       });
 
       // Retira o meses duplicados
       let uniqueDates = allValuesDate.filter((el, i) => allValuesDate.indexOf(el) === i)
+      // console.log(uniqueDates)
 
       // Aluguel
       // Traz os dados de aluguel de janeiro e a soma total do valores
@@ -373,7 +377,7 @@ export class IncomeGraphComponent implements OnInit {
         { mes: 'novembro', valor: sumValuesOthesNov },
         { mes: 'dezembro', valor: sumValuesOthesDez }
       ]
-      
+
       // Junta todos os valores de cada renda em um so array
       let totalMonth: any[] = []
       totalMonth.push(allMonthRentObj, allMonthSalaryObj, allMonthGiftObj, allMonthServicesObj, allMonthOthesObj)
@@ -384,19 +388,23 @@ export class IncomeGraphComponent implements OnInit {
       let monthOthes: any[] = []
       let monthRent: any[] = []
       let totalValue: any[] = []
-
+      let monthGraph: any[] = []
+      // TODO tira os monthGraph
       // Adiciona os valores em um array de cada tipo de renda
       for (let index = 0; index < uniqueDates.length; index++) {
 
         allMonthRentObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
+            monthGraph.push(el.mes)
             monthRent.push(el.valor)
+
           }
 
         })
 
         allMonthSalaryObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
+            monthGraph.push(el.mes)
             monthSalary.push(el.valor)
           }
 
@@ -404,6 +412,7 @@ export class IncomeGraphComponent implements OnInit {
 
         allMonthGiftObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
+            monthGraph.push(el.mes)
             monthGift.push(el.valor)
           }
 
@@ -411,6 +420,7 @@ export class IncomeGraphComponent implements OnInit {
 
         allMonthServicesObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
+            monthGraph.push(el.mes)
             monthServices.push(el.valor)
           }
 
@@ -418,11 +428,12 @@ export class IncomeGraphComponent implements OnInit {
 
         allMonthOthesObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
+            monthGraph.push(el.mes)
             monthOthes.push(el.valor)
           }
 
         })
-        
+
         // Adiciona os valores nos meses que existem
         for (let i = 0; i < totalMonth.length; i++) {
           for (let j = 0; j < totalMonth[i].length; j++) {
@@ -438,6 +449,11 @@ export class IncomeGraphComponent implements OnInit {
         }
 
       }
+
+      // Tira os valores duplicados e organiza
+      // monthGraph = monthGraph.filter((el, i) => monthGraph.indexOf(el) === i)
+
+      // console.log(monthGraph)
       // Filtra os valores de cada mes
       let valueJan = totalValue.filter(el => el.mes === 'janeiro')
       let valueFev = totalValue.filter(el => el.mes === 'fevereiro')
@@ -451,7 +467,6 @@ export class IncomeGraphComponent implements OnInit {
       let valueOut = totalValue.filter(el => el.mes === 'outubro')
       let valueNov = totalValue.filter(el => el.mes === 'novembro')
       let valueDez = totalValue.filter(el => el.mes === 'dezembro')
-
 
       // Pega os valores do meses e traz o total
       let totalValueMonth = [
@@ -472,13 +487,11 @@ export class IncomeGraphComponent implements OnInit {
       // Tira os zeros vindo dos meses que não tiverem valor no reduce
       totalValue = totalValueMonth.filter(el => el != 0)
 
-      // Gráfico de barra
-      this.chartOption = {
+      this.barGraphIncome = {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            // Use axis to trigger tooltip
-            type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+            type: 'shadow'
           }
         },
         legend: {},
@@ -488,33 +501,22 @@ export class IncomeGraphComponent implements OnInit {
           bottom: '3%',
           containLabel: true
         },
-        xAxis: {
-          type: 'value'
-        },
-        yAxis: {
-          type: 'category',
-          data: uniqueDates
-        },
-        series: [
+        xAxis: [
           {
-            name: 'Total',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            data: totalValue
-          },
+            type: 'category',
+            data: uniqueDates
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
           {
             name: 'Salário',
             type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
-            },
+            stack: 'Ad',
             emphasis: {
               focus: 'series'
             },
@@ -523,10 +525,7 @@ export class IncomeGraphComponent implements OnInit {
           {
             name: 'Serviços',
             type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
-            },
+            stack: 'Ad',
             emphasis: {
               focus: 'series'
             },
@@ -535,10 +534,7 @@ export class IncomeGraphComponent implements OnInit {
           {
             name: 'Presente',
             type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
-            },
+            stack: 'Ad',
             emphasis: {
               focus: 'series'
             },
@@ -547,10 +543,7 @@ export class IncomeGraphComponent implements OnInit {
           {
             name: 'Aluguel',
             type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
-            },
+            stack: 'Ad',
             emphasis: {
               focus: 'series'
             },
@@ -559,15 +552,28 @@ export class IncomeGraphComponent implements OnInit {
           {
             name: 'Outros',
             type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
-            },
+            stack: 'Ad',
             emphasis: {
               focus: 'series'
             },
             data: monthOthes
-          }
+          },
+          {
+            name: 'Total',
+            type: 'bar',
+            barWidth: 5,
+            data: totalValue,
+            emphasis: {
+              focus: 'series'
+            },
+            markLine: {
+              lineStyle: {
+                type: 'dashed'
+              },
+              data: [{ type: 'max' }]
+            }
+          },
+
         ]
       };
 
@@ -576,4 +582,3 @@ export class IncomeGraphComponent implements OnInit {
 
   }
 }
-

@@ -35,7 +35,6 @@ import { UpdateNicknameModalComponent } from './users/containers/update-nickname
 import { UpdateEmailModalComponent } from './users/containers/update-email-modal/update-email-modal.component';
 import { DeleteUserModalComponent } from './users/containers/delete-user-modal/delete-user-modal.component';
 import { UpdatePasswordModalComponent } from './users/containers/update-password-modal/update-password-modal.component';
-import { IncomeGraphComponent } from './finances/components/income/income-graph/income-graph.component';
 import { IncomeHistoryComponent } from './finances/components/income/income-history/income-history.component';
 import { IncomeComponent } from './finances/components/income/income/income.component';
 import { CreateIncomeModalComponent } from './finances/containers/income-crud-modal/create-income-modal/create-income-modal.component';
@@ -45,7 +44,6 @@ import { EditIncomeModalComponent } from './finances/containers/income-crud-moda
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ExpenseComponent } from './finances/components/expense/expense/expense.component';
-import { ExpenseGraphComponent } from './finances/components/expense/expense-graph/expense-graph.component';
 import { ExpenseHistoryComponent } from './finances/components/expense/expense-history/expense-history.component';
 import { CreateExpenseModalComponent } from './finances/containers/expense-crud-modal/create-expense-modal/create-expense-modal.component';
 import { DeleteExpenseModalComponent } from './finances/containers/expense-crud-modal/delete-expense-modal/delete-expense-modal.component';
@@ -56,6 +54,12 @@ import { EditFinancialPlanningModalComponent } from './finances/containers/finan
 import { FinancialPlanningHistoryComponent } from './finances/components/financial-planning/financial-planning-history/financial-planning-history.component';
 import { AddValueFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/add-value-financial-planning-modal/add-value-financial-planning-modal.component';
 import { DeleteValueFinancialPlanningModalComponent } from './finances/containers/financial-planning-crud-modal/delete-value-financial-planning-modal/delete-value-financial-planning-modal.component';
+import { IncomeBarGraphComponent } from './finances/containers/graphics/income/income-bar-graph/income-bar-graph.component';
+import { IncomePieGraphComponent } from './finances/containers/graphics/income/income-pie-graph/income-pie-graph.component';
+import { ExpenseBarGraphComponent } from './finances/containers/graphics/expense/expense-bar-graph/expense-bar-graph.component';
+import { ExpensePieGraphComponent } from './finances/containers/graphics/expense/expense-pie-graph/expense-pie-graph.component';
+import { ExpenseIncomeBarGraphComponent } from './finances/containers/graphics/dashboard/expense-income-bar-graph/expense-income-bar-graph.component';
+
 
 registerLocaleData(localePt)
 
@@ -79,14 +83,12 @@ registerLocaleData(localePt)
     UpdateEmailModalComponent,
     DeleteUserModalComponent,
     UpdatePasswordModalComponent,
-    IncomeGraphComponent,
     IncomeHistoryComponent,
     IncomeComponent,
     CreateIncomeModalComponent,
     DeleteIncomeModalComponent,
     EditIncomeModalComponent,
     ExpenseComponent,
-    ExpenseGraphComponent,
     ExpenseHistoryComponent,
     CreateExpenseModalComponent,
     DeleteExpenseModalComponent,
@@ -97,6 +99,11 @@ registerLocaleData(localePt)
     FinancialPlanningHistoryComponent,
     AddValueFinancialPlanningModalComponent,
     DeleteValueFinancialPlanningModalComponent,
+    IncomeBarGraphComponent,
+    IncomePieGraphComponent,
+    ExpenseBarGraphComponent,
+    ExpensePieGraphComponent,
+    ExpenseIncomeBarGraphComponent,
   ],
   imports: [
     BrowserModule,

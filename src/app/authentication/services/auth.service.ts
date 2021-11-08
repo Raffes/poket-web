@@ -179,6 +179,18 @@ deleteUser(uid: any) {
       .collection(uid).doc()
       .delete()
 
+      this.angFireStore.collection("despesas").doc(uid)
+      .collection(uid).doc()
+      .delete()
+
+      this.angFireStore.collection("rendas").doc(uid)
+      .collection(uid).doc()
+      .delete()
+
+      this.angFireStore.collection("planejamentoFinanceiro").doc(uid)
+      .collection(uid).doc()
+      .delete()
+
     }).catch((error) => {
       console.warn("Deu ruim", error)
     })

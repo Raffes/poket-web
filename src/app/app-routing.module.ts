@@ -6,15 +6,18 @@ import { VerifyEmailComponent } from './authentication/components/verify-email/v
 import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { AuthGuard } from './authentication/services/auth.guard';
 import { DashboardComponent } from './finances/components/dashboard/dashboard.component';
-import { ExpenseGraphComponent } from './finances/components/expense/expense-graph/expense-graph.component';
 import { ExpenseHistoryComponent } from './finances/components/expense/expense-history/expense-history.component';
 import { ExpenseComponent } from './finances/components/expense/expense/expense.component';
 import { FinancialPlanningHistoryComponent } from './finances/components/financial-planning/financial-planning-history/financial-planning-history.component';
 import { FinancialPlanningComponent } from './finances/components/financial-planning/financial-planning/financial-planning.component';
-import { IncomeGraphComponent } from './finances/components/income/income-graph/income-graph.component';
 import { IncomeHistoryComponent } from './finances/components/income/income-history/income-history.component';
 import { IncomeComponent } from './finances/components/income/income/income.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
+import { ExpenseIncomeBarGraphComponent } from './finances/containers/graphics/dashboard/expense-income-bar-graph/expense-income-bar-graph.component';
+import { ExpenseBarGraphComponent } from './finances/containers/graphics/expense/expense-bar-graph/expense-bar-graph.component';
+import { ExpensePieGraphComponent } from './finances/containers/graphics/expense/expense-pie-graph/expense-pie-graph.component';
+import { IncomeBarGraphComponent } from './finances/containers/graphics/income/income-bar-graph/income-bar-graph.component';
+import { IncomePieGraphComponent } from './finances/containers/graphics/income/income-pie-graph/income-pie-graph.component';
 import { UpdateUserComponent } from './users/components/update-user/update-user.component';
 
 const routes: Routes = [
@@ -26,14 +29,19 @@ const routes: Routes = [
   
   { path: 'dashboard', component: DashboardComponent,
     children: [
+      { path: 'dashboard-bar-graph', component: ExpenseIncomeBarGraphComponent },
       { path: 'update-user', component: UpdateUserComponent },
       { path: 'wallet', component: WalletComponent },
       { path: "income", component: IncomeComponent, children: [
-        { path: 'income-graph', component: IncomeGraphComponent },
+        { path: 'income-bar-graph', component: IncomeBarGraphComponent, children: [
+          { path: 'income-pie-graph', component: IncomePieGraphComponent }
+        ] },
         { path: "income-history", component: IncomeHistoryComponent },
       ] },
       { path: "expense", component: ExpenseComponent, children: [
-        { path: 'expense-graph', component: ExpenseGraphComponent },
+        { path: 'expense-bar-graph', component: ExpenseBarGraphComponent, children: [
+          { path: 'expense-pie-graph', component: ExpensePieGraphComponent }
+        ] },
         { path: "expense-history", component: ExpenseHistoryComponent },
       ] },
       { path: "financial-planning", component: FinancialPlanningComponent },
