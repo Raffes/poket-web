@@ -28,7 +28,7 @@ export class CreateIncomeModalComponent implements OnInit {
     this.incomeRegister = this.formBuilder.group({
       renda: ["", Validators.maxLength(30)],
       valorRenda: ["", Validators.maxLength(8)],
-      dataRenda: [""],
+      dataRenda: ["", Validators.maxLength(9999 - 12 - 31)],
       tipoRenda: [""],
       conta: [""],
       observacao: ["", Validators.maxLength(30)]
