@@ -1,5 +1,11 @@
 <div class="d-md-flex">
     <div class="col-12 col-md-4">
+        <h3>Rendas
+            <button type="button" class="btn btn-sm rounded-circle btn-success" (click)="modalCreateIncome()">
+                <i class="fas fa-plus"></i>
+            </button>
+        </h3>
+        <!-- <small class="d-flex justify-content-center text-secondary">Valor total de cada tipo de renda</small> -->
 
         <div echarts [options]="pieGraphIncome" class="demo-chart me-md-4"></div>
 

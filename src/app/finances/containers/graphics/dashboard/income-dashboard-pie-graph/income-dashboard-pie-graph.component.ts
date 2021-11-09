@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/authentication/services/auth.service';
+import { IncomeCrudModalService } from 'src/app/finances/services/income-crud-modal.service';
 import { IncomeService } from 'src/app/finances/services/income.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class IncomeDashboardPieGraphComponent implements OnInit {
 
   constructor(
     public incomeService: IncomeService,
+    public ModalIncomeService: IncomeCrudModalService,
     public authService: AuthService,
   ) { }
 
@@ -149,6 +151,11 @@ export class IncomeDashboardPieGraphComponent implements OnInit {
     })
   
   
+  }
+
+  modalCreateIncome() {
+    this.ModalIncomeService.showCreateIncome()
+
   }
 
 }
