@@ -4,6 +4,8 @@ import { Expense } from 'src/app/finances/modal/expense';
 import { Income } from 'src/app/finances/modal/income';
 import { ExpenseService } from 'src/app/finances/services/expense.service';
 import { IncomeService } from 'src/app/finances/services/income.service';
+import { ModalWalletCrudService } from 'src/app/finances/services/wallet-crud-modal.service';
+import { WalletService } from 'src/app/finances/services/wallet.service';
 
 @Component({
   selector: 'app-expense-income-bar-graph',
@@ -14,28 +16,38 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
 
   Expense: any;
   barGraphExpenseIncome: any
+  valor: any
+  thisYeah = new Date().getUTCFullYear()
 
   constructor(
     public incomeService: IncomeService,
     public expenseService: ExpenseService,
     public authService: AuthService,
+    public walletService: WalletService,
+    public ModalWalletService: ModalWalletCrudService,
   ) { }
 
   ngOnInit(): void {
     this.getBarGraphIncome()
+    this.totalBalance()
   }
 
-  listExpense() {
-    this.expenseService.getExpenseList(this.authService.userData.uid).subscribe(res => {
-      this.Expense = res.map(e => {
+  totalBalance() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+      
+      let allValues = res.map(e => {
         return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as unknown as Expense;
+          valor: e.payload.doc.data().valor,
+        } 
+
       })
+      
+      this.valor = allValues.reduce((total, valor) => total + valor.valor, 0);
+
+      return this.valor
+
     })
   }
-
   getBarGraphIncome() {
     let dateValues: any[] = []
     let horario = "T00:00:00-0300"
@@ -266,10 +278,7 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
 
         // Gráfico de comparação de despesa e renda
         this.barGraphExpenseIncome = {
-          title: {
-            text: 'Despesa VS Renda',
-            subtext: date.getUTCFullYear()
-          },
+          
           tooltip: {
             trigger: 'axis'
           },
@@ -281,7 +290,6 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
             feature: {
               dataView: { show: true, readOnly: false },
               magicType: { show: true, type: ['line', 'bar'] },
-              restore: { show: true },
               saveAsImage: { show: true }
             }
           },
@@ -330,20 +338,14 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
           ]
         };
 
-
-
-
-
-
       })
-
-
-
-
-
 
     })
 
+  }
+
+  modalCreateWallet() {
+    this.ModalWalletService.showCreateWallet()
   }
 
 }

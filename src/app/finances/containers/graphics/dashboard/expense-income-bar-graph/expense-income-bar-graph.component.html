@@ -1,5 +1,24 @@
+<div class="container-fluid mt-3">
+     <div class="row">
 
-    <div class="d-md-flex flex-column mt-2 pe-0">
+        <div class="col-12 col-md-12">
+            <h3>Contas
+                <button type="button" class="btn btn-sm rounded-circle btn-success" (click)="modalCreateWallet()">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </h3>
+        </div>
+
+    </div>
+    <div class="row mb-3">
+        <div class="col-2 d-flex align-items-center">
+            <h5 class="mb-0">Saldo total: R$: {{ valor }}</h5>
+        </div> 
+        
+    </div>
+    <div class="d-md-flex flex-column mt-2 me-md-4 pe-0">
+
+        <h5 class="mt-2 text-secondary d-flex justify-content-end">Ano: {{ thisYeah }}</h5>
 
         <div class="col-12 col-md-12 mt-2">
             <div echarts [options]="barGraphExpenseIncome" class="demo-chart"></div>
@@ -16,3 +35,4 @@
 
     </div>
 
+</div>
