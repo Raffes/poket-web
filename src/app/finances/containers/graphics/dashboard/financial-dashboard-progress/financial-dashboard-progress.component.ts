@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { FinancialPlanningCrudModalService } from 'src/app/finances/services/financial-planning-crud-modal.service';
 import { FinancialPlanningService } from 'src/app/finances/services/financial-planning.service';
-import { ModalWalletCrudService } from 'src/app/finances/services/wallet-crud-modal.service';
-import { WalletService } from 'src/app/finances/services/wallet.service';
 
 @Component({
   selector: 'app-financial-dashboard-progress',
@@ -25,41 +23,13 @@ export class FinancialDashboardProgressComponent implements OnInit {
   constructor(
     public modalFpService: FinancialPlanningCrudModalService,
     public authService: AuthService,
-    private router: Router,
-    public walletService: WalletService,
-    public ModalWalletService: ModalWalletCrudService,
     public fpService: FinancialPlanningService
   ) { }
 
   ngOnInit(): void {
 
     this.listFinancialPlanning()
-    this.paginationLengthFp()
-    this.listWallet()
 
-  }
-
-  listWallet() {
-    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
-      this.Wallet = res.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as unknown;
-      })
-
-    })
-  }
-
-  modalCreateWallet() {
-    this.ModalWalletService.showCreateWallet()
-  }
-
-  paginationLengthFp() {
-    this.fpService.getFinancialPlanningList(this.authService.userData.uid).subscribe(res => {
-      this.totalLength = res.length
-
-    })
   }
 
   listFinancialPlanning() {
@@ -127,24 +97,8 @@ export class FinancialDashboardProgressComponent implements OnInit {
 
   }
 
-  modalAddFinancialPlanningHistory(fp: any) {
-    this.modalFpService.showAddFinancialPlanning(fp)
-  }
-
   modalCreateFinancialPlanning() {
     this.modalFpService.showCreateFinancialPlanning()
-  }
-
-  modalEditFinancialPlanning(fp: any) {
-    this.modalFpService.showEditFinancialPlanning(fp)
-  }
-
-  modalDeleteFinancialPlanning(fp: any) {
-    this.modalFpService.showDeleteFinancialPlanning(fp)
-  }
-
-  financialPlanningHistory(idFP: any) {
-    this.router.navigate([`dashboard/financial-planning/financial-planning-history/${idFP}`])
   }
 
 }
