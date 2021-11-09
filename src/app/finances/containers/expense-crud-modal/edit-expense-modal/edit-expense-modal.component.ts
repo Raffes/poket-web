@@ -37,7 +37,7 @@ export class EditExpenseModalComponent implements OnInit {
     this.expenseUpdate = this.formBuilder.group({
       despesa: ["", Validators.maxLength(30)],
       valorDespesa: ["", Validators.maxLength(8)],
-      dataDespesa: [""],
+      dataDespesa: ["", Validators.maxLength(9999 - 12 - 31)],
       tipoDespesa: [""],
       conta: [""],
       observacao: ["", Validators.maxLength(30)]
