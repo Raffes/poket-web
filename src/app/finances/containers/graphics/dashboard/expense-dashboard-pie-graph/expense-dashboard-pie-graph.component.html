@@ -1,9 +1,14 @@
-<div class="d-md-flex align-items-center">
-<div class="col-12 col-md-8">
-    <div echarts [options]="pieGraphExpense" class="demo-chart me-md-4"></div>
-</div>
-<div class="col-12 col-md-4">
-    <router-outlet></router-outlet>
+<div class="d-md-flex align-items-center h-100">
+    <div class="col-12 col-md-8">
+        <h3>Despesas
+            <button type="button" class="btn btn-sm rounded-circle btn-danger" (click)="modalCreateExpense()">
+                <i class="fas fa-plus"></i>
+            </button>
+        </h3>
+        <div echarts [options]="pieGraphExpense" class="demo-chart me-md-4"></div>
+    </div>
+    <div class="col-12 col-md-4 h-100 ">
+        <router-outlet></router-outlet>
 
-</div>
+    </div>
 </div>

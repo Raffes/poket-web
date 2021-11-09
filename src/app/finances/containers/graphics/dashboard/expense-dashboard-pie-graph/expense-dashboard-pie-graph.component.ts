@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/authentication/services/auth.service';
+import { ExpenseCrudModalService } from 'src/app/finances/services/expense-crud-modal.service';
 import { ExpenseService } from 'src/app/finances/services/expense.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class ExpenseDashboardPieGraphComponent implements OnInit {
 
   constructor(
     public expenseService: ExpenseService,
+    public modalExpenseService: ExpenseCrudModalService,
     public authService: AuthService,
   ) { }
 
@@ -150,6 +152,11 @@ export class ExpenseDashboardPieGraphComponent implements OnInit {
     })
   
   
+  }
+
+  modalCreateExpense() {
+    this.modalExpenseService.showCreateExpense()
+
   }
 
 }
