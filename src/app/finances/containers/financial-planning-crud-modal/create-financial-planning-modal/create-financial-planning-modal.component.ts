@@ -69,18 +69,18 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
 
     let dataAtual = new Date();
     let fullYeah = dataAtual.getFullYear();
-    let month = dataAtual.getMonth();
-    let day = dataAtual.getDate();
+    let month = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    let day = String(dataAtual.getDate()).padStart(2, '0');
     let datafinal = new Date(dataFinalPF?.value+"T00:00");
     let fullYeahEnd = datafinal.getFullYear();
     let monthEnd = datafinal.getMonth();
  
-    let fullDate = fullYeah + '-' + (month + 1) + '-' + day;
+    let fullDate = fullYeah + '-' + month + '-' + day;
 
     if (nomePF?.value == "" || valorAtualPF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == "" || conta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
-    } else if (fullYeahEnd < fullYeah || monthEnd < month && fullYeahEnd == fullYeah) {
+    } else if (fullYeahEnd < fullYeah || monthEnd < parseInt(month) && fullYeahEnd == fullYeah) {
       this.alertService.showAlertDanger("Data invalida");
       
     } else {
