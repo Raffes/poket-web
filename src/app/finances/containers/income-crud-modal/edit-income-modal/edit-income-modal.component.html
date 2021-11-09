@@ -27,7 +27,7 @@
 
         <div class="form-floating mb-3">
             
-            <input type="date" class="form-control" id="addDateIncome" maxlength="30" formControlName="dataRenda" required>
+            <input type="date" class="form-control" id="addDateIncome" max="9999-12-31" formControlName="dataRenda" required>
             <label for="addDateIncome" class="col-form-label">Data de recebimento</label>
         </div>
 
@@ -36,8 +36,9 @@
             <select class="form-select" id="addTipoRenda" formControlName="tipoRenda" required>
                 
                 <option value="Salário">Salário</option>
+                <option value="Serviços">Serviços</option>
+                <option value="Presente">Presente</option>
                 <option value="Aluguel">Aluguel</option>
-                <option value="Juros">Juros</option>
                 <option value="Outros">Outros</option>
               </select>
 
