@@ -59,6 +59,9 @@ import { IncomePieGraphComponent } from './finances/containers/graphics/income/i
 import { ExpenseBarGraphComponent } from './finances/containers/graphics/expense/expense-bar-graph/expense-bar-graph.component';
 import { ExpensePieGraphComponent } from './finances/containers/graphics/expense/expense-pie-graph/expense-pie-graph.component';
 import { ExpenseIncomeBarGraphComponent } from './finances/containers/graphics/dashboard/expense-income-bar-graph/expense-income-bar-graph.component';
+import { IncomeDashboardPieGraphComponent } from './finances/containers/graphics/dashboard/income-dashboard-pie-graph/income-dashboard-pie-graph.component';
+import { ExpenseDashboardPieGraphComponent } from './finances/containers/graphics/dashboard/expense-dashboard-pie-graph/expense-dashboard-pie-graph.component';
+import { FinancialDashboardProgressComponent } from './finances/containers/graphics/dashboard/financial-dashboard-progress/financial-dashboard-progress.component';
 
 
 registerLocaleData(localePt)
@@ -104,6 +107,9 @@ registerLocaleData(localePt)
     ExpenseBarGraphComponent,
     ExpensePieGraphComponent,
     ExpenseIncomeBarGraphComponent,
+    IncomeDashboardPieGraphComponent,
+    ExpenseDashboardPieGraphComponent,
+    FinancialDashboardProgressComponent,
   ],
   imports: [
     BrowserModule,

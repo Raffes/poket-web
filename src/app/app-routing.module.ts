@@ -13,7 +13,10 @@ import { FinancialPlanningComponent } from './finances/components/financial-plan
 import { IncomeHistoryComponent } from './finances/components/income/income-history/income-history.component';
 import { IncomeComponent } from './finances/components/income/income/income.component';
 import { WalletComponent } from './finances/components/wallet/wallet.component';
+import { ExpenseDashboardPieGraphComponent } from './finances/containers/graphics/dashboard/expense-dashboard-pie-graph/expense-dashboard-pie-graph.component';
 import { ExpenseIncomeBarGraphComponent } from './finances/containers/graphics/dashboard/expense-income-bar-graph/expense-income-bar-graph.component';
+import { FinancialDashboardProgressComponent } from './finances/containers/graphics/dashboard/financial-dashboard-progress/financial-dashboard-progress.component';
+import { IncomeDashboardPieGraphComponent } from './finances/containers/graphics/dashboard/income-dashboard-pie-graph/income-dashboard-pie-graph.component';
 import { ExpenseBarGraphComponent } from './finances/containers/graphics/expense/expense-bar-graph/expense-bar-graph.component';
 import { ExpensePieGraphComponent } from './finances/containers/graphics/expense/expense-pie-graph/expense-pie-graph.component';
 import { IncomeBarGraphComponent } from './finances/containers/graphics/income/income-bar-graph/income-bar-graph.component';
@@ -29,7 +32,13 @@ const routes: Routes = [
   
   { path: 'dashboard', component: DashboardComponent,
     children: [
-      { path: 'dashboard-bar-graph', component: ExpenseIncomeBarGraphComponent },
+      { path: 'dashboard-bar-graph', component: ExpenseIncomeBarGraphComponent, children: [
+        { path: 'income-pie', component: IncomeDashboardPieGraphComponent, children: [
+          { path: 'expense-pie', component: ExpenseDashboardPieGraphComponent, children: [
+            { path: 'financial-progress', component: FinancialDashboardProgressComponent }
+          ] }
+        ] },
+      ] },
       { path: 'update-user', component: UpdateUserComponent },
       { path: 'wallet', component: WalletComponent },
       { path: "income", component: IncomeComponent, children: [

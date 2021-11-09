@@ -76,7 +76,7 @@ SignIn(email: string, password: string): Promise<any> {
 
     console.log('Auth Service: loginUser: success');
     
-    this.router.navigate(['dashboard']).then(() => {
+    this.router.navigate(['dashboard/dashboard-bar-graph/income-pie/expense-pie/financial-progress']).then(() => {
       window.location.reload()
     })
     
