@@ -69,41 +69,41 @@ export class FinancialPlanningComponent implements OnInit {
       let porcentoValue: any
 
       let porcentoDateFp: any
-        const second = 1000;
-        const minute = second * 60;
-        const hour = minute * 60;
-        const day = hour * 24;
-        
-        let dataAtual = new Date();
-        let fullYeah = dataAtual.getFullYear();
-        let month = String(dataAtual. getMonth() + 1). padStart(2, '0');
-        let dayToday = String(dataAtual. getDate()). padStart(2, '0');
-        let fullDate = fullYeah +'-'+ month + '-' + dayToday;
+      const second = 1000;
+      const minute = second * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+
+      let dataAtual = new Date();
+      let fullYeah = dataAtual.getFullYear();
+      let month = String(dataAtual.getMonth() + 1).padStart(2, '0');
+      let dayToday = String(dataAtual.getDate()).padStart(2, '0');
+      let fullDate = fullYeah + '-' + month + '-' + dayToday;
 
       this.FinancialPlanning = res.map(e => {
         const data = e.payload.doc.data()
-          porcentoValue = (data.valorAtual * 100) / data.valorObjetivado
-          porcentoValueFp = parseFloat(porcentoValue.toFixed(2))
+        porcentoValue = (data.valorAtual * 100) / data.valorObjetivado
+        porcentoValueFp = parseFloat(porcentoValue.toFixed(2))
 
-          let date_ini = new Date(data.dataInicial+"T00:00");
-          let date_end = new Date(data.dataFinal+"T00:00");
-          let date_today = new Date(fullDate+"T00:00")
+        let date_ini = new Date(data.dataInicial + "T00:00");
+        let date_end = new Date(data.dataFinal + "T00:00");
+        let date_today = new Date(fullDate + "T00:00")
 
-          
 
-          let diff = date_end.getTime() - date_ini.getTime()
-          let diffToday = date_today.getTime() - date_ini.getTime()
-          let totalDaysUntilToday = Math.abs(diffToday/day)
-          let totalDays = Math.abs(diff/day)
 
-          porcentoDateFp = (totalDaysUntilToday * 100)/totalDays
+        let diff = date_end.getTime() - date_ini.getTime()
+        let diffToday = date_today.getTime() - date_ini.getTime()
+        let totalDaysUntilToday = Math.abs(diffToday / day)
+        let totalDays = Math.abs(diff / day)
 
-          let pocentoDate = porcentoDateFp.toFixed(2)
+        porcentoDateFp = (totalDaysUntilToday * 100) / totalDays
 
-          if(totalDaysUntilToday === totalDays) {
-            pocentoDate = 100
-          }
-          
+        let pocentoDate = porcentoDateFp.toFixed(2)
+
+        if (totalDaysUntilToday === totalDays) {
+          pocentoDate = 100
+        }
+
 
         return {
           id: e.payload.doc.id,
@@ -116,45 +116,6 @@ export class FinancialPlanningComponent implements OnInit {
     })
 
   }
-
-
-  // countDaysFinancialPlanning() {
-  //   this.fpService.getFinancialPlanningList(this.authService.userData.uid)
-  //     .subscribe(res => {
-  //       let porcentoDateFp: any
-  //       const second = 1000;
-  //       const minute = second * 60;
-  //       const hour = minute * 60;
-  //       const day = hour * 24;
-  //       let dataAtual = new Date();
-  //       let fullYeah = dataAtual.getFullYear();
-  //       let month = dataAtual.getMonth();
-  //       let dayToday = dataAtual.getDate();
-  //       let fullDate = fullYeah +'-'+ (month+1) + '-' + dayToday;
-  //       console.log(fullDate)
-
-  //       res.forEach((doc) => {
-  //         const data = doc.payload.doc.data()
-
-  //         let date_ini = new Date(data.dataInicial+"T00:00");
-  //         let date_end = new Date(data.dataFinal+"T00:00");
-  //         let date_today = new Date(fullDate+"T00:00")
-
-
-  //         let diff = date_end.getTime() - date_ini.getTime()
-  //         let diffToday = date_today.getTime() - date_ini.getTime()
-  //         let totalDaysUntilToday = Math.abs(diffToday/day)
-  //         let totalDays = Math.abs(diff/day)
-
-  //         porcentoDateFp = (totalDaysUntilToday * 100)/totalDays
-
-  //       })
-
-  //       this.porcentoDateFp = porcentoDateFp.toFixed(2)
-  //       return this.porcentoDateFp
-
-  //     })
-  // }
 
   modalAddFinancialPlanningHistory(fp: any) {
     this.modalFpService.showAddFinancialPlanning(fp)
