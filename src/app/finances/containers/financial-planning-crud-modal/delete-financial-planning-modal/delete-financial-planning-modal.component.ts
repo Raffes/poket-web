@@ -55,9 +55,9 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
 
       this.Wallet.forEach(function (value: any) {
        
-        contaWalletAntigo = value.conta
+        contaWalletAntigo = value.id
     
-        if(contaWalletAntigo == e.payload.doc.data().conta) {
+        if(contaWalletAntigo == e.payload.doc.data().idConta) {
           idWallet = value.id
           valorDaContaAntigo = value.valor
         }

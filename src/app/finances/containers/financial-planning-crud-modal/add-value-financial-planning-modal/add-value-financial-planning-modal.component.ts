@@ -66,7 +66,7 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
     const contaValor = this.AddMorefinancialPlanning.get('contaValor')
     const dataHistoryPF = this.AddMorefinancialPlanning.get('dataInicial')
 
-    if (valorAtualPF?.value == "" || conta?.value == "") {
+    if (valorAtualPF?.value == "" || idConta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
     } else {
@@ -74,10 +74,12 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
       let contaWallet
 
       this.Wallet.forEach(function (value: any) {
-        contaWallet = value.conta
-        if (contaWallet == conta?.value) {
+        contaWallet = value.id
+
+        if (contaWallet == idConta?.value) {
 
           idConta?.setValue(value.id)
+          conta?.setValue(value.conta)
           contaValor?.setValue(value.valor)
 
           let dataAtual = new Date();

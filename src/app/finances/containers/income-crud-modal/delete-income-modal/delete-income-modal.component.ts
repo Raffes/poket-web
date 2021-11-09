@@ -14,6 +14,7 @@ export class DeleteIncomeModalComponent implements OnInit {
 
   @Input() id: any;
   @Input() renda: any;
+  @Input() idConta: any;
   @Input() conta: any;
   @Input() valorRenda: any;
 
@@ -47,40 +48,32 @@ export class DeleteIncomeModalComponent implements OnInit {
 
   deleteIncome(){
 
-    let idWallet
+      let idWallet
       let valorDaConta
       let contaWallet
 
       let idWalletAntigo
       let valorDaContaAntigo
       let contaWalletAntigo
-      let contaAntiga = this.conta
-
-      console.warn(contaAntiga)
+      let contaAntiga = this.idConta
 
       this.Wallet.forEach(function (value: any) {
-        contaWallet = value.conta
-        contaWalletAntigo = value.conta
+        contaWallet = value.idConta
+        contaWalletAntigo = value.id
 
         if(contaWalletAntigo == contaAntiga) {
           idWalletAntigo = value.id
           valorDaContaAntigo = value.valor
         }
         
-        if (contaWallet == value.valorRenda) {
+        if (contaWallet == value.id) {
           idWallet = value.id
           contaWallet = value.conta
           valorDaConta = value.valor
-          console.error(value.valorRenda)
         }
       });
 
-      // console.log("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda)
-
-
       this.incomeService.deleteIncome(this.authService.userData.uid, this.id, idWalletAntigo, valorDaContaAntigo, this.valorRenda)
-     
-      // console.warn("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda )
 
       this.closeModal()
 

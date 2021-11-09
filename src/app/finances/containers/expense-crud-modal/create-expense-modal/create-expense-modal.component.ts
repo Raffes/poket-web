@@ -30,6 +30,7 @@ export class CreateExpenseModalComponent implements OnInit {
       valorDespesa: ["", Validators.maxLength(8)],
       dataDespesa: ["", Validators.maxLength(9999 - 12 - 31)],
       tipoDespesa: [""],
+      idConta: [""],
       conta: [""],
       observacao: ["", Validators.maxLength(30)]
     })
@@ -55,10 +56,11 @@ export class CreateExpenseModalComponent implements OnInit {
     const valorDespesa = this.expenseRegister.get('valorDespesa')
     const dataDespesa = this.expenseRegister.get('dataDespesa')
     const tipoDespesa = this.expenseRegister.get('tipoDespesa')
+    const idConta = this.expenseRegister.get('idConta')
     const conta = this.expenseRegister.get('conta')
     const observacao = this.expenseRegister.get('observacao')
 
-    if (nomeDespesa?.value == "" || valorDespesa?.value == "" || dataDespesa?.value == "" || tipoDespesa?.value == "" || conta?.value == "") {
+    if (nomeDespesa?.value == "" || valorDespesa?.value == "" || dataDespesa?.value == "" || tipoDespesa?.value == "" || idConta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
     } else {
@@ -67,10 +69,11 @@ export class CreateExpenseModalComponent implements OnInit {
       let contaWallet
 
       this.Wallet.forEach(function (value: any) {
-        contaWallet = value.conta
-        if (contaWallet == conta?.value) {
+        contaWallet = value.id
+        if (contaWallet == idConta?.value) {
           idWallet = value.id
           valorDaConta = value.valor
+          conta?.setValue(value.conta)
         }
 
       });

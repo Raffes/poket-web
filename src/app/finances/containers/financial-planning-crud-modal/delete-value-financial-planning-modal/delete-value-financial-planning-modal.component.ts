@@ -45,33 +45,27 @@ export class DeleteValueFinancialPlanningModalComponent implements OnInit {
   }
 
   deleteHistoryFinancialPlanning() {
-    let idWallet
-    let valorDaConta
+
     let contaWallet
 
     let idWalletAntigo
     let valorDaContaAntigo
     let contaWalletAntigo
-    let contaAntiga = this.conta
-
-    // console.warn(contaAntiga)
+    let contaAntiga = this.idConta
 
     this.Wallet.forEach(function (value: any) {
-      contaWallet = value.conta
-      contaWalletAntigo = value.conta
+      contaWallet = value.id
+      contaWalletAntigo = value.id
 
       if(contaWalletAntigo == contaAntiga) {
         idWalletAntigo = value.id
         valorDaContaAntigo = value.valor
+        
       }
-      
-      if (contaWallet == value.valorRenda) {
-        idWallet = value.id
-        contaWallet = value.conta
-        valorDaConta = value.valor
-        console.error(value.valorRenda)
-      }
+
     });
+
+    
 
     this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.idFp, idWalletAntigo, this.id, valorDaContaAntigo, this.valorAtual)
 

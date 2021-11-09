@@ -18,6 +18,7 @@ export class EditExpenseModalComponent implements OnInit {
   @Input() valorDespesa: any;
   @Input() dataDespesa: any;
   @Input() tipoDespesa: any;
+  @Input() idConta: any;
   @Input() conta: any;
   @Input() observacao: any;
 
@@ -39,6 +40,7 @@ export class EditExpenseModalComponent implements OnInit {
       valorDespesa: ["", Validators.maxLength(8)],
       dataDespesa: ["", Validators.maxLength(9999 - 12 - 31)],
       tipoDespesa: [""],
+      idConta: [""],
       conta: [""],
       observacao: ["", Validators.maxLength(30)]
     })
@@ -59,6 +61,7 @@ export class EditExpenseModalComponent implements OnInit {
         valorDespesa: [this.valorDespesa],
         dataDespesa: [this.dataDespesa],
         tipoDespesa: [this.tipoDespesa],
+        idConta: [this.idConta],
         conta: [this.conta],
         observacao: [this.observacao]
       })
@@ -83,11 +86,12 @@ export class EditExpenseModalComponent implements OnInit {
     const valorDespesa = this.expenseUpdate.get('valorDespesa')
     const dataDespesa = this.expenseUpdate.get('dataDespesa')
     const tipoDespesa = this.expenseUpdate.get('tipoDespesa')
+    const idConta = this.expenseUpdate.get('idConta')
     const conta = this.expenseUpdate.get('conta')
     const observacao = this.expenseUpdate.get('observacao')
 
 
-    if (nomeDespesa?.value == "" || valorDespesa?.value == "" || dataDespesa?.value == "" || tipoDespesa?.value == "" || conta?.value == "") {
+    if (nomeDespesa?.value == "" || dataDespesa?.value == "" || tipoDespesa?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
     } else {
@@ -99,35 +103,28 @@ export class EditExpenseModalComponent implements OnInit {
       let idWalletAntigo
       let valorDaContaAntigo
       let contaWalletAntigo
-      let contaAntiga = this.conta
-
-      console.warn(contaAntiga)
+      let contaAntiga = this.idConta
 
       this.Wallet.forEach(function (value: any) {
-        contaWallet = value.conta
-        contaWalletAntigo = value.conta
+        contaWallet = value.id
+        contaWalletAntigo = value.id
 
         if(contaWalletAntigo == contaAntiga) {
           idWalletAntigo = value.id
           valorDaContaAntigo = value.valor
         }
         
-        if (contaWallet == conta?.value) {
+        if (contaWallet == idConta?.value) {
           idWallet = value.id
-          contaWallet = value.conta
-          valorDaConta = value.valor
-          // console.error(contaWallet)
+          valorDaConta = 0
+          conta?.setValue(value.conta)
+
         }
       });
 
-      
-      console.log("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo)
-      console.log("id atual: " + idWallet + "|| conta atual: " + contaWallet + " || valor da conta atual: " + valorDaConta) 
-
       this.expenseService.updateExpense(this.expenseUpdate.value, this.authService.userData.uid, this.id, idWalletAntigo , idWallet, valorDaContaAntigo, valorDaConta)
       this.closeModal()
-      console.warn("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo)
-      console.warn("id atual: " + idWallet + "|| conta atual: " + contaWallet + " || valor da conta atual: " + valorDaConta) 
+
     }
 
     

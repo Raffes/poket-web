@@ -3,7 +3,7 @@
 <div class="modal-header">
 
     <h5 class="modal-title" id="exampleModalLabel">
-        Adicionar Despesa
+        Editar Despesa
     </h5>
 
     <button type="button" class="btn-close" (click)="closeModal()"></button>
@@ -19,7 +19,8 @@
             <label for="addNameExpense" class="col-form-label">Despesa</label>
         </div>
 
-        <div class="form-floating mb-3">
+        <!-- Não vai mostrar para o usuário -->
+        <div class="form-floating mb-3 d-none">
             
             <input type="number" class="form-control" id="addValueExpense" maxlength="8" formControlName="valorDespesa" required>
             <label for="addValueExpense" class="col-form-label">Valor (R$)</label>
@@ -45,10 +46,11 @@
               <label for="addTypeExpense" class="col-form-label">Tipo de despesa</label>
         </div>
 
-        <div class="form-floating mb-3">
+        <!-- Não vai mostrar para o usuário -->
+        <div class="form-floating mb-3 d-none">
             
-            <select class="form-select" id="addConta" formControlName="conta" required>
-                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}">{{ wallet.conta }}</option>
+            <select class="form-select" id="addConta" formControlName="idConta" required>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.id }}" [hidden]="wallet.valor <= 0">{{ wallet.conta }}</option>
               </select>
 
               <label for="addConta" class="col-form-label">Onde pagou</label>

@@ -77,7 +77,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
  
     let fullDate = fullYeah + '-' + month + '-' + day;
 
-    if (nomePF?.value == "" || valorAtualPF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == "" || conta?.value == "") {
+    if (nomePF?.value == "" || valorAtualPF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == "" || idConta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
     } else if (fullYeahEnd < fullYeah || monthEnd < parseInt(month) && fullYeahEnd == fullYeah) {
@@ -87,10 +87,11 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
       let contaWallet
 
       this.Wallet.forEach(function (value: any) {
-        contaWallet = value.conta
-        if (contaWallet == conta?.value) {
+        contaWallet = value.id
+        if (contaWallet == idConta?.value) {
 
           idConta?.setValue(value.id)
+          conta?.setValue(value.conta)
           contaValor?.setValue(value.valor)
 
 

@@ -17,6 +17,7 @@ export class EditFinancialPlanningModalComponent implements OnInit {
   @Input() planejamentoFinanceiro: any;
   @Input() valorAtual: any;
   @Input() valorObjetivado: any;
+  @Input() dataInicial: any;
   @Input() dataFinal: any;
   @Input() tipoPF: any;
   @Input() idConta: any;
@@ -42,6 +43,7 @@ export class EditFinancialPlanningModalComponent implements OnInit {
       conta: [""],
       valorAtual: ["", Validators.maxLength(8)],
       valorObjetivado: ["", Validators.maxLength(8)],
+      dataInicial: [""],
       dataFinal: [""]
 
     })
@@ -62,7 +64,8 @@ export class EditFinancialPlanningModalComponent implements OnInit {
         tipoPF: [this.tipoPF],
         valorAtual: [this.valorAtual],
         valorObjetivado: [this.valorObjetivado],
-        dataFinal: [this.dataFinal]
+        dataInicial: [this.dataInicial, Validators.maxLength(9999 - 12 - 31)],
+        dataFinal: [this.dataFinal, Validators.maxLength(9999 - 12 - 31)]
 
       })
 
@@ -87,15 +90,26 @@ export class EditFinancialPlanningModalComponent implements OnInit {
     const conta = this.financialPlanningUpdate.get('conta')
     const valorAtualPF = this.financialPlanningUpdate.get('valorAtual')
     const valorObjetivadoPF = this.financialPlanningUpdate.get('valorObjetivado')
+    const dataInicialPF = this.financialPlanningUpdate.get('dataInicial')
     const dataFinalPF = this.financialPlanningUpdate.get('dataFinal')
     const idPF = this.financialPlanningUpdate.get('id')
     const contaValor = this.financialPlanningUpdate.get('contaValor')
 
+    let dataAtual = new Date();
+    let fullYeah = dataAtual.getFullYear();
+    let month = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    let datafinal = new Date(dataFinalPF?.value+"T00:00");
+    let fullYeahEnd = datafinal.getFullYear();
+    let monthEnd = datafinal.getMonth();
+ 
 
-    if (nomePF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == null) {
+    if (nomePF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == null || dataInicialPF?.value == null) {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
-    } else {
+    } else if (fullYeahEnd < fullYeah || monthEnd < parseInt(month) && fullYeahEnd == fullYeah) {
+      this.alertService.showAlertDanger("Data invalida");
+      
+    }  else {
       
       this.fpService.updateFinancialPlanning(this.financialPlanningUpdate.value, this.authService.userData.uid, this.id)
       this.closeModal()

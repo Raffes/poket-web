@@ -14,6 +14,7 @@ export class DeleteExpenseModalComponent implements OnInit {
 
   @Input() id: any;
   @Input() despesa: any;
+  @Input() idConta: any;
   @Input() conta: any;
   @Input() valorDespesa: any;
 
@@ -54,34 +55,26 @@ export class DeleteExpenseModalComponent implements OnInit {
       let idWalletAntigo
       let valorDaContaAntigo
       let contaWalletAntigo
-      let contaAntiga = this.conta
-
-      console.warn(contaAntiga)
+      let contaAntiga = this.idConta
 
       this.Wallet.forEach(function (value: any) {
-        contaWallet = value.conta
-        contaWalletAntigo = value.conta
+        contaWallet = value.idConta
+        contaWalletAntigo = value.id
 
         if(contaWalletAntigo == contaAntiga) {
           idWalletAntigo = value.id
           valorDaContaAntigo = value.valor
         }
         
-        if (contaWallet == value.valorRenda) {
+        if (contaWallet == value.id) {
           idWallet = value.id
           contaWallet = value.conta
           valorDaConta = value.valor
-          console.error(value.valorRenda)
         }
       });
 
-      // console.log("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda)
-
-
       this.expenseService.deleteExpense(this.authService.userData.uid, this.id, idWalletAntigo, valorDaContaAntigo, this.valorDespesa)
      
-      // console.warn("id antigo: " +idWalletAntigo+ "|| conta antiga: " + contaAntiga + " || valor da conta antiga: " + valorDaContaAntigo + "valorRenda: " + this.valorRenda )
-
       this.closeModal()
 
   }

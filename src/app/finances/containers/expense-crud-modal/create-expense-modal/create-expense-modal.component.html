@@ -47,11 +47,11 @@
 
         <div class="form-floating mb-3">
             
-            <select class="form-select" id="addConta" formControlName="conta" required>
-                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}">{{ wallet.conta }}</option>
+            <select class="form-select" id="addConta" formControlName="idConta" required>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.id }}" [hidden]="wallet.valor <= 0">{{ wallet.conta }}</option>
               </select>
 
-              <label for="addConta" class="col-form-label">Onde pagou</label>
+              <label for="addConta" class="col-form-label">Meio de pagamento</label>
         </div>
 
 

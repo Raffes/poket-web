@@ -33,11 +33,11 @@
 
         <div class="form-floating mb-3">
             
-            <select class="form-select" id="addConta" formControlName="conta" required>
-                <option *ngFor="let wallet of Wallet" value="{{ wallet.conta }}" [hidden]="wallet.valor <= 0"> {{ wallet.conta }} ( {{ wallet.valor | currency : 'BRL' }} )</option>
+            <select class="form-select" id="addConta" formControlName="idConta" required>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.id }}" [hidden]="wallet.valor <= 0"> {{ wallet.conta }} ( {{ wallet.valor | currency : 'BRL' }} )</option>
               </select>
 
-              <label for="addConta" class="col-form-label">Onde tirar o dinheiro?</label>
+              <label for="addConta" class="col-form-label">Meio de Retirada</label>
         </div>
 
         <div class="form-floating mb-3">

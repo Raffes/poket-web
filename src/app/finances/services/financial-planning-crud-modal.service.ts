@@ -40,6 +40,7 @@ export class FinancialPlanningCrudModalService {
       
       bsModalRef.content.id = fp.id,
       bsModalRef.content.tipoPF = fp.tipoPF,
+      bsModalRef.content.idConta = fp.idConta,
       bsModalRef.content.conta = fp.conta,
       bsModalRef.content.contaValor = fp.contaValor,
       bsModalRef.content.valorAtual = fp.valorAtual,
@@ -57,6 +58,7 @@ export class FinancialPlanningCrudModalService {
 
       bsModalRef.content.id = fp.id,
       bsModalRef.content.tipoPF = fp.tipoPF,
+      bsModalRef.content.idConta = fp.idConta,
       bsModalRef.content.conta = fp.conta,
       bsModalRef.content.contaValor = fp.contaValor,
       bsModalRef.content.valorAtual = fp.valorAtual,
@@ -72,6 +74,7 @@ export class FinancialPlanningCrudModalService {
       bsModalRef.content.idFp = idFp,
       bsModalRef.content.id = fp.id,
       bsModalRef.content.tipoPF = fp.tipoPF,
+      bsModalRef.content.idConta = fp.idConta,
       bsModalRef.content.conta = fp.conta,
       bsModalRef.content.contaValor = fp.contaValor,
       bsModalRef.content.valorAtual = fp.valorAtual,

@@ -30,6 +30,7 @@ export class CreateIncomeModalComponent implements OnInit {
       valorRenda: ["", Validators.maxLength(8)],
       dataRenda: ["", Validators.maxLength(9999 - 12 - 31)],
       tipoRenda: [""],
+      idConta: [""],
       conta: [""],
       observacao: ["", Validators.maxLength(30)]
     })
@@ -55,10 +56,11 @@ export class CreateIncomeModalComponent implements OnInit {
     const valorRenda = this.incomeRegister.get('valorRenda')
     const dataRenda = this.incomeRegister.get('dataRenda')
     const tipoRenda = this.incomeRegister.get('tipoRenda')
+    const idConta = this.incomeRegister.get('idConta')
     const conta = this.incomeRegister.get('conta')
     const observacao = this.incomeRegister.get('observacao')
 
-    if (nomeRenda?.value == "" || valorRenda?.value == "" || dataRenda?.value == "" || tipoRenda?.value == "" || conta?.value == "") {
+    if (nomeRenda?.value == "" || valorRenda?.value == "" || dataRenda?.value == "" || tipoRenda?.value == "" || idConta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
     } else {
@@ -67,10 +69,11 @@ export class CreateIncomeModalComponent implements OnInit {
       let contaWallet
 
       this.Wallet.forEach(function (value: any) {
-        contaWallet = value.conta
-        if (contaWallet == conta?.value) {
+        contaWallet = value.id
+        if (contaWallet == idConta?.value) {
           idWallet = value.id
           valorDaConta = value.valor
+          conta?.setValue(value.conta)
         }
 
       });

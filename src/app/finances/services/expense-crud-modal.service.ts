@@ -22,6 +22,7 @@ export class ExpenseCrudModalService {
       bsModalRef.content.valorDespesa = expense.valorDespesa,
       bsModalRef.content.dataDespesa = expense.dataDespesa,
       bsModalRef.content.tipoDespesa = expense.tipoDespesa,
+      bsModalRef.content.idConta = expense.idConta,
       bsModalRef.content.conta = expense.conta,
       bsModalRef.content.observacao = expense.observacao
   
@@ -37,6 +38,7 @@ export class ExpenseCrudModalService {
       bsModalRef.content.valorDespesa = expense.valorDespesa,
       bsModalRef.content.dataDespesa = expense.dataDespesa,
       bsModalRef.content.tipoDespesa = expense.tipoDespesa,
+      bsModalRef.content.idConta = expense.idConta,
       bsModalRef.content.conta = expense.conta,
       bsModalRef.content.observacao = expense.observacao
   }

@@ -33,6 +33,7 @@ export class FinancialPlanningService {
         this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
           .doc(res.id).collection(res.id).add({
             valorAtual: fp.valorAtual,
+            idConta: fp.idConta,
             conta: fp.conta,
             dataInicial: fp.dataInicial
           })
@@ -83,6 +84,7 @@ export class FinancialPlanningService {
         planejamentoFinanceiro: fp.planejamentoFinanceiro,
         tipoPF: fp.tipoPF,
         valorObjetivado: fp.valorObjetivado,
+        dataInicial: fp.dataInicial,
         dataFinal: fp.dataFinal
 
       })

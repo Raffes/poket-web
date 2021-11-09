@@ -31,8 +31,8 @@
               <label for="editTypeFinancialPlanning" class="col-form-label">Tipo de Planejamento</label>
         </div>
 
-
-        <div class="form-floating mb-3">
+        <!-- Não vai aparecer pro usuário -->
+        <div class="form-floating mb-3 d-none">
             
             <input type="number" class="form-control" id="editValueFinancialPlanning" maxlength="8" formControlName="valorAtual" [attr.disabled]="true">
             <label for="editValueFinancialPlanning" class="col-form-label">Valor Inicial (R$)</label>
@@ -46,7 +46,13 @@
 
         <div class="form-floating mb-3">
             
-            <input type="date" class="form-control" id="editDateFinancialPlanning" maxlength="30" formControlName="dataFinal" required>
+            <input type="date" class="form-control" id="editDtFinancialPlanning" maxlength="30" formControlName="dataInicial" max="9999-12-31" required>
+            <label for="editDtFinancialPlanning" class="col-form-label">Data Atual</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            
+            <input type="date" class="form-control" id="editDateFinancialPlanning" maxlength="30" formControlName="dataFinal" max="9999-12-31" required>
             <label for="editDateFinancialPlanning" class="col-form-label">Data Final</label>
         </div>
 

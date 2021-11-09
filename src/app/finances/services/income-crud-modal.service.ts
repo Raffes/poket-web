@@ -22,6 +22,7 @@ export class IncomeCrudModalService {
     bsModalRef.content.valorRenda = income.valorRenda,
     bsModalRef.content.dataRenda = income.dataRenda,
     bsModalRef.content.tipoRenda = income.tipoRenda,
+    bsModalRef.content.idConta = income.idConta,
     bsModalRef.content.conta = income.conta,
     bsModalRef.content.observacao = income.observacao
 
@@ -37,6 +38,7 @@ export class IncomeCrudModalService {
     bsModalRef.content.valorRenda = income.valorRenda,
     bsModalRef.content.dataRenda = income.dataRenda,
     bsModalRef.content.tipoRenda = income.tipoRenda,
+    bsModalRef.content.idConta = income.idConta,
     bsModalRef.content.conta = income.conta,
     bsModalRef.content.observacao = income.observacao
   }

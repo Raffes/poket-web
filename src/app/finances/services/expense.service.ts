@@ -54,27 +54,12 @@ export class ExpenseService {
         valorDespesa: expense.valorDespesa,
         dataDespesa: expense.dataDespesa,
         tipoDespesa: expense.tipoDespesa,
+        idConta: expense.idConta,
         conta: expense.conta,
         observacao: expense.observacao
 
       }).then(() => {
-         // atualizar a conta incrementando a renda
-         let subWallet =  parseInt(valorNaContaAntiga) - expense.valorDespesa
-         let sumWallet =  parseInt(valorNaConta) + expense.valorDespesa
-
-         this.angFireDB
-           .collection("contas").doc(uid).collection(uid)
-           .doc(idWalletAntigo)
-           .update({
-             valor: sumWallet
-           })
-
-         return this.angFireDB
-           .collection("contas").doc(uid).collection(uid)
-           .doc(idWallet)
-           .update({
-             valor: subWallet
-           })
+        //  TODO coloca alerta de sucesso
       })
 
   }

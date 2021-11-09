@@ -4,6 +4,7 @@ export interface Expense {
     valorDespesa: number,
     dataDespesa: Date,
     tipoDespesa: string,
+    idConta: string,
     conta: string,
     observacao: string
 }
