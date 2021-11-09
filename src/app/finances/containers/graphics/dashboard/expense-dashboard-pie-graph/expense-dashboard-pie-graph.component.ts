@@ -1,39 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/authentication/services/auth.service';
-import { IncomeService } from 'src/app/finances/services/income.service';
+import { ExpenseService } from 'src/app/finances/services/expense.service';
 
 @Component({
-  selector: 'app-income-dashboard-pie-graph',
-  templateUrl: './income-dashboard-pie-graph.component.html',
-  styleUrls: ['./income-dashboard-pie-graph.component.css']
+  selector: 'app-expense-dashboard-pie-graph',
+  templateUrl: './expense-dashboard-pie-graph.component.html',
+  styleUrls: ['./expense-dashboard-pie-graph.component.css']
 })
-export class IncomeDashboardPieGraphComponent implements OnInit {
+export class ExpenseDashboardPieGraphComponent implements OnInit {
 
-  pieGraphIncome: any
+  pieGraphExpense: any
 
   constructor(
-    public incomeService: IncomeService,
+    public expenseService: ExpenseService,
     public authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.getPieGraphIncome()
+    this.getPieGraphExpense()
   }
 
-  getPieGraphIncome() {
+  getPieGraphExpense() {
 
-    this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
+    this.expenseService.getExpenseList(this.authService.userData.uid).subscribe(res => {
 
       let allDatas = res.map(el => {
         // Pega o ano atual do usuário
         let date = new Date()
         let lastFullDay = new Date(date.getUTCFullYear(), 11 + 1, 0);
         let lastDay = String(lastFullDay.getDate()).padStart(2, '0');
-        if (el.payload.doc.data().dataRenda >= date.getUTCFullYear() + '-01-01' && el.payload.doc.data().dataRenda <= date.getUTCFullYear() + '-12-' + lastDay) {
+        if (el.payload.doc.data().dataDespesa >= date.getUTCFullYear() + '-01-01' && el.payload.doc.data().dataDespesa <= date.getUTCFullYear() + '-12-' + lastDay) {
 
           return {
-            tipoRenda: el.payload.doc.data().tipoRenda,
-            valor: el.payload.doc.data().valorRenda
+            tipoDespesa: el.payload.doc.data().tipoDespesa,
+            valor: el.payload.doc.data().valorDespesa
             
           }
         }
@@ -41,43 +41,43 @@ export class IncomeDashboardPieGraphComponent implements OnInit {
         return null
       })
 
-      let salaryData = allDatas.filter(el => el?.tipoRenda === 'Salário', 0)
-      let giftData = allDatas.filter(el => el?.tipoRenda === 'Presente', 0)
-      let serviceData = allDatas.filter(el => el?.tipoRenda === 'Serviços', 0)
-      let rentData = allDatas.filter(el => el?.tipoRenda === 'Aluguel', 0)
-      let otherData = allDatas.filter(el => el?.tipoRenda === 'Outros', 0)
+      let alimentationData = allDatas.filter(el => el?.tipoDespesa === 'Alimentação', 0)
+      let vehicleData = allDatas.filter(el => el?.tipoDespesa === 'Veículo', 0)
+      let homeData = allDatas.filter(el => el?.tipoDespesa === 'Moradia', 0)
+      let leisureData = allDatas.filter(el => el?.tipoDespesa === 'Lazer', 0)
+      let otherData = allDatas.filter(el => el?.tipoDespesa === 'Outros', 0)
 
-      let sumValueSalaryData = salaryData.reduce((total, valor) => total + valor?.valor, 0);
-      let sumValueGiftData = giftData.reduce((total, valor) => total + valor?.valor, 0);
-      let sumValueServiceData = serviceData.reduce((total, valor) => total + valor?.valor, 0);
-      let sumValueRentData = rentData.reduce((total, valor) => total + valor?.valor, 0);
+      let sumValueAlimentationData = alimentationData.reduce((total, valor) => total + valor?.valor, 0);
+      let sumValueVehicleData = vehicleData.reduce((total, valor) => total + valor?.valor, 0);
+      let sumValueHomeData = homeData.reduce((total, valor) => total + valor?.valor, 0);
+      let sumValueLeisureData = leisureData.reduce((total, valor) => total + valor?.valor, 0);
       let sumValueOtherData = otherData.reduce((total, valor) => total + valor?.valor, 0);
 
       let allValues = [{}]
 
 
-      if(sumValueRentData != 0){
+      if(sumValueAlimentationData != 0){
         allValues.push({
-          name: 'Aluguel',
-          value: sumValueRentData.toFixed(2)
+          name: 'Alimentação',
+          value: sumValueAlimentationData.toFixed(2)
         })
       }
-      if (sumValueSalaryData != 0) {
+      if (sumValueVehicleData != 0) {
         allValues.push({
-          name: 'Salário',
-          value: sumValueSalaryData.toFixed(2)
+          name: 'Veículo',
+          value: sumValueVehicleData.toFixed(2)
         })
       } 
-      if (sumValueServiceData != 0){
+      if (sumValueHomeData != 0){
         allValues.push({
-          name: 'Serviços',
-          value: sumValueServiceData.toFixed(2)
+          name: 'Moradia',
+          value: sumValueHomeData.toFixed(2)
         })
       }
-      if (sumValueGiftData != 0){
+      if (sumValueLeisureData != 0){
         allValues.push({
-          name: 'Presente',
-          value: sumValueGiftData.toFixed(2)
+          name: 'Lazer',
+          value: sumValueLeisureData.toFixed(2)
         })
       }
       if (sumValueOtherData != 0){
@@ -113,7 +113,8 @@ export class IncomeDashboardPieGraphComponent implements OnInit {
       //   ]
       // };
 
-      this.pieGraphIncome = {
+
+      this.pieGraphExpense = {
         tooltip: {
           trigger: 'item'
         },

@@ -1,0 +1,51 @@
+<div class="col-12 col-md-11 me-2 mb-5 mb-md-0" *ngFor="let fp of FinancialPlanning" [ngClass]="{'d-none':FinancialPlanning === false}">
+
+
+<!-- Planejamento financeiro curto -->
+ <div class="card financial-card mb-2" [ngClass]="{'financial-card-short':fp.tipoPF == 'Curto Prazo', 'financial-card-medium':fp.tipoPF == 'Médio Prazo', 'financial-card-long':fp.tipoPF == 'Longo Prazo'}">
+    <div class="card-header p-2 d-flex justify-content-between">
+       
+        <ul class="ps-0 align-items-left financial-list-card">
+            <li><strong>{{ fp.planejamentoFinanceiro }}</strong></li>
+            <li>{{ fp.tipoPF }}</li>
+        </ul>
+
+
+    </div>
+
+    <div class="card-body financial-progress">
+
+        
+        
+
+        <ul class="d-flex ps-0 justify-content-between mb-0">
+            <li>{{ fp.valorAtual | currency : 'BRL' }}</li>
+            <li>{{ fp.valorObjetivado | currency : 'BRL' }}</li>
+        </ul>
+
+        <div class="progress" style="height: 5px;">
+            <div class="progress-bar progress-bar-short" role="progressbar" attr.style="width: {{fp.valueFp}}%;" attr.aria-valuenow="{{fp.valueFp}}"
+                aria-valuemin="0" aria-valuemax="100" [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}"></div>
+                
+        </div>
+        
+        <div class="d-flex justify-content-end mb-3 progress-number">
+            {{fp.valueFp}}% 
+        </div> 
+
+        <ul class="d-flex ps-0 justify-content-between mb-0">
+            <li>{{ fp.dataInicial | date: 'dd/MM/yyyy' }}</li>
+            <li>{{ fp.dataFinal | date: 'dd/MM/yyyy' }}</li>
+        </ul>
+        <div class="progress" style="height: 5px;">
+            <div class="progress-bar progress-bar-date" role="progressbar" attr.style="width: {{fp.dateFp}}%;" attr.aria-valuenow="{{fp.dateFp}}"
+                aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <div class="d-flex justify-content-end progress-number">
+            {{fp.dateFp}}% 
+        </div> 
+
+    </div>
+</div>
+</div>
