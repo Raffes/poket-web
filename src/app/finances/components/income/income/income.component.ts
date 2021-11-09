@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { IncomeCrudModalService } from 'src/app/finances/services/income-crud-modal.service';
 import { IncomeService } from 'src/app/finances/services/income.service';
+import { ModalWalletCrudService } from 'src/app/finances/services/wallet-crud-modal.service';
+import { WalletService } from 'src/app/finances/services/wallet.service';
 
 @Component({
   selector: 'app-income',
@@ -10,17 +12,23 @@ import { IncomeService } from 'src/app/finances/services/income.service';
   styleUrls: ['./income.component.css']
 })
 export class IncomeComponent implements OnInit {
+  
   valor: any
+
+  Wallet: any;
 
   constructor(
     public incomeService: IncomeService,
     public ModalIncomeService: IncomeCrudModalService,
     public authService: AuthService,
+    public walletService: WalletService,
+    public ModalWalletService: ModalWalletCrudService,
     public formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.totalIncome()
+    this.listWallet()
   }
 
   totalIncome() {
@@ -42,10 +50,25 @@ export class IncomeComponent implements OnInit {
     
   }
 
-
   modalCreateIncome() {
     this.ModalIncomeService.showCreateIncome()
 
+  }
+
+  listWallet() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+      this.Wallet = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as unknown;
+      })
+
+    })
+  }
+
+  modalCreateWallet() {
+    this.ModalWalletService.showCreateWallet()
   }
 
 
