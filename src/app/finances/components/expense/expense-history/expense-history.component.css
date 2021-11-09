@@ -47,35 +47,53 @@
     align-items: center;
 }
 
-.income-card{
-    display: flex;
-    align-items: center;
-}
 
-
-.income-list-card {
-    list-style: none;
-    padding: 0;
-}
-
-.income-list-card {
-    width: 100%;
-    
-    
-}
-
-.income-list-card li{
-    width: 100%;
-    border-right: 1px gray solid;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.income-list-card li:nth-child(6){
-    border-right: none;
-}
 
 .expense-pagination /deep/ .ngx-pagination .current {
     background-color: #bd413c;
+}
+
+
+
+/**/
+.expense-card {
+    border-left: #bd413c 5px solid;
+    box-shadow: 0;
+}
+
+.expense-card:hover {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+
+.expense-card .card-header {
+    height: 60px;
+}
+
+.expense-card .card-header ul{
+    height: 10px;
+}
+
+.expense-list-card,
+.expense-list-card-actions,
+.expense-card-body ul {
+    list-style: none;
+}
+
+.expense-card-body ul li {
+    font-size: 0.9rem;
+}
+
+.expense-list-card li:nth-child(2){
+    font-size: 0.8rem;
+}
+
+.expense-list-card-actions button{
+    height: 25px;
+    width: 25px;
+}
+
+.expense-list-card-actions button i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
