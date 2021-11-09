@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { IncomeCrudModalService } from 'src/app/finances/services/income-crud-modal.service';
 import { IncomeService } from 'src/app/finances/services/income.service';
+import { WalletService } from 'src/app/finances/services/wallet.service';
 
 @Component({
   selector: 'app-income-dashboard-pie-graph',
@@ -10,9 +11,11 @@ import { IncomeService } from 'src/app/finances/services/income.service';
 })
 export class IncomeDashboardPieGraphComponent implements OnInit {
 
+  Wallet: any;
   pieGraphIncome: any
 
   constructor(
+    public walletService: WalletService,
     public incomeService: IncomeService,
     public ModalIncomeService: IncomeCrudModalService,
     public authService: AuthService,
@@ -20,6 +23,19 @@ export class IncomeDashboardPieGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPieGraphIncome()
+    this.listWallet()
+  }
+
+  listWallet() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+      this.Wallet = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as unknown;
+      })
+
+    })
   }
 
   getPieGraphIncome() {

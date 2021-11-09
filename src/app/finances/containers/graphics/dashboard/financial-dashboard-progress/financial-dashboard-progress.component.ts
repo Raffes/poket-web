@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { FinancialPlanningCrudModalService } from 'src/app/finances/services/financial-planning-crud-modal.service';
 import { FinancialPlanningService } from 'src/app/finances/services/financial-planning.service';
+import { WalletService } from 'src/app/finances/services/wallet.service';
 
 @Component({
   selector: 'app-financial-dashboard-progress',
@@ -11,25 +12,32 @@ import { FinancialPlanningService } from 'src/app/finances/services/financial-pl
 })
 export class FinancialDashboardProgressComponent implements OnInit {
   FinancialPlanning: any;
-  porcentoValueFp: any;
-  porcentoDateFp: any;
-  filterFinancialPlanning: string = '';
 
   Wallet: any;
 
-  totalLength: any;
-  page: number = 1;
-
   constructor(
+    public walletService: WalletService,
     public modalFpService: FinancialPlanningCrudModalService,
     public authService: AuthService,
     public fpService: FinancialPlanningService
   ) { }
 
   ngOnInit(): void {
-
+    this.listWallet()
     this.listFinancialPlanning()
 
+  }
+
+  listWallet() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+      this.Wallet = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as unknown;
+      })
+
+    })
   }
 
   listFinancialPlanning() {
