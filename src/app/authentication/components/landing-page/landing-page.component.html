@@ -13,7 +13,6 @@
 
     <main class="flex-fill d-flex align-items-center"> 
         <div class="container">
-            <!-- <div class="row min-vh-100"> -->
             <div class="row">
                 <div class="col-12 col-md-6 imageText">
                     <h3>Esteja no controle do seu dinheiro e sonhos <i class="far fa-grin-wink text-warning"></i></h3>
@@ -46,12 +45,7 @@
                             <label for="ConPasswordRegister" class="form-label">Confirmação de Senha</label>
                         </div>
 
-                        
-
-                        <!-- <div class="mb-2 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> -->
+            
                         
                         <button type="submit" class="btn btn-success float-end"> <!-- [disabled]="!userRegister.valid"> -->
                             Cadastrar
@@ -82,10 +76,7 @@
 <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
 <div class="modal-dialog modal-dialog-size">
   <div class="modal-content">
-    <!-- <div class="modal-header">
-      <h5 class="modal-title" id="modalLoginLabel">Login</h5>
-      
-    </div> -->
+
     <div class="modal-body">
         <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
         <form class="loginAuthentic py-5">
@@ -105,10 +96,7 @@
             <p class="mt-3">
                 Esqueceu a senha? <a href='/forgot-password'>Clique aqui</a> para recuperá-la.
             </p>
-            <!-- <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div> -->
+            
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-success" (click)="authService.SignIn(emailLogin.value, passwordLogin.value)">
                     Acessar
@@ -116,10 +104,7 @@
             </div>
         </form>
     </div>
-    <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Save changes</button>
-    </div> -->
+    
   </div>
 </div>
 </div>

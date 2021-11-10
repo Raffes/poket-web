@@ -63,6 +63,7 @@ import { ExpenseIncomeBarGraphComponent } from './finances/containers/graphics/d
 import { IncomeDashboardPieGraphComponent } from './finances/containers/graphics/dashboard/income-dashboard-pie-graph/income-dashboard-pie-graph.component';
 import { ExpenseDashboardPieGraphComponent } from './finances/containers/graphics/dashboard/expense-dashboard-pie-graph/expense-dashboard-pie-graph.component';
 import { FinancialDashboardProgressComponent } from './finances/containers/graphics/dashboard/financial-dashboard-progress/financial-dashboard-progress.component';
+import { LoginPageComponent } from './authentication/components/login-page/login-page.component';
 
 
 registerLocaleData(localePt)
@@ -111,6 +112,7 @@ registerLocaleData(localePt)
     IncomeDashboardPieGraphComponent,
     ExpenseDashboardPieGraphComponent,
     FinancialDashboardProgressComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,70 @@
+<div class="d-flex flex-column min-vh-100"> 
+
+    <nav class="navbar navbar-light mb-3">
+        <div class="container-fluid">
+        <a href="/landing-page" class="navbar-brand logo">Poket+</a>
+        <form class="d-flex">
+            <a href="/landing-page" class="btn btn-outline-success" type="button">
+                Cadastrar
+            </a>
+        </form>
+        </div>
+    </nav>
+
+    <main class="flex-fill d-flex align-items-center"> 
+        <div class="container">
+            <!-- <div class="row min-vh-100"> -->
+            <div class="row d-flex justify-content-center">
+                
+
+                <div class="col-12 col-md-6 mb-3">
+                    <form>
+                        <div class="mb-2">
+                            <h2 class="text-center">Login</h2>
+                        </div>
+                        
+                        <div class="form-floating mb-2">
+                            
+                            <input type="email" class="form-control" id="emailRegister" maxlength="30" #emailLogin required>
+                            <label for="emailRegister" class="form-label">Email</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            
+                            <input type="password" class="form-control" id="passwordRegister" minlength="6" maxlength="30" #passwordLogin  required>
+                            <label for="passwordRegister" class="form-label">Senha</label>
+                        </div>
+                        
+
+                        <p class="mt-3">
+                            Esqueceu a senha? <a href='/forgot-password'>Clique aqui</a> para recuperá-la.
+                        </p>
+
+                        <!-- <div class="mb-2 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div> -->
+                        
+                        <button type="submit" class="btn btn-success float-end" (click)="authService.SignIn(emailLogin.value, passwordLogin.value)"> <!-- [disabled]="!userRegister.valid"> -->
+                            Acessar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-top text-muted bg-light" >
+        <div class="container">
+    
+            <div class="row py-3">
+    
+                <div class="col-12 text-center">
+                    &copy; 2021 - Poket+ <br>
+                    
+                </div>
+                
+            </div>
+        </div>
+    
+    </footer>
+</div>

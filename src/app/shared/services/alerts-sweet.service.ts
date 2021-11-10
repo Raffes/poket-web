@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 enum AlertTypes {
@@ -13,7 +14,9 @@ enum AlertTypes {
 })
 export class AlertsSweetService {
 
-  constructor() { }
+  constructor(
+    public router: Router,
+  ) { }
 
   showSweetAlertSuccess(message: string) {
     const Toast = Swal.mixin({
@@ -101,6 +104,22 @@ export class AlertsSweetService {
       background: '#0d6efd'
     })
 
+  }
+
+  showModalLoginSuccess() {
+    Swal.fire({
+      title: 'Cadastro feito com sucesso :)',
+      text: "Faça o login para acessar",
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#198754',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Login'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/login'])
+      }
+    })
   }
 
 

@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { AlertsSweetService } from 'src/app/shared/services/alerts-sweet.service';
 import { User } from '../model/user';
 
 @Injectable({
@@ -17,6 +18,7 @@ export class AuthService {
     public angFireStore: AngularFirestore,
     public angFireAuth: AngularFireAuth,
     public router: Router,
+    private alertSweetService: AlertsSweetService,
     private alertService: AlertModalService
 
   ) {
@@ -57,10 +59,8 @@ SignUp(userData: User) {
       });
     })
 
-    // FIXME arrumar um jeito para limpar o form quando o usuário cadastrar
+    this.alertSweetService.showModalLoginSuccess()
 
-    // document.location.reload();
-    this.alertService.showAlertSuccess("Cadastro feito com sucesso, faça o login para acessar :)");
     
   }).catch((error) => {
     this.alertService.showAlertDanger("Email ou senha inválidos");
@@ -73,14 +73,13 @@ SignUp(userData: User) {
 SignIn(email: string, password: string): Promise<any> {
   return this.angFireAuth.signInWithEmailAndPassword(email, password)
   .then(() => {
-
-    console.log('Auth Service: loginUser: success');
     
     this.router.navigate(['dashboard/dashboard-bar-graph/income-pie/expense-pie/financial-progress']).then(() => {
       window.location.reload()
     })
     
   }).catch((error) => {
+    
     this.alertService.showAlertDanger("Dados não encontrados. Verifique seu email e senha ou crie uma conta");
     console.error(error)
   })
@@ -113,7 +112,7 @@ updateUserEmail(user: User) {
   return this.angFireAuth.currentUser.then((result) => {
     
     result?.updateEmail(user.email).then(() => {
-      this.alertService.showAlertSuccess("Email atualizado com sucesso");
+      this.alertSweetService.showSweetAlertSuccess("Email atualizado com sucesso")
 
     }).catch((error) => {
 
@@ -143,8 +142,7 @@ updateUserNickname(user: User) {
     result?.updateProfile({
       displayName: user.displayName
     })
-
-    this.alertService.showAlertSuccess("Apelido atualizado com com sucesso");
+    this.alertSweetService.showSweetAlertSuccess("Apelido atualizado com com sucesso")
 
   }).catch((error) => {
     this.alertService.showAlertDanger("Campo inválido");
@@ -157,7 +155,7 @@ updateUserNickname(user: User) {
 updatePassword(user: User) {
   return this.angFireAuth.currentUser.then((result) =>{
     result?.updatePassword(user.password).then(() => {
-      this.alertService.showAlertSuccess("Senha atualizada com sucesso");
+      this.alertSweetService.showSweetAlertSuccess("Senha atualizada com sucesso")
     }).catch((error) => {
       this.alertService.showAlertDanger("Refaça o login no sistema para alterar senha");
       console.warn(error)
@@ -192,20 +190,9 @@ deleteUser(uid: any) {
       .delete()
 
     }).catch((error) => {
-      console.warn("Deu ruim", error)
+      console.warn(error)
     })
   })
 }
-
-// deleteUser1() {
-//   return this.angFireAuth.currentUser.then((result) => {
-//     result?.delete().then(() => {
-//       console.log("Excluido conta")
-//     }).catch((error) => {
-//       console.warn("Deu ruim", error)
-//     })
-//   })
-// }
-
 
 }
