@@ -76,6 +76,18 @@ export class IncomeService {
       })
   }
 
+  // Deleta um documento de uma coleção depois  que a conta é apagada
+  deleteIncomeAfterWallet(uid: any, idIncome: any) {
+    return this.angFireDB.collection("rendas").doc(uid)
+      .collection(uid)
+      .doc(idIncome)
+      .delete()
+      .then(() => {
+        console.log("Renda excluida com sucesso")
+
+      })
+  }
+
   // Listar todos os documetos de uma coleção
   getIncomeList(uid: any) {
     return this.angFireDB.collection("rendas").doc(uid)

@@ -32,6 +32,7 @@ export class FinancialPlanningService {
 
         this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
           .doc(res.id).collection(res.id).add({
+            idPF: res.id,
             valorAtual: fp.valorAtual,
             idConta: fp.idConta,
             conta: fp.conta,
@@ -108,26 +109,41 @@ export class FinancialPlanningService {
   }
 
   // Deleta um documento de uma coleção
-  deleteHistoryFinancialPlanning1(uid: any, idFP: any, idWallet: any, id: any, oldValueFp: any, accountAmount: any) {
-    return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
-      .doc(idFP).collection(idFP).doc(id)
-      .delete()
-      .then(() => {
-        // atualizar a conta incrementando a renda
-        let subWallet = parseInt(oldValueFp) + accountAmount
+  // deleteHistoryFinancialPlanning(uid: any, idFP: any, idWallet: any, id: any, oldValueFp: any, accountAmount: any) {
+  //   return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
+  //     .doc(idFP).collection(idFP).doc(id)
+  //     .delete()
+  //     .then(() => {
+  //       // atualizar a conta incrementando a renda
+  //       let subWallet = parseInt(oldValueFp) + accountAmount
 
-        this.angFireDB
-          .collection("contas").doc(uid).collection(uid)
-          .doc(idWallet)
-          .update({
-            valor: subWallet
-          })
+  //       this.angFireDB
+  //         .collection("contas").doc(uid).collection(uid)
+  //         .doc(idWallet)
+  //         .update({
+  //           valor: subWallet
+  //         })
 
 
-      }).catch((err) => {
-        console.error(err)
-      })
-  }
+  //     }).catch((err) => {
+  //       console.error(err)
+  //     })
+  // }
+
+    // Deleta um documento de uma coleção
+    deleteHistoryFpAfterWallet(uid: any, idFP: any, id: any) {
+      return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
+        .doc(idFP).collection(idFP).doc(id)
+        .delete()
+        .then(() => {
+          console.log("Histórico apagado com sucesso")
+  
+  
+        }).catch((err) => {
+          console.error(err)
+        })
+    }
+  
 
   // Deleta um documento de uma coleção
   deleteHistoryFinancialPlanning(uid: any, idFP: any, idWallet: any, id: any, idWalletOld: any, accountAmount: any) {

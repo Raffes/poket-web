@@ -13,34 +13,34 @@ export class ExpenseService {
     private alertService: AlertModalService,
   ) { }
 
-     // Cria desepesa no firestore
-     createExpense(expense: Expense, uid: any, conta: any, valor: any, valorNaConta: any) {
-      return this.angFireDB.collection("despesas").doc(uid).collection(uid).add(expense)
-        .then(() => {
-  
-            // atualizar a conta incrementando a renda
-            // if(parseInt(valorNaConta) > parseInt(valor)) {
-              let subWallet =  parseInt(valorNaConta) - parseInt(valor)
-              return this.angFireDB
-                .collection("contas").doc(uid).collection(uid)
-                .doc(conta)
-                .update({
-                  valor: subWallet
-                }).then(() => this.alertService.showAlertSuccess("Despesa adicionada com sucesso"))
-                
-            // }else{
-            //   return
-            //   this.alertService.showAlertDanger("Não há saldo na conta")
-            // }
-            
-          
-          
-          
-  
-        }).catch((error) => {
-          this.alertService.showAlertDanger(error)
-        })
-    }
+  // Cria desepesa no firestore
+  createExpense(expense: Expense, uid: any, conta: any, valor: any, valorNaConta: any) {
+    return this.angFireDB.collection("despesas").doc(uid).collection(uid).add(expense)
+      .then(() => {
+
+        // atualizar a conta incrementando a renda
+        // if(parseInt(valorNaConta) > parseInt(valor)) {
+        let subWallet = parseInt(valorNaConta) - parseInt(valor)
+        return this.angFireDB
+          .collection("contas").doc(uid).collection(uid)
+          .doc(conta)
+          .update({
+            valor: subWallet
+          }).then(() => this.alertService.showAlertSuccess("Despesa adicionada com sucesso"))
+
+        // }else{
+        //   return
+        //   this.alertService.showAlertDanger("Não há saldo na conta")
+        // }
+
+
+
+
+
+      }).catch((error) => {
+        this.alertService.showAlertDanger(error)
+      })
+  }
 
 
 
@@ -64,26 +64,38 @@ export class ExpenseService {
 
   }
 
-    // Deleta um documento de uma coleção
-    deleteExpense(uid: any, idExpense: any, idWallet: any, valorNaContaAntiga: any, valorNaConta: any) {
-      return this.angFireDB.collection("despesas").doc(uid)
-        .collection(uid)
-        .doc(idExpense)
-        .delete()
-        .then(() => {
-          // atualizar a conta incrementando a renda
-          let subWallet =  parseInt(valorNaContaAntiga) + valorNaConta
- 
-          this.angFireDB
-            .collection("contas").doc(uid).collection(uid)
-            .doc(idWallet)
-            .update({
-              valor: subWallet
-            })
- 
-          
-       })
-    }
+  // Deleta um documento de uma coleção
+  deleteExpense(uid: any, idExpense: any, idWallet: any, valorNaContaAntiga: any, valorNaConta: any) {
+    return this.angFireDB.collection("despesas").doc(uid)
+      .collection(uid)
+      .doc(idExpense)
+      .delete()
+      .then(() => {
+        // atualizar a conta incrementando a renda
+        let subWallet = parseInt(valorNaContaAntiga) + valorNaConta
+
+        this.angFireDB
+          .collection("contas").doc(uid).collection(uid)
+          .doc(idWallet)
+          .update({
+            valor: subWallet
+          })
+
+
+      })
+  }
+
+  // Deleta um documento de uma coleção depois  que a conta é apagada
+  deleteExpenseAfterWallet(uid: any, idExpense: any) {
+    return this.angFireDB.collection("despesas").doc(uid)
+      .collection(uid)
+      .doc(idExpense)
+      .delete()
+      .then(() => {
+        console.log("Depesas apagadas com sucesso")
+
+      })
+  }
 
   // Listar todos os documetos de uma coleção
   getExpenseList(uid: any) {
@@ -92,11 +104,11 @@ export class ExpenseService {
       .snapshotChanges();
   }
 
-    // Lista dados de um documento
-    getExpenseDoc(uid: any, idExpense: any) {
-      return this.angFireDB.collection("despesas").doc(uid)
-        .collection(uid).doc(idExpense)
-        .valueChanges()
-    }
+  // Lista dados de um documento
+  getExpenseDoc(uid: any, idExpense: any) {
+    return this.angFireDB.collection("despesas").doc(uid)
+      .collection(uid).doc(idExpense)
+      .valueChanges()
+  }
 
 }
