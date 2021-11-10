@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/authentication/services/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
+  thisYeah = new Date().getUTCFullYear()
+
   constructor(
     public authService: AuthService,
     private router: Router
