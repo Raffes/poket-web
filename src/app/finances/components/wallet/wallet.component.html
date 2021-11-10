@@ -13,7 +13,7 @@
     </div>
     <div class="row mb-3">
         <div class="col-2 d-flex align-items-center">
-            <h5 class="mb-0">Saldo total: R$: {{ valor }}</h5>
+            <h5 class="mb-0">Saldo total: {{ valor | currency : 'BRL' }}</h5>
         </div>
         <div class="col-10 text-end d-flex justify-content-end">
             <div class="input-group filterSearch">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">
-                            <strong> R$ {{ wallet.valor }}</strong>
+                            <strong> {{ wallet.valor | currency : 'BRL' }}</strong>
                         </p>
                     </div>
                 </div>
