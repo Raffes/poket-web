@@ -1,72 +1,13 @@
-<div class="col-12 mb-3 text-end d-flex justify-content-end">
-    <div class="input-group filterSearch">
-        
-        <input class="form-control form-control-sm" type="text" name="filterExpense" [(ngModel)]="filterExpense" placeholder="Filtro">
-        <span class="input-group-text"><i class="fas fa-search"></i></span>
-    </div>
-    
-</div>
-
-<!-- <div class="d-flex justify-content-center">
-    <div class="col-10">
-        <div class="card m-2">
-            <div class="card-header h-100">
-                <ul class="d-flex income-list-card mb-0">
-                    <li><strong>Despesa</strong></li>
-                    <li><strong>valor</strong></li>
-                    <li><strong>Data</strong></li>
-                    <li><strong>Tipo</strong></li>
-                    <li><strong>Conta</strong></li>
-                    <li><strong>Ações</strong></li>
-                </ul>
-
-            </div>
+<div class="d-flex justify-content-end">
+    <div class="col-12 col-md-3 mb-3">
+        <div class="input-group w-md-25">
+            
+            <input class="form-control form-control-sm" type="text" name="filterExpense" [(ngModel)]="filterExpense" placeholder="Filtro">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
         </div>
-    </div>
-
-    
-</div>
-
-<div class="d-flex justify-content-center" *ngFor="let expense of Expense | paginate: { itemsPerPage: 10, 
-    currentPage: page,  
-    totalItems: totalLength} | filter:filterExpense; index as i ">
-<div class="col-10" >
-
-        <div class="card wallet-card mb-2">
-            <div class="card-body">
-                <ul class="d-flex income-list-card mb-0">
-                    <li>{{ expense.despesa }}</li>
-                    <li>{{ expense.valorDespesa | currency : 'BRL' }}</li>
-                    <li>{{ expense.dataDespesa | date: 'dd/MM/yyyy' }}</li>
-                    <li>{{ expense.tipoDespesa }}</li>
-                    <li>{{ expense.conta }}</li>
-                    <li>
-                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning"
-                            (click)="modalEditExpense(expense)">
-                            <i class="fas fa-pen text-light h-100"></i>
-                        </button>
-                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger"
-                            (click)="modalDeleteExpense(expense)">
-                            <i class="fas fa-trash-alt h-100"></i>
-                        </button>
-                        <button type="button" class="btn btn-sm rounded-circle me-2 btn-info text-light" popover="{{ expense.observacao }}"
-                        popoverTitle="Observação" [outsideClick]="true" placement="bottom">
-                            <i class="fas fa-info h-100"></i>
-                        </button>
-                    </li>
-                </ul>
-
-
-            </div>
-
-        </div>
-
         
-
+    </div>
 </div>
-
-</div> -->
-
 
 <div class="row">
 

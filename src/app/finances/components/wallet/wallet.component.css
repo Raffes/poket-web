@@ -1,18 +1,32 @@
-.filterSearch {
+/* .filterSearch {
     width: 30%;
+} */
+
+.filterSearch input{
+    border-right: none;
+}
+
+.filterSearch input:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    border-right: none;
+    border-left: 1px solid rgb(197, 197, 197);
+    border-top: 1px solid rgb(197, 197, 197);
+    border-bottom: 1px solid rgb(197, 197, 197);
 }
 
 .filterSearch span {
     background-color: white;
+    border-left: none;
 }
 
 .filterSearch span i {
-    color: #198754;
+    color: #f8b238;
 }
 
 .wallet-card {
     box-shadow: 0;
-    border-left: #198754 solid 5px;
+    border-left: #f8b238 solid 5px;
 }
 .wallet-card:hover {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
@@ -48,5 +62,5 @@
 }
 
 .financial-pagination /deep/ .ngx-pagination .current {
-    background-color: #198754;
+    background-color: #f8b238;
 }

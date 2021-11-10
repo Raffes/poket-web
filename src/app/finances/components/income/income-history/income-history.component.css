@@ -72,14 +72,14 @@
 } */
 
 .income-pagination /deep/ .ngx-pagination .current {
-    background-color: #198754;
+    background-color: #9fe080;
 }
 
 
 
 
 .income-card {
-    border-left: #198754 5px solid;
+    border-left: #9fe080 5px solid;
     box-shadow: 0;
 }
 

@@ -13,12 +13,12 @@
 
     </div>
     <div class="row mb-3">
-        <div class="col-2 d-flex align-items-center">
+        <div class="col-12 col-md-9 mb-2 mb-md-0 d-flex align-items-center">
             <h5 class="mb-0">Saldo total: R$: {{ valor | currency : 'BRL' }}</h5>
         </div>
 
-        <div class="col-10 mb-3 text-end d-flex justify-content-end">
-            <div class="input-group filterSearch">
+        <div class="col-12 col-md-3 mb-3 text-end d-flex justify-content-end">
+            <div class="input-group w-md-25">
 
                 <input class="form-control form-control-sm" type="text" name="filterFinancialPlanning"
                     [(ngModel)]="filterFinancialPlanning" placeholder="Filtro">
@@ -29,24 +29,6 @@
 
     </div>
 
-<div class="d-flex justify-content-center">
-    <div class="col-10">
-        <div class="card m-2">
-            <div class="card-header h-100">
-                <ul class="d-flex fp-list-card mb-0">
-                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
-                    <li><strong>Valor</strong></li>
-                    <li><strong>Conta</strong></li>
-                    <li><strong>Data</strong></li>
-                    <li><strong>Ações</strong></li>
-                </ul>
-
-            </div>
-        </div>
-    </div>
-
-    
-</div>
 <!-- <div class="d-flex justify-content-center" *ngIf="FinancialHistoryPlanning?.length === 0">
     <div class="col-10" >
         Ainda não tem nenhum histórico...
@@ -59,20 +41,26 @@
 <div class="d-flex justify-content-center" *ngFor="let fp of FinancialHistoryPlanning | paginate: { itemsPerPage: 10, 
     currentPage: page,  
     totalItems: totalLength} | filter:filterFinancialPlanning; index as i" >
-<div class="col-10" >
+<div class="col-12 col-md-10" >
 
         <div class="card fp-card mb-2" [ngClass]="{'financial-card-short':FinancialPlanning.tipoPF == 'Curto Prazo', 'financial-card-medium':FinancialPlanning.tipoPF == 'Médio Prazo', 'financial-card-long':FinancialPlanning.tipoPF == 'Longo Prazo'}">
-            <div class="card-body">
+            <div class="card-body p-0">
                 <ul class="d-flex fp-list-card mb-0">
-                    <!-- <li class="rounded-circle circle-wallet bg-success me-2"></li> -->
-                    <li>{{ fp.valorAtual | currency : 'BRL' }}</li>
-                    <li>{{ fp.conta }}</li>
-                    <li>{{ fp.dataInicial | date: 'dd/MM/yyyy' }}</li>
-                    <li>
+                   
+                    <li class="p-2 flex-column">
+                        <small><strong>Valor</strong></small>
+                        {{ fp.valorAtual | currency : 'BRL' }}
+                    </li>
+                    <li class="p-2 flex-column">
+                        <small><strong>Conta</strong></small>
+                        {{ fp.conta }}
+                    </li>
+                    <li class="p-2 flex-column">
+                        <small><strong>Data</strong></small>
+                        {{ fp.dataInicial | date: 'dd/MM/yyyy' }}
+                    </li>
+                    <li class="p-2">
                         
-                        <!-- <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning" (click)="modalEditFinancialPlanning(fp)">
-                            <i class="fas fa-pen text-light h-100" title="Editar planejamento"></i>
-                        </button> -->
                         <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger" (click)="modalDeleteFinancialPlanningHistory(fp)">
                             <i class="fas fa-trash-alt h-100" title="Excluir histórico"></i>
                         </button>

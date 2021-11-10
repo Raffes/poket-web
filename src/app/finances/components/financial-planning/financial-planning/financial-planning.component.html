@@ -4,12 +4,13 @@
 
         <div class="col-12 col-md-12">
             <h2>Planejamentos
-                
-                <button type="button" class="btn btn-sm rounded-circle btn-success"
-                    (click)="modalCreateFinancialPlanning()" [hidden]="Wallet?.length == 0">
+
+                <button type="button" class="btn btn-sm rounded-circle btn-fp" (click)="modalCreateFinancialPlanning()"
+                    [hidden]="Wallet?.length == 0">
                     <i class="fas fa-plus"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-success" tooltip="Adicione uma conta para cadastrar no planejamento" [hidden]="Wallet?.length != 0"
+                <button type="button" class="btn btn-sm btn-wallet"
+                    tooltip="Adicione uma conta para cadastrar no planejamento" [hidden]="Wallet?.length != 0"
                     (click)="modalCreateWallet()">
                     Adicionar conta
                 </button>
@@ -18,23 +19,23 @@
 
     </div>
     <div class="row mb-3">
-        <!-- <div class="col-6 d-flex align-items-center">
-            <h5 class="mb-0">Saldo total: R$: {{ valor }}</h5>
-        </div> -->
+       
+        <div class="d-flex justify-content-end">
+            <div class="col-12 col-md-3 mb-3 text-end ">
+                <div class="input-group w-md-25">
 
-        <div class="col-12 mb-3 text-end d-flex justify-content-end">
-            <div class="input-group filterSearch">
+                    <input class="form-control form-control-sm" type="text" name="filterFinancialPlanning"
+                        [(ngModel)]="filterFinancialPlanning" placeholder="Filtro">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
 
-                <input class="form-control form-control-sm" type="text" name="filterFinancialPlanning"
-                    [(ngModel)]="filterFinancialPlanning" placeholder="Filtro">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
-
         </div>
+
 
     </div>
 
-    
+
 
 
     <div class="row">
@@ -43,13 +44,14 @@
             currentPage: page,  
             totalItems: totalLength} | filter:filterFinancialPlanning; index as i ">
 
-            
+
             <div class="col-10">
 
                 <!-- Planejamento financeiro curto -->
-                <div class="card financial-card mb-2" [ngClass]="{'financial-card-short':fp.tipoPF == 'Curto Prazo', 'financial-card-medium':fp.tipoPF == 'Médio Prazo', 'financial-card-long':fp.tipoPF == 'Longo Prazo'}">
+                <div class="card financial-card mb-2"
+                    [ngClass]="{'financial-card-short':fp.tipoPF == 'Curto Prazo', 'financial-card-medium':fp.tipoPF == 'Médio Prazo', 'financial-card-long':fp.tipoPF == 'Longo Prazo'}">
                     <div class="card-header p-2 d-flex justify-content-between">
-                       
+
                         <ul class="ps-0 align-items-left financial-list-card">
                             <li><strong>{{ fp.planejamentoFinanceiro }}</strong></li>
                             <li>{{ fp.tipoPF }}</li>
@@ -57,18 +59,22 @@
 
                         <ul class="financial-list-card-actions">
                             <li>
-                                <button type="button" class="btn btn-sm rounded-circle text-light me-2" (click)="modalAddFinancialPlanningHistory(fp)"
-                                [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}">
+                                <button type="button" class="btn btn-sm rounded-circle text-light me-2"
+                                    (click)="modalAddFinancialPlanningHistory(fp)"
+                                    [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}">
                                     <i class="fas fa-plus  h-100" title="Adicionar valor"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning" (click)="modalEditFinancialPlanning(fp)">
+                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-warning"
+                                    (click)="modalEditFinancialPlanning(fp)">
                                     <i class="fas fa-pen text-light h-100" title="Editar planejamento"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger" (click)="modalDeleteFinancialPlanning(fp)">
+                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-danger"
+                                    (click)="modalDeleteFinancialPlanning(fp)">
                                     <i class="fas fa-trash-alt h-100" title="Excluir planejamento"></i>
                                 </button>
-                                
-                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-secondary text-light" (click)="financialPlanningHistory(fp.id)">
+
+                                <button type="button" class="btn btn-sm rounded-circle me-2 btn-secondary text-light"
+                                    (click)="financialPlanningHistory(fp.id)">
                                     <i class="fas fa-history h-100" title="Histórico"></i>
                                 </button>
 
@@ -79,8 +85,8 @@
 
                     <div class="card-body financial-progress">
 
-                        
-                        
+
+
 
                         <ul class="d-flex ps-0 justify-content-between mb-0">
                             <li>{{ fp.valorAtual | currency : 'BRL' }}</li>
@@ -88,37 +94,41 @@
                         </ul>
 
                         <div class="progress" style="height: 5px;">
-                            <div class="progress-bar progress-bar-short" role="progressbar" attr.style="width: {{fp.valueFp}}%;" attr.aria-valuenow="{{fp.valueFp}}"
-                                aria-valuemin="0" aria-valuemax="100" [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}"></div>
-                                
+                            <div class="progress-bar progress-bar-short" role="progressbar"
+                                attr.style="width: {{fp.valueFp}}%;" attr.aria-valuenow="{{fp.valueFp}}"
+                                aria-valuemin="0" aria-valuemax="100"
+                                [ngClass]="{'progress-bar-short':fp.tipoPF == 'Curto Prazo', 'progress-bar-medium':fp.tipoPF == 'Médio Prazo', 'progress-bar-long':fp.tipoPF == 'Longo Prazo'}">
+                            </div>
+
                         </div>
-                        
+
                         <div class="d-flex justify-content-end mb-3 progress-number">
-                            {{fp.valueFp}}% 
-                        </div> 
+                            {{fp.valueFp}}%
+                        </div>
 
                         <ul class="d-flex ps-0 justify-content-between mb-0">
                             <li>{{ fp.dataInicial | date: 'dd/MM/yyyy' }}</li>
                             <li>{{ fp.dataFinal | date: 'dd/MM/yyyy' }}</li>
                         </ul>
                         <div class="progress" style="height: 5px;">
-                            <div class="progress-bar progress-bar-date" role="progressbar" attr.style="width: {{fp.dateFp}}%;" attr.aria-valuenow="{{fp.dateFp}}"
-                                aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar progress-bar-date" role="progressbar"
+                                attr.style="width: {{fp.dateFp}}%;" attr.aria-valuenow="{{fp.dateFp}}" aria-valuemin="0"
+                                aria-valuemax="100"></div>
                         </div>
 
                         <div class="d-flex justify-content-end progress-number">
-                            {{fp.dateFp}}% 
-                        </div> 
+                            {{fp.dateFp}}%
+                        </div>
 
                     </div>
                 </div>
 
-                
+
             </div>
 
         </div>
 
-        
+
 
 
 
@@ -128,9 +138,6 @@
 
 
 
-    <pagination-controls class="text-center financial-pagination"
-        (pageChange)="page = $event" 
-        [hidden]="FinancialPlanning?.length <= 10"
-        previousLabel="" 
-        nextLabel="">
+    <pagination-controls class="text-center financial-pagination" (pageChange)="page = $event"
+        [hidden]="FinancialPlanning?.length <= 10" previousLabel="" nextLabel="">
     </pagination-controls>

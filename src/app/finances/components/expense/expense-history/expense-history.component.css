@@ -1,5 +1,18 @@
-.filterSearch {
+/* .filterSearch {
     width: 30%;
+} */
+
+.filterSearch input{
+    border-right: none;
+}
+
+.filterSearch input:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    border-right: none;
+    border-left: 1px solid rgb(197, 197, 197);
+    border-top: 1px solid rgb(197, 197, 197);
+    border-bottom: 1px solid rgb(197, 197, 197);
 }
 
 .filterSearch span {
@@ -7,7 +20,7 @@
 }
 
 .filterSearch span i {
-    color: #198754;
+    color: #f47e54;
 }
 
 .wallet-card {
@@ -50,14 +63,14 @@
 
 
 .expense-pagination /deep/ .ngx-pagination .current {
-    background-color: #bd413c;
+    background-color: #f47e54;
 }
 
 
 
 /**/
 .expense-card {
-    border-left: #bd413c 5px solid;
+    border-left: #f47e54 5px solid;
     box-shadow: 0;
 }
 

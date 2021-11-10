@@ -10,14 +10,49 @@ body {
 
 .logo {
     font-size: 32px !important;
-    
-    /* font-family: 'Zilla Slab Highlight', cursive; */
     font-family: 'Chewy', cursive;
     font-weight: 400;
     color: #2b9962 !important;
-    /* color: #ff853f !important; */
-    /* color: #f9d039 !important; */
-    
-    /* height: 300px; */
 
+}
+
+.btn-wallet{
+    background-color: #f8b238;
+    color: #fff;
+}
+
+.btn-wallet:hover{
+    background-color: rgba(247, 192, 91, 0.856);
+    color: #fff;
+}
+
+.btn-expense{
+    background-color: #f47e54;
+    color: #fff;
+}
+
+.btn-expense:hover{
+    background-color: #df734c;
+    color: #fff;
+}
+
+
+.btn-income {
+    background-color: #9fe080;
+    color: #fff;
+}
+
+.btn-income:hover{
+    background-color: rgb(91, 201, 173);
+    color: #fff;
+}
+
+.btn-fp {
+    background-color: #1e415f;
+    color: #fff;
+}
+
+.btn-fp:hover{
+    background-color: #255075;
+    color: #fff;
 }
