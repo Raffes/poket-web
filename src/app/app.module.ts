@@ -8,6 +8,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -123,6 +124,7 @@ registerLocaleData(localePt)
     NgxEchartsModule.forRoot({
       echarts
     }),
+    SweetAlert2Module.forRoot(),
     ReactiveFormsModule, 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

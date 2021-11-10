@@ -9,11 +9,25 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 @Component({
   selector: 'app-income',
   templateUrl: './income.component.html',
-  styleUrls: ['./income.component.css']
+  styleUrls: ['./income.component.css'],
+  styles: [
+    `
+      :host >>> .tooltip-inner {
+        background-color: #198754;
+        color: #fff;
+      }
+      :host >>> .tooltip.top .tooltip-arrow:before,
+      :host >>> .tooltip.top .tooltip-arrow {
+        border-top-color: #009688;
+      }
+    `
+  ]
 })
 export class IncomeComponent implements OnInit {
   
   valor: any
+
+  Income: any
 
   Wallet: any;
 
@@ -29,6 +43,18 @@ export class IncomeComponent implements OnInit {
   ngOnInit(): void {
     this.totalIncome()
     this.listWallet()
+    this.listIncome()
+  }
+
+  listIncome() {
+    this.incomeService.getIncomeList(this.authService.userData.uid).subscribe(res => {
+      this.Income = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        };
+      })
+    })
   }
 
   totalIncome() {

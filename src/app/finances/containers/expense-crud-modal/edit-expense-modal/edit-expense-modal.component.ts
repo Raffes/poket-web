@@ -122,7 +122,8 @@ export class EditExpenseModalComponent implements OnInit {
         }
       });
 
-      this.expenseService.updateExpense(this.expenseUpdate.value, this.authService.userData.uid, this.id, idWalletAntigo , idWallet, valorDaContaAntigo, valorDaConta)
+      this.expenseService.updateExpense(this.expenseUpdate.value, this.authService.userData.uid, this.id)
+      // this.expenseService.updateExpense(this.expenseUpdate.value, this.authService.userData.uid, this.id, idWalletAntigo , idWallet, valorDaContaAntigo, valorDaConta)
       this.closeModal()
 
     }

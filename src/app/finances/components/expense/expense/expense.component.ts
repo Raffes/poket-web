@@ -9,14 +9,27 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
-  styleUrls: ['./expense.component.css']
+  styleUrls: ['./expense.component.css'],
+  styles: [
+    `
+      :host >>> .tooltip-inner {
+        background-color: #f47e54;
+        color: #fff;
+      }
+      :host >>> .tooltip.top .tooltip-arrow:before,
+      :host >>> .tooltip.top .tooltip-arrow {
+        border-top-color: #009688;
+      }
+    `
+  ]
 })
 export class ExpenseComponent implements OnInit {
 
   valor: any
 
   Wallet: any;
-  
+  Expense: any
+
   constructor(
     public expenseService: ExpenseService,
     public modalExpenseService: ExpenseCrudModalService,
@@ -29,6 +42,7 @@ export class ExpenseComponent implements OnInit {
   ngOnInit(): void {
     this.totalExpense()
     this.listWallet()
+    this.listExpense()
   }
 
   totalExpense() {
@@ -62,6 +76,17 @@ export class ExpenseComponent implements OnInit {
         } as unknown;
       })
 
+    })
+  }
+
+  listExpense() {
+    this.expenseService.getExpenseList(this.authService.userData.uid).subscribe(res => {
+      this.Expense = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        };
+      })
     })
   }
 

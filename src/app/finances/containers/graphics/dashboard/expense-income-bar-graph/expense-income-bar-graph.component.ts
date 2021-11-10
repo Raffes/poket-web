@@ -10,7 +10,19 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 @Component({
   selector: 'app-expense-income-bar-graph',
   templateUrl: './expense-income-bar-graph.component.html',
-  styleUrls: ['./expense-income-bar-graph.component.css']
+  styleUrls: ['./expense-income-bar-graph.component.css'],
+  styles: [
+    `
+      :host >>> .tooltip-inner {
+        background-color: #198754;
+        color: #fff;
+      }
+      :host >>> .tooltip.top .tooltip-arrow:before,
+      :host >>> .tooltip.top .tooltip-arrow {
+        border-top-color: #009688;
+      }
+    `
+  ]
 })
 export class ExpenseIncomeBarGraphComponent implements OnInit {
 
@@ -18,6 +30,7 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
   barGraphExpenseIncome: any
   valor: any
   thisYeah = new Date().getUTCFullYear()
+  Wallet: any
 
   constructor(
     public incomeService: IncomeService,
@@ -28,8 +41,20 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getBarGraphIncome()
+    this.getBarGraphExpenseIncome()
     this.totalBalance()
+    this.listWallet()
+  }
+
+  listWallet() {
+    this.walletService.getWalletList(this.authService.userData.uid).subscribe(res => {
+      this.Wallet = res.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        };
+      })
+    })
   }
 
   totalBalance() {
@@ -48,7 +73,7 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
 
     })
   }
-  getBarGraphIncome() {
+  getBarGraphExpenseIncome() {
     let dateValues: any[] = []
     let horario = "T00:00:00-0300"
     // Pega o ano atual do usuário
@@ -311,6 +336,7 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
               name: 'Despesa',
               type: 'bar',
               data: valueExpense,
+              color: '#f47e54',
               markPoint: {
                 data: [
                   { type: 'max', name: 'Max' },
@@ -325,6 +351,7 @@ export class ExpenseIncomeBarGraphComponent implements OnInit {
               name: 'Renda',
               type: 'bar',
               data: valueIncome,
+              color: '#9fe080',
               markPoint: {
                 data: [
                   { type: 'max', name: 'Max' },

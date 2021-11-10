@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { AlertsSweetService } from 'src/app/shared/services/alerts-sweet.service';
 import { FinancialPlanning } from '../modal/financial-planning';
 
 @Injectable({
@@ -10,6 +11,7 @@ export class FinancialPlanningService {
 
   constructor(
     private angFireDB: AngularFirestore,
+    private alertSweetService: AlertsSweetService,
     private alertService: AlertModalService,
   ) { }
 
@@ -27,8 +29,6 @@ export class FinancialPlanningService {
           .update({
             valor: subWallet
           })
-        // .then(() => this.alertService.showAlertSuccess("Planejamento financeiro de " + fp.tipoPF + " adicionado com sucesso"))
-
 
         this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
           .doc(res.id).collection(res.id).add({
@@ -39,8 +39,11 @@ export class FinancialPlanningService {
             dataInicial: fp.dataInicial
           })
 
+      }).then(() => {
+        this.alertSweetService.showSweetAlertSuccess("Planejamento salvo com sucesso")
+
       }).catch((error) => {
-        this.alertService.showAlertDanger(error)
+        console.error(error)
       })
 
 
@@ -67,10 +70,15 @@ export class FinancialPlanningService {
           .doc(idFp)
           .update({
             valorAtual: sumFP
-          }).then(() => console.log("valor do planejamento financeiro atualizado"))
+          }).then(() => {
+            this.alertSweetService.showSweetAlertSuccess("Histórico salvo com sucesso")
+    
+          }).catch((error) => {
+            console.error(error)
+          })
 
       }).catch((error) => {
-        this.alertService.showAlertDanger(error)
+        console.error(error)
       })
   }
 
@@ -88,6 +96,11 @@ export class FinancialPlanningService {
         dataInicial: fp.dataInicial,
         dataFinal: fp.dataFinal
 
+      }).then(() => {
+        this.alertSweetService.showSweetAlertSuccess("Planejamento alterado com sucesso")
+
+      }).catch((error) => {
+        console.error(error)
       })
 
   }
@@ -100,11 +113,10 @@ export class FinancialPlanningService {
       .doc(idFP)
       .delete()
       .then(() => {
-        console.log("Planejamento deletado com sucesso")
+        // this.alertSweetService.showSweetAlertSuccess("Planejamento excluído com sucesso")
 
-
-      }).catch((err) => {
-        console.error(err)
+      }).catch((error) => {
+        console.error(error)
       })
   }
 
@@ -137,6 +149,11 @@ export class FinancialPlanningService {
           .doc(idWallet)
           .update({
             valor: subWallet
+          }).then(() => {
+            this.alertSweetService.showSweetAlertSuccess("Dado excluído com sucesso")
+    
+          }).catch((error) => {
+            console.error(error)
           })
 
 

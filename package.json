@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@juggle/resize-observer": "^3.3.1",
+    "@sweetalert2/ngx-sweetalert2": "^10.0.0",
     "bootstrap": "^5.1.0",
     "echarts": "^5.2.1",
     "firebase": "^8.10.0",
@@ -29,6 +30,7 @@
     "ngx-echarts": "^7.0.2",
     "ngx-pagination": "^5.1.1",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^11.1.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

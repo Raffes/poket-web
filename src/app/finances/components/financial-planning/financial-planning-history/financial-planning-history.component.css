@@ -10,16 +10,33 @@
     background-color: #819694;
 }
 
-.filterSearch {
-    width: 30%;
+.filterSearch input{
+    border-right: none;
+}
+
+.filterSearch input:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    border-right: none;
+    border-left: 1px solid rgb(197, 197, 197);
+    border-top: 1px solid rgb(197, 197, 197);
+    border-bottom: 1px solid rgb(197, 197, 197);
 }
 
 .filterSearch span {
     background-color: white;
 }
 
-.filterSearch span i {
-    color: #198754;
+.filterIconShort {
+    color: #56b6de;
+}
+
+.filterIconMedium {
+    color: #9dc59f;
+}
+
+.filterIconLong {
+    color: #819694;
 }
 
 .fp-card {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { AlertsSweetService } from 'src/app/shared/services/alerts-sweet.service';
 import { Expense } from '../modal/expense';
 
 @Injectable({
@@ -10,6 +11,7 @@ export class ExpenseService {
 
   constructor(
     private angFireDB: AngularFirestore,
+    private alertSweetService: AlertsSweetService,
     private alertService: AlertModalService,
   ) { }
 
@@ -19,23 +21,18 @@ export class ExpenseService {
       .then(() => {
 
         // atualizar a conta incrementando a renda
-        // if(parseInt(valorNaConta) > parseInt(valor)) {
         let subWallet = parseInt(valorNaConta) - parseInt(valor)
         return this.angFireDB
           .collection("contas").doc(uid).collection(uid)
           .doc(conta)
           .update({
             valor: subWallet
-          }).then(() => this.alertService.showAlertSuccess("Despesa adicionada com sucesso"))
-
-        // }else{
-        //   return
-        //   this.alertService.showAlertDanger("Não há saldo na conta")
-        // }
-
-
-
-
+          }).then(() => {
+            this.alertSweetService.showSweetAlertSuccess("Despesa salva com sucesso")
+    
+          }).catch((error) => {
+            console.error(error)
+          })
 
       }).catch((error) => {
         this.alertService.showAlertDanger(error)
@@ -45,7 +42,7 @@ export class ExpenseService {
 
 
   //Atualiza dados de um documento
-  updateExpense(expense: Expense, uid: any, idExpense: any, idWalletAntigo: any, idWallet: any, valorNaContaAntiga: any, valorNaConta: any) {
+  updateExpense(expense: Expense, uid: any, idExpense: any) {
     return this.angFireDB
       .collection("despesas").doc(uid).collection(uid)
       .doc(idExpense)
@@ -59,7 +56,10 @@ export class ExpenseService {
         observacao: expense.observacao
 
       }).then(() => {
-        //  TODO coloca alerta de sucesso
+        this.alertSweetService.showSweetAlertSuccess("Despesa alterada com sucesso")
+
+      }).catch((error) => {
+        console.error(error)
       })
 
   }
@@ -79,6 +79,11 @@ export class ExpenseService {
           .doc(idWallet)
           .update({
             valor: subWallet
+          }).then(() => {
+            this.alertSweetService.showSweetAlertSuccess("Despesa excluída com sucesso")
+    
+          }).catch((error) => {
+            console.error(error)
           })
 
 

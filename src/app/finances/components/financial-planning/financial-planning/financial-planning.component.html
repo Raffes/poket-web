@@ -18,11 +18,12 @@
         </div>
 
     </div>
+
     <div class="row mb-3">
-       
+
         <div class="d-flex justify-content-end">
             <div class="col-12 col-md-3 mb-3 text-end ">
-                <div class="input-group w-md-25">
+                <div class="input-group filterSearch w-md-25">
 
                     <input class="form-control form-control-sm" type="text" name="filterFinancialPlanning"
                         [(ngModel)]="filterFinancialPlanning" placeholder="Filtro">
@@ -35,7 +36,15 @@
 
     </div>
 
+    <div class="d-flex justify-content-center h-25" *ngIf="FinancialPlanning?.length === 0">
+        <div class="col-10 d-flex justify-content-center">
 
+            <img class="img-financialPlanning w-50" src="assets/img/jaconda-contribution.png" alt="imagem" tooltipClass="bg-success"
+             tooltip="Adicione um planejamento para da os primeiros passos para alcançar seus sonhos :)" placement="right">
+        </div>
+
+
+    </div>
 
 
     <div class="row">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/services/auth.service';
+import { AlertsSweetService } from 'src/app/shared/services/alerts-sweet.service';
 import { Wallet } from '../../modal/wallet';
 import { ModalWalletCrudService } from '../../services/wallet-crud-modal.service';
 import { WalletService } from '../../services/wallet.service';
@@ -8,7 +9,19 @@ import { WalletService } from '../../services/wallet.service';
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
-  styleUrls: ['./wallet.component.css']
+  styleUrls: ['./wallet.component.css'],
+  styles: [
+    `
+      :host >>> .tooltip-inner {
+        background-color: #f8b238;
+        color: #fff;
+      }
+      :host >>> .tooltip.top .tooltip-arrow:before,
+      :host >>> .tooltip.top .tooltip-arrow {
+        border-top-color: #009688;
+      }
+    `
+  ]
 })
 export class WalletComponent implements OnInit {
 

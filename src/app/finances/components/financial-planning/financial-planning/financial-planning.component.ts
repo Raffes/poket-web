@@ -9,7 +9,19 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 @Component({
   selector: 'app-financial-planning',
   templateUrl: './financial-planning.component.html',
-  styleUrls: ['./financial-planning.component.css']
+  styleUrls: ['./financial-planning.component.css'],
+  styles: [
+    `
+      :host >>> .tooltip-inner {
+        background-color: #1e415f;
+        color: #fff;
+      }
+      :host >>> .tooltip.top .tooltip-arrow:before,
+      :host >>> .tooltip.top .tooltip-arrow {
+        border-top-color: #009688;
+      }
+    `
+  ]
 })
 export class FinancialPlanningComponent implements OnInit {
 

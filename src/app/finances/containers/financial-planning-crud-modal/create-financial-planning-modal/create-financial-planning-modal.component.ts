@@ -103,8 +103,6 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
 
       // Criar planejamento e Atualizar a conta que foi salva a renda
       this.fpService.createFinancialPlanning(this.financialPlanningRegister.value, this.authService.userData.uid)
-
-
       this.closeModal()
 
 

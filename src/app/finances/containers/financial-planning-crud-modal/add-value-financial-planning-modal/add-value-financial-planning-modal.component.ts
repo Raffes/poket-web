@@ -94,10 +94,7 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
       });
 
       this.fpService.AddMoreFinancialPlanning(this.AddMorefinancialPlanning.value, this.authService.userData.uid, this.id, this.valorAtual)
-
-
       this.closeModal()
-
 
     }
   }
