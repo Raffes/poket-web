@@ -66,12 +66,7 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
     const contaValor = this.AddMorefinancialPlanning.get('contaValor')
     const dataHistoryPF = this.AddMorefinancialPlanning.get('dataInicial')
 
-    if (valorAtualPF?.value == "" || idConta?.value == "") {
-      this.alertService.showAlertDanger("Falta campos para preencher");
-
-    } else {
-
-      let contaWallet
+    let contaWallet
 
       this.Wallet.forEach(function (value: any) {
         contaWallet = value.id
@@ -92,6 +87,16 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
         }
 
       });
+
+    if (valorAtualPF?.value == "" || idConta?.value == "") {
+      this.alertService.showAlertDanger("Falta campos para preencher");
+
+    }  else if (parseInt(valorAtualPF?.value) > parseInt(contaValor?.value)) {
+      this.alertService.showAlertDanger("Saldo insuficiente!");
+
+    } else {
+
+      
 
       this.fpService.AddMoreFinancialPlanning(this.AddMorefinancialPlanning.value, this.authService.userData.uid, this.id, this.valorAtual)
       this.closeModal()

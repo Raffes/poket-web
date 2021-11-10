@@ -77,14 +77,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
  
     let fullDate = fullYeah + '-' + month + '-' + day;
 
-    if (nomePF?.value == "" || valorAtualPF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == "" || idConta?.value == "") {
-      this.alertService.showAlertDanger("Falta campos para preencher");
-
-    } else if (fullYeahEnd < fullYeah || monthEnd < parseInt(month) && fullYeahEnd == fullYeah) {
-      this.alertService.showAlertDanger("Data invalida");
-      
-    } else {
-      let contaWallet
+    let contaWallet
 
       this.Wallet.forEach(function (value: any) {
         contaWallet = value.id
@@ -93,13 +86,23 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
           idConta?.setValue(value.id)
           conta?.setValue(value.conta)
           contaValor?.setValue(value.valor)
-
-
           dataInicialPF?.setValue(fullDate)
 
         }
 
       });
+
+    if (nomePF?.value == "" || valorAtualPF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == "" || idConta?.value == "") {
+      this.alertService.showAlertDanger("Falta campos para preencher");
+
+    } else if (fullYeahEnd < fullYeah || monthEnd < parseInt(month) && fullYeahEnd == fullYeah) {
+      this.alertService.showAlertDanger("Data invalida");
+      
+    } else if (parseInt(valorAtualPF?.value) > parseInt(contaValor?.value)) {
+      this.alertService.showAlertDanger("Saldo insuficiente!");
+
+    } else {
+      
 
       // Criar planejamento e Atualizar a conta que foi salva a renda
       this.fpService.createFinancialPlanning(this.financialPlanningRegister.value, this.authService.userData.uid)

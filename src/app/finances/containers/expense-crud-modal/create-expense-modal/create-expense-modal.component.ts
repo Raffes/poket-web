@@ -24,7 +24,7 @@ export class CreateExpenseModalComponent implements OnInit {
     public formBuilder: FormBuilder,
     private alertService: AlertModalService,
     public walletService: WalletService,
-  ) { 
+  ) {
     this.expenseRegister = this.formBuilder.group({
       despesa: ["", Validators.maxLength(30)],
       valorDespesa: ["", Validators.maxLength(8)],
@@ -60,23 +60,29 @@ export class CreateExpenseModalComponent implements OnInit {
     const conta = this.expenseRegister.get('conta')
     const observacao = this.expenseRegister.get('observacao')
 
+
+    let idWallet
+    let valorDaConta: any
+    let contaWallet
+
+    this.Wallet.forEach(function (value: any) {
+      contaWallet = value.id
+      if (contaWallet == idConta?.value) {
+        idWallet = value.id
+        valorDaConta = value.valor
+        conta?.setValue(value.conta)
+      }
+
+    });
+
     if (nomeDespesa?.value == "" || valorDespesa?.value == "" || dataDespesa?.value == "" || tipoDespesa?.value == "" || idConta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
+    } else if (parseInt(valorDespesa?.value) > parseInt(valorDaConta)) {
+      this.alertService.showAlertDanger("Saldo insuficiente!");
+
     } else {
-      let idWallet
-      let valorDaConta
-      let contaWallet
 
-      this.Wallet.forEach(function (value: any) {
-        contaWallet = value.id
-        if (contaWallet == idConta?.value) {
-          idWallet = value.id
-          valorDaConta = value.valor
-          conta?.setValue(value.conta)
-        }
-
-      });
 
       // Criar despesa e Atualizar a conta que foi salva a renda
       this.expenseService.createExpense(this.expenseRegister.value, this.authService.userData.uid, idWallet, valorDespesa?.value, valorDaConta)

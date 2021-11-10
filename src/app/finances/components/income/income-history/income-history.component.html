@@ -13,7 +13,7 @@
 
 <div class="row">
 
-    <div class="d-flex justify-content-center" *ngFor="let income of Income | paginate: { itemsPerPage: 10, 
+    <div class="d-flex justify-content-center" *ngFor="let income of Income | paginate: { itemsPerPage: 5, 
         currentPage: page,  
         totalItems: totalLength} | filter:filterIncome; index as i ">
         <div class="col-10">
@@ -66,6 +66,6 @@
 </div>
 
 
-<pagination-controls class="text-center income-pagination" (pageChange)="page = $event" [hidden]="Income?.length <= 10"
+<pagination-controls class="text-center income-pagination" (pageChange)="page = $event" [hidden]="Income?.length <= 5"
     previousLabel="" nextLabel="">
 </pagination-controls>
