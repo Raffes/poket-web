@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { AlertsSweetService } from 'src/app/shared/services/alerts-sweet.service';
 import { Wallet } from '../modal/wallet';
 
 @Injectable({
@@ -12,6 +13,7 @@ export class WalletService {
   constructor(
     private angFireDB: AngularFirestore,
     private alertService: AlertModalService,
+    private alertSweetService: AlertsSweetService,
     
   ) { }
 
@@ -19,10 +21,10 @@ export class WalletService {
   createWallet(wallet: Wallet, uid: any) {
     return this.angFireDB.collection("contas").doc(uid).collection(uid).add(wallet)
       .then(() => {
-        this.alertService.showAlertSuccess("Conta feita com sucesso")
+        this.alertSweetService.showSweetAlertSuccess("Conta feita com sucesso")
 
       }).catch((error) => {
-        this.alertService.showAlertDanger(error)
+        console.error(error)
       })
   }
 
@@ -34,6 +36,11 @@ export class WalletService {
       .update({
         conta: wallet.conta,
         valor: wallet.valor
+      }).then(() => {
+        this.alertSweetService.showSweetAlertSuccess("Conta alterada com sucesso")
+
+      }).catch((error) => {
+        console.error(error)
       })
 
   }
@@ -43,7 +50,12 @@ export class WalletService {
     return this.angFireDB.collection("contas").doc(uid)
       .collection(uid)
       .doc(idWallet)
-      .delete()
+      .delete().then(() => {
+        this.alertSweetService.showSweetAlertSuccess("Conta excluída com sucesso")
+
+      }).catch((error) => {
+        console.error(error)
+      })
   }
 
   // Listar todos os documetos de uma coleção
@@ -60,20 +72,5 @@ export class WalletService {
       .valueChanges()
   }
   
-
-  // TODO vê o se é util
-   // Cria conta financeira no firestore
-  //  createBalance(value: any, uid: any, idBalance: any) {
-  //   return this.angFireDB.collection("contas").doc(uid).collection("saldo Todal").doc(idBalance)
-  //   .update({
-  //     valorTotal: value})
-  // }
-
-  // Lista dados de um documento
-  // getBalanceDoc(uid: any, idBalance: any) {
-  //   return this.angFireDB.collection("contas").doc(uid)
-  //     .collection("saldo Todal")
-  //     .snapshotChanges();
-  // }
 
 }
