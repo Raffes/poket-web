@@ -10,6 +10,7 @@ import { ExpenseService } from 'src/app/finances/services/expense.service';
 export class ExpenseBarGraphComponent implements OnInit {
   
   barGraphExpense: any
+  thisYeah = new Date().getUTCFullYear()
 
   constructor(
     public expenseService: ExpenseService,

@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 export class LandingPageComponent implements OnInit {
 
   public userRegister: FormGroup;
+  thisYeah = new Date().getUTCFullYear()
 
   constructor(
     public authService: AuthService,

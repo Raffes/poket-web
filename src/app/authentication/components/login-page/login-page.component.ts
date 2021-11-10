@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginPageComponent implements OnInit {
 
+  thisYeah = new Date().getUTCFullYear()
+
   constructor(
     public authService: AuthService,
   ) { }

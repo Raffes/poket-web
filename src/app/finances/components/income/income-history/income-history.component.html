@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end">
-    <div class="col-12 col-md-3 mb-3">
+    <div class="col-12 col-md-3 mb-3 pe-md-3">
         <div class="input-group filterSearch w-md-25">
 
             <input class="form-control form-control-sm" type="text" name="filterIncome" [(ngModel)]="filterIncome"
@@ -37,9 +37,9 @@
                                 (click)="modalDeleteIncome(income)">
                                 <i class="fas fa-trash-alt h-100" title="Excluir renda"></i>
                             </button>
-                            <button type="button" class="btn btn-sm rounded-circle me-2 btn-info text-light"
-                                popover="{{ income.observacao }}" popoverTitle="Observação" [outsideClick]="true"
-                                placement="bottom">
+                            <button type="button" class="btn btn-sm rounded-circle me-2 text-light"
+                                popover="{{ income.observacao }}" popoverTitle="Observação" [outsideClick]="true" 
+                                placement="top" [ngClass]="{'disabled': income.observacao === '', 'btn-secondary': income.observacao === '', 'btn-info': income.observacao !== ''}">
                                 <i class="fas fa-info h-100"></i>
                             </button>
 

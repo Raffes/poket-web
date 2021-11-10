@@ -10,6 +10,7 @@ import { IncomeService } from 'src/app/finances/services/income.service';
 export class IncomeBarGraphComponent implements OnInit {
 
   barGraphIncome: any
+  thisYeah = new Date().getUTCFullYear()
 
   constructor(
     public incomeService: IncomeService,

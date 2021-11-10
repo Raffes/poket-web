@@ -26,9 +26,7 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 export class IncomeComponent implements OnInit {
   
   valor: any
-
   Income: any
-
   Wallet: any;
 
   constructor(

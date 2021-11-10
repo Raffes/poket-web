@@ -32,7 +32,7 @@ export class CreateIncomeModalComponent implements OnInit {
       tipoRenda: [""],
       idConta: [""],
       conta: [""],
-      observacao: ["", Validators.maxLength(30)]
+      observacao: ["", Validators.maxLength(50)]
     })
   }
 

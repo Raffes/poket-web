@@ -96,7 +96,6 @@ export class FinancialDashboardProgressComponent implements OnInit {
 
       // Ordena do maior para o menor os planejamentos financeiro
       this.FinancialPlanning = this.FinancialPlanning.sort(function(a: any ,b: any){ return a.dateFp - b.dateFp}).reverse()
-      console.log(this.FinancialPlanning)
 
       // Pega a primeira posição para se mostrado do dashboard
       this.FinancialPlanning = this.FinancialPlanning.filter((el: any, i: any) => i < 1)

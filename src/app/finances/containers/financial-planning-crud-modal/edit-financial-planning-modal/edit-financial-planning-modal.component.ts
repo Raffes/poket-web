@@ -100,7 +100,7 @@ export class EditFinancialPlanningModalComponent implements OnInit {
     let month = String(dataAtual.getMonth() + 1).padStart(2, '0');
     let datafinal = new Date(dataFinalPF?.value+"T00:00");
     let fullYeahEnd = datafinal.getFullYear();
-    let monthEnd = datafinal.getMonth();
+    let monthEnd = datafinal.getMonth()+1;
  
 
     if (nomePF?.value == "" || valorObjetivadoPF?.value == "" || dataFinalPF?.value == "" || tipoPF?.value == null || dataInicialPF?.value == null) {

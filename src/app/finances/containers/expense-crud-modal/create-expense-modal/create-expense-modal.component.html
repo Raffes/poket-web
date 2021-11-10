@@ -48,7 +48,7 @@
         <div class="form-floating mb-3">
             
             <select class="form-select" id="addConta" formControlName="idConta" required>
-                <option *ngFor="let wallet of Wallet" value="{{ wallet.id }}" [hidden]="wallet.valor <= 0">{{ wallet.conta }}</option>
+                <option *ngFor="let wallet of Wallet" value="{{ wallet.id }}" [hidden]="wallet.valor <= 0">{{ wallet.conta }} ( {{ wallet.valor | currency : 'BRL' }} )</option>
               </select>
 
               <label for="addConta" class="col-form-label">Meio de pagamento</label>
@@ -57,7 +57,7 @@
 
         <div class="form-floating mb-3">
             
-            <input type="text" class="form-control" id="addObsExpense" maxlength="30" formControlName="observacao" required>
+            <input type="text" class="form-control" id="addObsExpense" maxlength="50" formControlName="observacao" required>
             <label for="addObsExpense" class="col-form-label">Observação</label>
         </div>
 

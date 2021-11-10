@@ -116,6 +116,11 @@ export class FinancialPlanningComponent implements OnInit {
           pocentoDate = 100
         }
 
+        if(porcentoValueFp >= 100){
+          porcentoValueFp = 100
+        }
+
+
 
         return {
           id: e.payload.doc.id,

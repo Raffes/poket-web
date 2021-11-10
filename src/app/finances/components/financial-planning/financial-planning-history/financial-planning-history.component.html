@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-12 col-md-3 mb-3 text-end d-flex justify-content-end">
-            <div class="input-group filterSearch w-md-25">
+            <div class="input-group filterSearch w-md-25 pe-md-3">
 
                 <input class="form-control form-control-sm" type="text" name="filterFinancialPlanning"
                     [(ngModel)]="filterFinancialPlanning" placeholder="Filtro">
@@ -30,14 +30,6 @@
 
     </div>
 
-<!-- <div class="d-flex justify-content-center" *ngIf="FinancialHistoryPlanning?.length === 0">
-    <div class="col-10" >
-        Ainda não tem nenhum histórico...
-        <img class="img-financialPlanning" src="assets/img/jaconda-55.png" alt="imagem">
-    </div>
-    
-    
-</div> -->
 
 <div class="d-flex justify-content-center" *ngFor="let fp of FinancialHistoryPlanning | paginate: { itemsPerPage: 10, 
     currentPage: page,  

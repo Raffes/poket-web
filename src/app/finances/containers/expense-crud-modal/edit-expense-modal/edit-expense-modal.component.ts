@@ -42,7 +42,7 @@ export class EditExpenseModalComponent implements OnInit {
       tipoDespesa: [""],
       idConta: [""],
       conta: [""],
-      observacao: ["", Validators.maxLength(30)]
+      observacao: ["", Validators.maxLength(50)]
     })
   }
 

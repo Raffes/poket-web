@@ -42,7 +42,7 @@ export class EditIncomeModalComponent implements OnInit {
         tipoRenda: [""],
         idConta: [""],
         conta: [""],
-        observacao: ["", Validators.maxLength(30)]
+        observacao: ["", Validators.maxLength(50)]
       })
   }
 
