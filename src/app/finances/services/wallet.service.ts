@@ -12,7 +12,6 @@ export class WalletService {
 
   constructor(
     private angFireDB: AngularFirestore,
-    private alertService: AlertModalService,
     private alertSweetService: AlertsSweetService,
     
   ) { }
@@ -21,7 +20,7 @@ export class WalletService {
   createWallet(wallet: Wallet, uid: any) {
     return this.angFireDB.collection("contas").doc(uid).collection(uid).add(wallet)
       .then(() => {
-        this.alertSweetService.showSweetAlertSuccess("Conta feita com sucesso")
+        this.alertSweetService.showSweetAlertSuccess("Conta salva com sucesso")
 
       }).catch((error) => {
         console.error(error)

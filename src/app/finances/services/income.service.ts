@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 import { Income } from '../modal/income';
 import firebase from 'firebase/app';
+import { AlertsSweetService } from 'src/app/shared/services/alerts-sweet.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class IncomeService {
 
   constructor(
     private angFireDB: AngularFirestore,
+    private alertSweetService: AlertsSweetService,
     private alertService: AlertModalService,
   ) { }
 
@@ -26,10 +28,12 @@ export class IncomeService {
           .doc(conta)
           .update({
             valor: sumWallet
+          }).then(() => {
+            this.alertSweetService.showSweetAlertSuccess("Renda salva com sucesso")
+    
+          }).catch((error) => {
+            console.error(error)
           })
-
-
-        this.alertService.showAlertSuccess("Renda adicionada com sucesso")
 
       }).catch((error) => {
         this.alertService.showAlertDanger(error)
@@ -51,7 +55,10 @@ export class IncomeService {
         observacao: income.observacao
 
       }).then(() => {
-        // TODO Coloque um alerta de sucesso
+        this.alertSweetService.showSweetAlertSuccess("Renda alterada com sucesso")
+
+      }).catch((error) => {
+        console.error(error)
       })
 
   }
@@ -71,6 +78,11 @@ export class IncomeService {
           .doc(idWallet)
           .update({
             valor: subWallet
+          }).then(() => {
+            this.alertSweetService.showSweetAlertSuccess("Renda excluída com sucesso")
+    
+          }).catch((error) => {
+            console.error(error)
           })
 
       })
