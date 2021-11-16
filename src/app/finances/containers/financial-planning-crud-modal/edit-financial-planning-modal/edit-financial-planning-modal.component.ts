@@ -14,7 +14,7 @@ import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 })
 export class EditFinancialPlanningModalComponent implements OnInit {
   @Input() id: any;
-  @Input() planejamentoFinanceiro: any;
+  @Input() nomePF: any;
   @Input() valorAtual: any;
   @Input() valorObjetivado: any;
   @Input() dataInicial: any;
@@ -38,7 +38,7 @@ export class EditFinancialPlanningModalComponent implements OnInit {
   ) { 
     this.financialPlanningUpdate = this.formBuilder.group({
       id: [""],
-      planejamentoFinanceiro: ["", Validators.maxLength(30)],
+      nomePF: ["", Validators.maxLength(30)],
       tipoPF: [""],
       conta: [""],
       valorAtual: ["", Validators.maxLength(8)],
@@ -60,7 +60,7 @@ export class EditFinancialPlanningModalComponent implements OnInit {
       this.financialPlanningRef = res
 
       this.financialPlanningUpdate = this.formBuilder.group({
-        planejamentoFinanceiro: [this.planejamentoFinanceiro],
+        nomePF: [this.nomePF],
         tipoPF: [this.tipoPF],
         valorAtual: [this.valorAtual],
         valorObjetivado: [this.valorObjetivado],
@@ -85,7 +85,7 @@ export class EditFinancialPlanningModalComponent implements OnInit {
 
   editFinancialPlanning(){
 
-    const nomePF = this.financialPlanningUpdate.get('planejamentoFinanceiro')
+    const nomePF = this.financialPlanningUpdate.get('nomePF')
     const tipoPF = this.financialPlanningUpdate.get('tipoPF')
     const conta = this.financialPlanningUpdate.get('conta')
     const valorAtualPF = this.financialPlanningUpdate.get('valorAtual')

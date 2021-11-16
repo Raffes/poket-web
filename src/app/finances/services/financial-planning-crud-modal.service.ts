@@ -20,7 +20,7 @@ export class FinancialPlanningCrudModalService {
   private showModalEditFinancialPlanning(fp: FinancialPlanning) {
     const bsModalRef: BsModalRef = this.modalService.show(EditFinancialPlanningModalComponent);
 
-    bsModalRef.content.planejamentoFinanceiro = fp.planejamentoFinanceiro,
+    bsModalRef.content.nomePF = fp.nomePF,
       
       bsModalRef.content.id = fp.id,
       bsModalRef.content.tipoPF = fp.tipoPF,
@@ -36,7 +36,7 @@ export class FinancialPlanningCrudModalService {
   private showAddValueFinancialPlanning(fp: FinancialPlanning) {
     const bsModalRef: BsModalRef = this.modalService.show(AddValueFinancialPlanningModalComponent);
 
-    bsModalRef.content.planejamentoFinanceiro = fp.planejamentoFinanceiro,
+    bsModalRef.content.nomePF = fp.nomePF,
       
       bsModalRef.content.id = fp.id,
       bsModalRef.content.tipoPF = fp.tipoPF,
@@ -54,7 +54,7 @@ export class FinancialPlanningCrudModalService {
   private showModalDeleteFinancialPlanning(fp: FinancialPlanning) {
     const bsModalRef: BsModalRef = this.modalService.show(DeleteFinancialPlanningModalComponent);
 
-    bsModalRef.content.planejamentoFinanceiro = fp.planejamentoFinanceiro,
+    bsModalRef.content.nomePF = fp.nomePF,
 
       bsModalRef.content.id = fp.id,
       bsModalRef.content.tipoPF = fp.tipoPF,
@@ -67,17 +67,17 @@ export class FinancialPlanningCrudModalService {
       bsModalRef.content.dataFinal = fp.dataFinal
   }
 
-  private showModalDeleteHistoryFinancialPlanning(fp: FinancialPlanning, idFp: any) {
+  private showModalDeleteHistoryFinancialPlanning(fp: any, idFp: any) {
     const bsModalRef: BsModalRef = this.modalService.show(DeleteValueFinancialPlanningModalComponent);
 
-    bsModalRef.content.planejamentoFinanceiro = fp.planejamentoFinanceiro,
+    bsModalRef.content.nomePF = fp.nomePF,
       bsModalRef.content.idFp = idFp,
       bsModalRef.content.id = fp.id,
       bsModalRef.content.tipoPF = fp.tipoPF,
       bsModalRef.content.idConta = fp.idConta,
       bsModalRef.content.conta = fp.conta,
       bsModalRef.content.contaValor = fp.contaValor,
-      bsModalRef.content.valorAtual = fp.valorAtual,
+      bsModalRef.content.valorHistoricoPF = fp.valorHistoricoPF,
       bsModalRef.content.valorObjetivado = fp.valorObjetivado,
       bsModalRef.content.dataInicial = fp.dataInicial,
       bsModalRef.content.dataFinal = fp.dataFinal

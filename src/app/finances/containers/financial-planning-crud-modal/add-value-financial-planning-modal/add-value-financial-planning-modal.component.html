@@ -5,7 +5,7 @@
     <h5 class="modal-title" id="exampleModalLabel">
         Adicionar valor em
         <strong [ngClass]="{'financial-name-short':tipoPF == 'Curto Prazo', 'financial-name-medium':tipoPF == 'Médio Prazo', 'financial-name-long':tipoPF == 'Longo Prazo'}">
-            {{ planejamentoFinanceiro }}
+            {{ nomePF }}
         </strong>
          
     </h5>
@@ -19,7 +19,7 @@
 
         <div class="form-floating mb-3">
             
-            <input type="number" class="form-control" id="addValueFinancialPlanning" maxlength="8" formControlName="valorAtual" required>
+            <input type="number" class="form-control" id="addValueFinancialPlanning" maxlength="8" formControlName="valorHistoricoPF" required>
             <label for="addValueFinancialPlanning" class="col-form-label">Valor (R$)</label>
         </div>
 

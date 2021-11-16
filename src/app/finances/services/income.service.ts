@@ -82,7 +82,7 @@ export class IncomeService {
           .collection("contas").doc(uid).collection(uid)
           .doc(idWallet)
           .update({
-            valor: Math.abs(subWallet)
+            valor: subWallet
           }).then(() => {
             this.alertSweetService.showSweetAlertSuccess("Renda excluída com sucesso")
     

@@ -3,7 +3,7 @@
     <div class="row">
 
         <div class="col-12 col-md-12" *ngIf="FinancialPlanning">
-            <h2>{{ FinancialPlanning.planejamentoFinanceiro }} 
+            <h2>{{ FinancialPlanning.nomePF }} 
                 <button type="button" class="btn btn-sm rounded-circle text-light" [ngClass]="{'financial-btn-short':FinancialPlanning.tipoPF == 'Curto Prazo', 'financial-btn-medium':FinancialPlanning.tipoPF == 'Médio Prazo', 'financial-btn-long':FinancialPlanning.tipoPF == 'Longo Prazo'}"
                     (click)="modalAddFinancialPlanningHistory()">
                     <i class="fas fa-plus"></i>
@@ -42,7 +42,7 @@
                    
                     <li class="p-2 flex-column">
                         <small><strong>Valor</strong></small>
-                        {{ fp.valorAtual | currency : 'BRL' }}
+                        {{ fp.valorHistoricoPF | currency : 'BRL' }}
                     </li>
                     <li class="p-2 flex-column">
                         <small><strong>Conta</strong></small>
@@ -50,7 +50,7 @@
                     </li>
                     <li class="p-2 flex-column">
                         <small><strong>Data</strong></small>
-                        {{ fp.dataInicial | date: 'dd/MM/yyyy' }}
+                        {{ fp.dataHistorico | date: 'dd/MM/yyyy' }}
                     </li>
                     <li class="p-2">
                         

@@ -12,8 +12,8 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 export class DeleteValueFinancialPlanningModalComponent implements OnInit {
   @Input() idFp: any;
   @Input() id: any;
-  @Input() planejamentoFinanceiro: any;
-  @Input() valorAtual: any;
+  @Input() nomePF: any;
+  @Input() valorHistoricoPF: any;
   @Input() valorObjetivado: any;
   @Input() dataFinal: any;
   @Input() tipoPF: any;
@@ -21,6 +21,7 @@ export class DeleteValueFinancialPlanningModalComponent implements OnInit {
   @Input() conta: any;
 
   Wallet: any;
+  FinancialPlanning: any;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -31,6 +32,7 @@ export class DeleteValueFinancialPlanningModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.listWallet()
+    this.listFinancialPlanning()
   }
 
   listWallet() {
@@ -44,6 +46,22 @@ export class DeleteValueFinancialPlanningModalComponent implements OnInit {
     })
   }
 
+  listFinancialPlanning() {
+    this.fpService.getFinancialPlanningList(this.authService.userData.uid).subscribe(res => {
+
+      this.FinancialPlanning = res.map(e => {
+        
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as unknown;
+      })
+
+    })
+
+  }
+
+
   deleteHistoryFinancialPlanning() {
 
     let contaWallet
@@ -52,6 +70,8 @@ export class DeleteValueFinancialPlanningModalComponent implements OnInit {
     let valorDaContaAntigo
     let contaWalletAntigo
     let contaAntiga = this.idConta
+    let idPF = this.idFp
+    let valorAtualPF
 
     this.Wallet.forEach(function (value: any) {
       contaWallet = value.id
@@ -65,9 +85,15 @@ export class DeleteValueFinancialPlanningModalComponent implements OnInit {
 
     });
 
-    
+    this.FinancialPlanning.forEach(function (el: any) {
+      if(idPF == el.id){
+        valorAtualPF = el.valorAtual
+      }
+    })
 
-    this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.idFp, idWalletAntigo, this.id, valorDaContaAntigo, this.valorAtual)
+    console.log(valorAtualPF)
+
+    this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.idFp, idWalletAntigo, this.id, valorDaContaAntigo, this.valorHistoricoPF, valorAtualPF)
 
     this.closeModal()
   }

@@ -488,6 +488,9 @@ export class ExpenseBarGraphComponent implements OnInit {
       // Tira os zeros vindo dos meses que não tiverem valor no reduce
       totalValue = totalValueMonth.filter(el => el != 0)
 
+       // cortar os nomes dos meses
+       uniqueDates = uniqueDates.map(el => el.slice(0, 3))
+
       this.barGraphExpense = {
         tooltip: {
           trigger: 'axis',

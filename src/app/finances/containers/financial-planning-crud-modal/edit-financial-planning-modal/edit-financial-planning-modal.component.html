@@ -4,7 +4,7 @@
 
     <h5 class="modal-title" id="exampleModalLabel">
         Alterar <strong [ngClass]="{'financial-name-short':tipoPF == 'Curto Prazo', 'financial-name-medium':tipoPF == 'Médio Prazo', 'financial-name-long':tipoPF == 'Longo Prazo'}">
-            {{ planejamentoFinanceiro }}
+            {{ nomePF }}
         </strong>
     </h5>
 
@@ -17,7 +17,7 @@
 
         <div class="form-floating mb-3">
             
-            <input type="text" class="form-control" id="editNameFinancialPlanning" maxlength="30" formControlName="planejamentoFinanceiro" required>
+            <input type="text" class="form-control" id="editNameFinancialPlanning" maxlength="30" formControlName="nomePF" required>
             <label for="editNameFinancialPlanning" class="col-form-label">Nome</label>
         </div>
 

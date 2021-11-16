@@ -27,7 +27,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
     public walletService: WalletService,
   ) {
     this.financialPlanningRegister = this.formBuilder.group({
-      planejamentoFinanceiro: ["", Validators.maxLength(30)],
+      nomePF: ["", Validators.maxLength(30)],
       tipoPF: [""],
       conta: [""],
       valorAtual: ["", Validators.maxLength(8)],
@@ -57,7 +57,7 @@ export class CreateFinancialPlanningModalComponent implements OnInit {
   }
 
   addFinancialPlanning() {
-    const nomePF = this.financialPlanningRegister.get('planejamentoFinanceiro')
+    const nomePF = this.financialPlanningRegister.get('nomePF')
     const tipoPF = this.financialPlanningRegister.get('tipoPF')
     const conta = this.financialPlanningRegister.get('conta')
     const valorAtualPF = this.financialPlanningRegister.get('valorAtual')

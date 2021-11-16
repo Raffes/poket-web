@@ -13,7 +13,7 @@ import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 })
 export class AddValueFinancialPlanningModalComponent implements OnInit {
   @Input() id: any;
-  @Input() planejamentoFinanceiro: any;
+  @Input() nomePF: any;
   @Input() valorAtual: any;
   @Input() valorObjetivado: any;
   @Input() dataFinal: any;
@@ -36,8 +36,8 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
   ) {
     this.AddMorefinancialPlanning = this.formBuilder.group({
       conta: [""],
-      valorAtual: ["", Validators.maxLength(8)],
-      dataInicial: [""],
+      valorHistoricoPF: ["", Validators.maxLength(8)],
+      dataHistorico: [""],
       idConta: [""],
       contaValor: [""]
 
@@ -61,10 +61,10 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
 
   addMoreFinancialPlanning() {
     const conta = this.AddMorefinancialPlanning.get('conta')
-    const valorAtualPF = this.AddMorefinancialPlanning.get('valorAtual')
+    const valorHistoricoPF = this.AddMorefinancialPlanning.get('valorHistoricoPF')
     const idConta = this.AddMorefinancialPlanning.get('idConta')
     const contaValor = this.AddMorefinancialPlanning.get('contaValor')
-    const dataHistoryPF = this.AddMorefinancialPlanning.get('dataInicial')
+    const dataHistorico = this.AddMorefinancialPlanning.get('dataHistorico')
 
     let contaWallet
 
@@ -82,16 +82,16 @@ export class AddValueFinancialPlanningModalComponent implements OnInit {
           let month = dataAtual.getMonth();
           let day = dataAtual.getDate();
           let fullDate = fullYeah +'-'+ (month+1) + '-' + day;
-          dataHistoryPF?.setValue(fullDate) 
+          dataHistorico?.setValue(fullDate) 
 
         }
 
       });
 
-    if (valorAtualPF?.value == "" || idConta?.value == "") {
+    if (valorHistoricoPF?.value == "" || idConta?.value == "") {
       this.alertService.showAlertDanger("Falta campos para preencher");
 
-    }  else if (parseInt(valorAtualPF?.value) > parseInt(contaValor?.value)) {
+    }  else if (parseInt(valorHistoricoPF?.value) > parseInt(contaValor?.value)) {
       this.alertService.showAlertDanger("Saldo insuficiente!");
 
     } else {

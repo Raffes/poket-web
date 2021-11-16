@@ -11,8 +11,9 @@ import { WalletService } from 'src/app/finances/services/wallet.service';
 })
 export class DeleteFinancialPlanningModalComponent implements OnInit {
 
+  @Input() idFp: any;
   @Input() id: any;
-  @Input() planejamentoFinanceiro: any;
+  @Input() nomePF: any;
   @Input() valorAtual: any;
   @Input() valorObjetivado: any;
   @Input() dataFinal: any;
@@ -21,6 +22,7 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
   @Input() conta: any;
 
   Wallet: any;
+  FinancialPlanning: any;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -31,6 +33,7 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.listWallet()
+    this.listFinancialPlanning()
   }
 
   listWallet() {
@@ -44,11 +47,28 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
     })
   }
 
+  listFinancialPlanning() {
+    this.fpService.getFinancialPlanningList(this.authService.userData.uid).subscribe(res => {
+
+      this.FinancialPlanning = res.map(e => {
+        
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        } as unknown;
+      })
+
+    })
+
+  }
+
   deleteFinancialPlanning() {
   
   let idWallet: any
   let valorDaContaAntigo: any
   let contaWalletAntigo
+  let idPF = this.id
+  let valorAtualPF: any
 
   this.fpService.getHistoryFinancialPlanningList(this.authService.userData.uid, this.id).subscribe(res => {
     res.map(e => {
@@ -64,8 +84,14 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
         
       });
 
+      this.FinancialPlanning.forEach(function (el: any) {
+        if(idPF == el.id){
+          valorAtualPF = el.valorAtual
+        }
+      })
 
-      this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.id, idWallet, e.payload.doc.id, valorDaContaAntigo, e.payload.doc.data().valorAtual)
+
+      this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.id, idWallet, e.payload.doc.id, valorDaContaAntigo, e.payload.doc.data().valorHistoricoPF, valorAtualPF)
 
       this.fpService.deleteFinancialPlanning(this.authService.userData.uid, this.id)
 

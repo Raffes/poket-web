@@ -389,14 +389,12 @@ export class IncomeBarGraphComponent implements OnInit {
       let monthOthes: any[] = []
       let monthRent: any[] = []
       let totalValue: any[] = []
-      let monthGraph: any[] = []
       // TODO tira os monthGraph
       // Adiciona os valores em um array de cada tipo de renda
       for (let index = 0; index < uniqueDates.length; index++) {
 
         allMonthRentObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
-            monthGraph.push(el.mes)
             monthRent.push(el.valor)
 
           }
@@ -405,7 +403,6 @@ export class IncomeBarGraphComponent implements OnInit {
 
         allMonthSalaryObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
-            monthGraph.push(el.mes)
             monthSalary.push(el.valor)
           }
 
@@ -413,7 +410,6 @@ export class IncomeBarGraphComponent implements OnInit {
 
         allMonthGiftObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
-            monthGraph.push(el.mes)
             monthGift.push(el.valor)
           }
 
@@ -421,7 +417,6 @@ export class IncomeBarGraphComponent implements OnInit {
 
         allMonthServicesObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
-            monthGraph.push(el.mes)
             monthServices.push(el.valor)
           }
 
@@ -429,7 +424,6 @@ export class IncomeBarGraphComponent implements OnInit {
 
         allMonthOthesObj.forEach((el) => {
           if (el.mes === uniqueDates[index]) {
-            monthGraph.push(el.mes)
             monthOthes.push(el.valor)
           }
 
@@ -487,6 +481,9 @@ export class IncomeBarGraphComponent implements OnInit {
 
       // Tira os zeros vindo dos meses que não tiverem valor no reduce
       totalValue = totalValueMonth.filter(el => el != 0)
+
+      // cortar os nomes dos meses
+      uniqueDates = uniqueDates.map(el => el.slice(0, 3))
 
       this.barGraphIncome = {
         tooltip: {

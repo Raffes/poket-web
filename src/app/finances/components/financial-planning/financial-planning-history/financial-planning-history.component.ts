@@ -76,7 +76,7 @@ export class FinancialPlanningHistoryComponent implements OnInit {
       
       let allValues = res.map(e => {
         return {
-          valor: e.payload.doc.data().valorAtual,
+          valor: e.payload.doc.data().valorHistoricoPF,
         } 
 
       })

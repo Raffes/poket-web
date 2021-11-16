@@ -1,6 +1,6 @@
 export interface FinancialPlanning {
     id: string,
-    planejamentoFinanceiro: string,
+    nomePF: string,
     tipoPF: string,
     idConta: string,
     conta: string,
