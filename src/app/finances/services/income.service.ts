@@ -72,12 +72,17 @@ export class IncomeService {
       .then(() => {
         // atualizar a conta decrementando a renda
         let subWallet = parseInt(valorNaContaAntiga) - valorNaConta
+        if(valorNaContaAntiga < valorNaConta) {
+          subWallet = valorNaContaAntiga
+        }
+        
+        
 
         this.angFireDB
           .collection("contas").doc(uid).collection(uid)
           .doc(idWallet)
           .update({
-            valor: subWallet
+            valor: Math.abs(subWallet)
           }).then(() => {
             this.alertSweetService.showSweetAlertSuccess("Renda excluída com sucesso")
     

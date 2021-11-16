@@ -57,20 +57,16 @@ export class DeleteIncomeModalComponent implements OnInit {
       let contaWalletAntigo
       let contaAntiga = this.idConta
 
-      this.Wallet.forEach(function (value: any) {
+      this.Wallet.forEach( (value: any) => {
         contaWallet = value.idConta
         contaWalletAntigo = value.id
 
         if(contaWalletAntigo == contaAntiga) {
           idWalletAntigo = value.id
           valorDaContaAntigo = value.valor
+
         }
         
-        if (contaWallet == value.id) {
-          idWallet = value.id
-          contaWallet = value.conta
-          valorDaConta = value.valor
-        }
       });
 
       this.incomeService.deleteIncome(this.authService.userData.uid, this.id, idWalletAntigo, valorDaContaAntigo, this.valorRenda)

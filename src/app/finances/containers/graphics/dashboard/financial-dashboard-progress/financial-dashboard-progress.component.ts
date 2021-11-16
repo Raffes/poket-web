@@ -79,23 +79,26 @@ export class FinancialDashboardProgressComponent implements OnInit {
         }
 
         pocentoDate = pocentoDate !== 'NaN' ? pocentoDate : 0
-        
 
-          porcentoValue = (data.valorAtual * 100) / data.valorObjetivado
-          porcentoValueFp = parseFloat(porcentoValue.toFixed(2))
+        porcentoValue = (data.valorAtual * 100) / data.valorObjetivado
+        porcentoValueFp = parseFloat(porcentoValue.toFixed(2))
 
-          return {
-            id: e.payload.doc.id,
-            valueFp: porcentoValueFp,
-            dateFp: pocentoDate,
-            ...e.payload.doc.data()
-          } as unknown;
+        if (porcentoValueFp >= 100) {
+          porcentoValueFp = 100
+        }
 
-        
+        return {
+          id: e.payload.doc.id,
+          valueFp: porcentoValueFp,
+          dateFp: pocentoDate,
+          ...e.payload.doc.data()
+        } as unknown;
+
+
       })
 
       // Ordena do maior para o menor os planejamentos financeiro
-      this.FinancialPlanning = this.FinancialPlanning.sort(function(a: any ,b: any){ return a.dateFp - b.dateFp}).reverse()
+      this.FinancialPlanning = this.FinancialPlanning.sort(function (a: any, b: any) { return a.dateFp - b.dateFp }).reverse()
 
       // Pega a primeira posição para se mostrado do dashboard
       this.FinancialPlanning = this.FinancialPlanning.filter((el: any, i: any) => i < 1)

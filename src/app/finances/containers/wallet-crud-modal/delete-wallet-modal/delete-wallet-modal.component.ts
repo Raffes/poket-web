@@ -89,11 +89,11 @@ export class DeleteWalletModalComponent implements OnInit {
 
       })
 
-      let idAllFp = allFp.filter(el => el.idConta == this.id)
+      // let idAllFp = allFp.filter(el => el.idConta == this.id)
 
-      idAllFp.forEach((el, i) => {
+      allFp.forEach((el, i) => {
         // Apaga as o histórico associado ao planejamento
-        this.fpService.getHistoryFinancialPlanningList(this.authService.userData.uid, idAllFp[i].id).subscribe(res => {
+        this.fpService.getHistoryFinancialPlanningList(this.authService.userData.uid, allFp[i].id).subscribe(res => {
 
           let allFpHistory = res.map(el => {
             return {
@@ -106,8 +106,10 @@ export class DeleteWalletModalComponent implements OnInit {
           let idAllFpHistory = allFpHistory.filter(el => el.idConta == this.id)
 
           idAllFpHistory.forEach((el2, i2) => {
-            this.fpService.deleteHistoryFpAfterWallet(this.authService.userData.uid, idAllFp[i].id, idAllFpHistory[i2].id)
-            this.fpService.deleteFinancialPlanning(this.authService.userData.uid, idAllFp[i].id)
+            this.fpService.deleteHistoryFpAfterWallet(this.authService.userData.uid, allFp[i].id, idAllFpHistory[i2].id)
+
+              // this.fpService.deleteFinancialPlanning(this.authService.userData.uid, idAllFp[i].id)
+            
           })
 
 

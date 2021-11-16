@@ -4,7 +4,6 @@ import { ForgotPasswordComponent } from './authentication/components/forgot-pass
 import { LandingPageComponent } from './authentication/components/landing-page/landing-page.component';
 import { LoginPageComponent } from './authentication/components/login-page/login-page.component';
 import { VerifyEmailComponent } from './authentication/components/verify-email/verify-email.component';
-import { MsgErrorComponent } from './authentication/containers/msg-error/msg-error.component';
 import { AuthGuard } from './authentication/services/auth.guard';
 import { DashboardComponent } from './finances/components/dashboard/dashboard.component';
 import { ExpenseHistoryComponent } from './finances/components/expense/expense-history/expense-history.component';
