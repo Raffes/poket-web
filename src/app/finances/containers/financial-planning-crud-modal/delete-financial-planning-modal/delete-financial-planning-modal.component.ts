@@ -51,7 +51,7 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
     this.fpService.getFinancialPlanningList(this.authService.userData.uid).subscribe(res => {
 
       this.FinancialPlanning = res.map(e => {
-        
+
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data()
@@ -63,44 +63,56 @@ export class DeleteFinancialPlanningModalComponent implements OnInit {
   }
 
   deleteFinancialPlanning() {
-  
-  let idWallet: any
-  let valorDaContaAntigo: any
-  let contaWalletAntigo
-  let idPF = this.id
-  let valorAtualPF: any
 
-  this.fpService.getHistoryFinancialPlanningList(this.authService.userData.uid, this.id).subscribe(res => {
-    res.map(e => {
+    let idWallet: any
+    let valorDaContaAntigo: any
+    let contaWallet
+    let idPF = this.id
+    let valorAtualPF: any
 
-      this.Wallet.forEach(function (value: any) {
-       
-        contaWalletAntigo = value.id
-    
-        if(contaWalletAntigo == e.payload.doc.data().idConta) {
-          idWallet = value.id
-          valorDaContaAntigo = value.valor
-        }
-        
-      });
-
-      this.FinancialPlanning.forEach(function (el: any) {
-        if(idPF == el.id){
-          valorAtualPF = el.valorAtual
+    this.fpService.getHistoryFinancialPlanningList(this.authService.userData.uid, this.id).subscribe(res => {
+      let values = res.map(e => {
+        return {
+          idFpHistory: e.payload.doc.id,
+          idConta: e.payload.doc.data().idConta,
+          valorHistoricoPF: e.payload.doc.data().valorHistoricoPF,
+          ...e.payload.doc.data()
         }
       })
 
 
-      this.fpService.deleteHistoryFinancialPlanning(this.authService.userData.uid, this.id, idWallet, e.payload.doc.id, valorDaContaAntigo, e.payload.doc.data().valorHistoricoPF, valorAtualPF)
 
-      this.fpService.deleteFinancialPlanning(this.authService.userData.uid, this.id)
+      values.forEach((el, i) => {
+
+        this.Wallet.forEach(function (value: any) {
+
+          contaWallet = value.id
+
+          if (contaWallet == values[i].idConta) {
+            idWallet = value.id
+            valorDaContaAntigo = value.valor
+          }
+
+        });
+
+        this.FinancialPlanning.forEach(function (el: any) {
+          if (idPF == el.id) {
+            valorAtualPF = el.valorAtual
+          }
+        })
+
+        this.fpService.updateWalletBeforedeletePlan(this.authService.userData.uid, values[i].idConta, valorDaContaAntigo, values[i].valorHistoricoPF)
+        this.fpService.deleteHistoryFpBeforePlan(this.authService.userData.uid, this.id, values[i].idFpHistory)
+
+      })
 
     })
 
-    this.closeModal()
+    this.fpService.deleteFinancialPlanning(this.authService.userData.uid, this.id)
 
-  })
-}
+
+    this.closeModal()
+  }
 
   closeModal() {
     this.bsModalRef.hide();

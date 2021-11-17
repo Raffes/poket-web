@@ -82,7 +82,7 @@ export class FinancialPlanningService {
             valorAtual: sumFP
           }).then(() => {
             this.alertSweetService.showSweetAlertSuccess("Histórico salvo com sucesso")
-    
+
           }).catch((error) => {
             console.error(error)
           })
@@ -123,66 +123,84 @@ export class FinancialPlanningService {
       .doc(idFP)
       .delete()
       .then(() => {
-        // this.alertSweetService.showSweetAlertSuccess("Planejamento excluído com sucesso")
+        this.alertSweetService.showSweetAlertSuccess("Planejamento excluído com sucesso")
 
       }).catch((error) => {
         console.error(error)
       })
   }
 
-    // Deleta um documento de uma coleção
-    deleteHistoryFpAfterWallet(uid: any, idFP: any, id: any) {
-      return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
-        .doc(idFP).collection(idFP).doc(id)
-        .delete()
-        .then(() => {
-          console.log("Histórico apagado com sucesso")
-  
-  
-        }).catch((err) => {
-          console.error(err)
-        })
-    }
-  
-
   // Deleta um documento de uma coleção
-  deleteHistoryFinancialPlanning(uid: any, idFP: any, idWallet: any, id: any, idWalletOld: any, accountAmount: any, totalValuePF: any) {
+  deleteHistoryFpAfterWallet(uid: any, idFP: any, id: any) {
     return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
       .doc(idFP).collection(idFP).doc(id)
       .delete()
       .then(() => {
-        // atualizar a conta incrementando a renda
-        let sumFP = parseInt(idWalletOld) + accountAmount
-        let sub = totalValuePF - accountAmount
-
-        this.angFireDB
-          .collection("contas").doc(uid).collection(uid)
-          .doc(idWallet)
-          .update({
-            valor: sumFP
-          }).then(() => {
-            this.alertSweetService.showSweetAlertSuccess("Dado excluído com sucesso")
-    
-          }).catch((error) => {
-            console.error(error)
-          })
-
-          return this.angFireDB
-          .collection("planejamentoFinanceiro").doc(uid).collection(uid)
-          .doc(idFP)
-          .update({
-            valorAtual: sub
-          }).then(() => {
-            this.alertSweetService.showSweetAlertSuccess("Histórico salvo com sucesso")
-    
-          }).catch((error) => {
-            console.error(error)
-          })
+        console.log("Histórico apagado com sucesso")
 
 
       }).catch((err) => {
         console.error(err)
       })
+  }
+
+  updateWalletBeforedeletePlan(uid: any, idWallet: any, walletOld: any, accountAmount: any,) {
+    let sumFP = parseInt(walletOld) + accountAmount;
+    this.angFireDB
+      .collection("contas").doc(uid).collection(uid)
+      .doc(idWallet)
+      .update({
+        valor: sumFP
+      }).then(() => {
+        // this.alertSweetService.showSweetAlertSuccess("Dado excluído com sucesso");
+
+      }).catch((error) => {
+        console.error(error);
+      });
+  }
+
+  deleteHistoryFpBeforePlan(uid: any, idFP: any, id: any) {
+    this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
+      .doc(idFP).collection(idFP).doc(id)
+      .delete();
+  }
+
+
+  // Deleta um documento de uma coleção
+  async deleteHistoryFinancialPlanning(uid: any, idFP: any, idWallet: any, id: any, idWalletOld: any, accountAmount: any, totalValuePF: any) {
+    try {
+      await this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
+        .doc(idFP).collection(idFP).doc(id)
+        .delete();
+      // atualizar a conta incrementando a renda
+      let sumFP = parseInt(idWalletOld) + accountAmount;
+      let sub = totalValuePF - accountAmount;
+
+      this.angFireDB
+        .collection("contas").doc(uid).collection(uid)
+        .doc(idWallet)
+        .update({
+          valor: sumFP
+        }).then(() => {
+          this.alertSweetService.showSweetAlertSuccess("Dado excluído com sucesso");
+
+        }).catch((error) => {
+          console.error(error);
+        });
+      try {
+        await this.angFireDB
+          .collection("planejamentoFinanceiro").doc(uid).collection(uid)
+          .doc(idFP)
+          .update({
+            valorAtual: sub
+          });
+        this.alertSweetService.showSweetAlertSuccess("Histórico salvo com sucesso");
+      } catch (error_1) {
+        console.error(error_1);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // Listar todos os documetos de planejamento de uma coleção
