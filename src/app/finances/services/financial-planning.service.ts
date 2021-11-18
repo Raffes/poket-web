@@ -59,7 +59,14 @@ export class FinancialPlanningService {
   // Cria mais valores planejamento financeiro
   AddMoreFinancialPlanning(fp: any, uid: any, idFp: any, oldValueFp: any) {
     return this.angFireDB.collection("planejamentoFinanceiro").doc(uid).collection(uid)
-      .doc(idFp).collection(idFp).add(fp)
+      .doc(idFp).collection(idFp).add({
+        conta: fp.conta,
+        dataHistorico: fp.dataHistorico,
+        idConta: fp.idConta,
+        idPF: idFp,
+        valorHistoricoPF: fp.valorHistoricoPF
+      }
+        )
       .then(() => {
 
         console.log(fp)
