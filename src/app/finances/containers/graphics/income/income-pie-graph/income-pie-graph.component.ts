@@ -66,30 +66,45 @@ export class IncomePieGraphComponent implements OnInit {
       if(percentRent != 0){
         allValues.push({
           name: 'Aluguel',
+          itemStyle: {
+            color: '#91cc75'
+          },
           value: parseFloat(percentRent.toFixed(2))
         })
       }
       if (percentSalary != 0) {
         allValues.push({
           name: 'Salário',
+          itemStyle: {
+            color: '#e56466'
+          },
           value: parseFloat(percentSalary.toFixed(2)) 
         })
       } 
       if (percentService != 0){
         allValues.push({
           name: 'Serviços',
+          itemStyle: {
+            color: '#f8c858'
+          },
           value: parseFloat(percentService.toFixed(2)) 
         })
       }
       if (percentGift != 0){
         allValues.push({
           name: 'Presente',
+          itemStyle: {
+            color: '#5470c6'
+          },
           value: parseFloat(percentGift.toFixed(2)) 
         })
       }
       if (percentOther != 0){
         allValues.push({
           name: 'Outros',
+          itemStyle: {
+            color: '#73c0de'
+          },
           value: parseFloat(percentOther.toFixed(2)) 
         })
       }

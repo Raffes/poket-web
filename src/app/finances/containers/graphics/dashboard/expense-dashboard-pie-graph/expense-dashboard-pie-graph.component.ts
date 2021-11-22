@@ -77,30 +77,45 @@ export class ExpenseDashboardPieGraphComponent implements OnInit {
       if(sumValueAlimentationData != 0){
         allValues.push({
           name: 'Alimentação',
+          itemStyle: {
+            color: '#e56466'
+          },
           value: sumValueAlimentationData.toFixed(2)
         })
       }
       if (sumValueVehicleData != 0) {
         allValues.push({
           name: 'Veículo',
+          itemStyle: {
+            color: '#5470c6'
+          },
           value: sumValueVehicleData.toFixed(2)
         })
       } 
       if (sumValueHomeData != 0){
         allValues.push({
           name: 'Moradia',
+          itemStyle: {
+            color: '#f8c858'
+          },
           value: sumValueHomeData.toFixed(2)
         })
       }
       if (sumValueLeisureData != 0){
         allValues.push({
           name: 'Lazer',
+          itemStyle: {
+            color: '#91cc75'
+          },
           value: sumValueLeisureData.toFixed(2)
         })
       }
       if (sumValueOtherData != 0){
         allValues.push({
           name: 'Outros',
+          itemStyle: {
+            color: '#73c0de'
+          },
           value: sumValueOtherData.toFixed(2)
         })
       }

@@ -519,6 +519,9 @@ export class ExpenseBarGraphComponent implements OnInit {
         series: [
           {
             name: 'Veículo',
+            itemStyle: {
+              color: '#5470c6'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -528,6 +531,9 @@ export class ExpenseBarGraphComponent implements OnInit {
           },
           {
             name: 'Lazer',
+            itemStyle: {
+              color: '#91cc75'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -537,6 +543,9 @@ export class ExpenseBarGraphComponent implements OnInit {
           },
           {
             name: 'Moradia',
+            itemStyle: {
+              color: '#f8c858'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -546,6 +555,9 @@ export class ExpenseBarGraphComponent implements OnInit {
           },
           {
             name: 'Alimentação',
+            itemStyle: {
+              color: '#e56466'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -555,6 +567,9 @@ export class ExpenseBarGraphComponent implements OnInit {
           },
           {
             name: 'Outros',
+            itemStyle: {
+              color: '#73c0de'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -564,6 +579,9 @@ export class ExpenseBarGraphComponent implements OnInit {
           },
           {
             name: 'Total',
+            itemStyle: {
+              color: '#5ba372'
+            },
             type: 'bar',
             barWidth: 5,
             data: totalValue,

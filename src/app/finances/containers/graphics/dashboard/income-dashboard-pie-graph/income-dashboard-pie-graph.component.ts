@@ -77,30 +77,45 @@ export class IncomeDashboardPieGraphComponent implements OnInit {
       if(sumValueRentData != 0){
         allValues.push({
           name: 'Aluguel',
+          itemStyle: {
+            color: '#91cc75'
+          },
           value: sumValueRentData.toFixed(2)
         })
       }
       if (sumValueSalaryData != 0) {
         allValues.push({
           name: 'Salário',
+          itemStyle: {
+            color: '#e56466'
+          },
           value: sumValueSalaryData.toFixed(2)
         })
       } 
       if (sumValueServiceData != 0){
         allValues.push({
           name: 'Serviços',
+          itemStyle: {
+            color: '#f8c858'
+          },
           value: sumValueServiceData.toFixed(2)
         })
       }
       if (sumValueGiftData != 0){
         allValues.push({
           name: 'Presente',
+          itemStyle: {
+            color: '#5470c6'
+          },
           value: sumValueGiftData.toFixed(2)
         })
       }
       if (sumValueOtherData != 0){
         allValues.push({
           name: 'Outros',
+          itemStyle: {
+            color: '#73c0de'
+          },
           value: sumValueOtherData.toFixed(2)
         })
       }

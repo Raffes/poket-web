@@ -66,33 +66,49 @@ export class ExpensePieGraphComponent implements OnInit {
       if(percentLeisure != 0){
         allValues.push({
           name: 'Lazer',
+          itemStyle: {
+            color: '#91cc75'
+          },
           value: parseFloat(percentLeisure.toFixed(2))
         })
       }
       if (percentAlimentation != 0) {
         allValues.push({
           name: 'Alimentação',
+          itemStyle: {
+            color: '#e56466'
+          },
           value: parseFloat(percentAlimentation.toFixed(2)) 
         })
       } 
       if (percentHome != 0){
         allValues.push({
           name: 'Moradia',
+          itemStyle: {
+            color: '#f8c858'
+          },
           value: parseFloat(percentHome.toFixed(2)) 
         })
       }
       if (percentVehicle != 0){
         allValues.push({
           name: 'Veículo',
+          itemStyle: {
+            color: '#5470c6'
+          },
           value: parseFloat(percentVehicle.toFixed(2)) 
         })
       }
       if (percentOther != 0){
         allValues.push({
           name: 'Outros',
+          itemStyle: {
+            color: '#73c0de'
+          },
           value: parseFloat(percentOther.toFixed(2)) 
         })
       }
+
 
       this.pieGraphExpense = {
         

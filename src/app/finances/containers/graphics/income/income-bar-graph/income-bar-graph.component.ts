@@ -513,6 +513,9 @@ export class IncomeBarGraphComponent implements OnInit {
         series: [
           {
             name: 'Salário',
+            itemStyle: {
+              color: '#e56466'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -522,6 +525,9 @@ export class IncomeBarGraphComponent implements OnInit {
           },
           {
             name: 'Serviços',
+            itemStyle: {
+              color: '#f8c858'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -531,6 +537,9 @@ export class IncomeBarGraphComponent implements OnInit {
           },
           {
             name: 'Presente',
+            itemStyle: {
+              color: '#5470c6'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -540,6 +549,9 @@ export class IncomeBarGraphComponent implements OnInit {
           },
           {
             name: 'Aluguel',
+            itemStyle: {
+              color: '#91cc75'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -549,6 +561,9 @@ export class IncomeBarGraphComponent implements OnInit {
           },
           {
             name: 'Outros',
+            itemStyle: {
+              color: '#73c0de'
+            },
             type: 'bar',
             stack: 'Ad',
             emphasis: {
@@ -558,6 +573,9 @@ export class IncomeBarGraphComponent implements OnInit {
           },
           {
             name: 'Total',
+            itemStyle: {
+              color: '#5ba372'
+            },
             type: 'bar',
             barWidth: 5,
             data: totalValue,
